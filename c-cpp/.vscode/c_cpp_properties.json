@@ -12,7 +12,8 @@
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64"
+            "intelliSenseMode": "${default}",
+            "compilerPath": "/usr/bin/gcc"
         }
     ],
     "version": 4
