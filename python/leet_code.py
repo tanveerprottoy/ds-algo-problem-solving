@@ -79,13 +79,9 @@ def add_two_numbers_recursive(l1: ListNode, l2: ListNode, carry: int) -> ListNod
     if sum_val >= 10:
         carry = sum_val // 10
         sum_val %= 10
-        list_node = ListNode(sum_val)
-        list_node.next = add_two_numbers_recursive(l1.next, l2.next, carry)
-        return list_node
-    else:
-        list_node = ListNode(sum_val)
-        list_node.next = add_two_numbers_recursive(l1.next, l2.next, carry)
-        return list_node
+    list_node = ListNode(sum_val)
+    list_node.next = add_two_numbers_recursive(l1.next, l2.next, carry)
+    return list_node
 
 
 def longest_subsequence(s: str):
@@ -321,18 +317,13 @@ def longest_palindrome_stack(s):
 # print(two_sum([2, 7, 11, 15], 9))
 # print(
 
-#     add_two_numbers(
-#         ListNode(2, ListNode(4, ListNode(3))),
-#         ListNode(5, ListNode(6, ListNode(4)))
-#     )
-# )
-# print(
-#     add_two_numbers_recursive(
-#         ListNode(2, ListNode(4, ListNode(3))),
-#         ListNode(5, ListNode(6, ListNode(4))),
-#         0
-#     )
-# )
+print(
+    add_two_numbers_recursive(
+        ListNode(2, ListNode(4, ListNode(3))),
+        ListNode(5, ListNode(6, ListNode(4))),
+        0
+    )
+)
 # longest_subsequence("pwwkew")
 # length_of_longest_substring("anviaj")
 # length_of_longest_substring("pwwkew")
@@ -340,8 +331,8 @@ def longest_palindrome_stack(s):
 # length_of_longest_substring("hkcpmprxxxqw")
 # length_of_longest_substring("hkcpmprxxxqw")
 # print(length_of_longest_substring_set("pwwkew"))
-print(length_of_longest_substring_map_str("pwwkew"))
-print(length_of_longest_substring_map_str(" "))
+#print(length_of_longest_substring_map_str("pwwkew"))
+#print(length_of_longest_substring_map_str(" "))
 # print(median_sorted_arrays([1, 3], [2]))
 
 # print(longest_palindrome("babad"))
@@ -349,4 +340,4 @@ print(length_of_longest_substring_map_str(" "))
 # print(longest_palindrome("ababa"))
 # print(longest_palindrome("ab"))
 # print(longest_palindrome("abba"))
-print(longest_palindrome_stack("abb"))
+#print(longest_palindrome_stack("abb"))
