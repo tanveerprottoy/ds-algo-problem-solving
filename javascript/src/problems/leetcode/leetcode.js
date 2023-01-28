@@ -1,4 +1,4 @@
-import { NumberLinkedList } from "./number-linked-list";
+import { NumberLinkedList } from "./number-linked-list.js";
 
 export class LeetCode {
 
@@ -108,5 +108,26 @@ export class LeetCode {
                 result = Math.max(result, (fast - slow) + 1);
             }
         }
+    }
+
+    // ineffiecient solution
+    medianOfTwoSortedArray(nums1, nums2) {
+        if(!nums1 || !nums2) {
+            return 0.0;
+        }
+        const mergedArr = nums1.concat(nums2);
+        mergedArr.sort(function (a, b) { return a - b; });
+        const mergedArrLength = mergedArr.length;
+        const midPoint = parseInt((mergedArrLength + 1) / 2);
+        let median = 0.0;
+        if(mergedArrLength % 2 === 0) {
+            // for even length, median is avg of midPoint - 1 + midPoint elements
+            // median = (mergedArr[midPoint - 1] + mergedArr[midPoint]) / 2
+            median = (mergedArr[midPoint - 1] + mergedArr[midPoint]) / 2;
+        }
+        else {
+            median = mergedArr[midPoint - 1];
+        }
+        return median;
     }
 }

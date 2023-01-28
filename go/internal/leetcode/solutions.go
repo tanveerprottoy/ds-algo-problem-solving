@@ -1,6 +1,9 @@
 package leetcode
 
-import "math"
+import (
+	"math"
+	"sort"
+)
 
 func LengthOfLongestSubstring(str string) {
 	arrLength := len(str)
@@ -27,4 +30,24 @@ func LengthOfLongestSubstring(str string) {
 			result = int(math.Max(float64(result), float64((fast-slow)+1)))
 		}
 	}
+}
+
+// ineffiecient solution
+func MedianOfTwoSortedArray(nums1, nums2 []int) float64 {
+	if nums1 == nil || nums2 == nil {
+		return 0.0
+	}
+	mergedArr := append(nums1, nums2...)
+	sort.Ints(mergedArr)
+	mergedArrLength := len(mergedArr)
+	midPoint := int((mergedArrLength + 1) / 2)
+	median := 0.0
+	if mergedArrLength%2 == 0 {
+		// for even length, median is avg of midPoint - 1 + midPoint elements
+		// median = (mergedArr[midPoint - 1] + mergedArr[midPoint]) / 2
+		median = float64((mergedArr[midPoint-1] + mergedArr[midPoint])) / 2.0
+	} else {
+		median = float64(mergedArr[midPoint-1])
+	}
+	return median
 }

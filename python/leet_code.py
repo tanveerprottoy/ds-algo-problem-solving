@@ -262,12 +262,11 @@ def median_sorted_arrays(nums1: List[int], nums2: List[int]) -> float:
     length_merged_list = len(merged_list)
     middle_point: int
     median: float
+    middle_point = int((length_merged_list + 1) / 2)
     if length_merged_list % 2 == 0:
-        middle_point = int((length_merged_list + 1) / 2)
-        # middle point found but index will but middle_point - 1, next will be middle_point
+        # for even length, median = (merged_list[middle_point - 1] + merged_list[middle_point]) / 2
         median = (merged_list[middle_point - 1] + merged_list[middle_point]) / 2
     else:
-        middle_point = int((length_merged_list + 1) / 2)
         median = merged_list[middle_point - 1]
     return median
 
@@ -333,7 +332,7 @@ print(
 # print(length_of_longest_substring_set("pwwkew"))
 #print(length_of_longest_substring_map_str("pwwkew"))
 #print(length_of_longest_substring_map_str(" "))
-# print(median_sorted_arrays([1, 3], [2]))
+print(median_sorted_arrays([3], [-2, -1]))
 
 # print(longest_palindrome("babad"))
 # print(longest_palindrome("cbbd"))
