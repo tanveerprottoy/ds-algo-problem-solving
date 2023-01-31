@@ -159,6 +159,7 @@ def length_of_longest_substring_set(s: str) -> int:
 
 
 def length_of_longest_substring_map(s: str) -> int:
+    #tmmzuxt
     slow = 0
     result_dict = dict()
     result = 0
@@ -170,6 +171,7 @@ def length_of_longest_substring_map(s: str) -> int:
         # + 1 is added because length is being calculated, max_index + 1 is the length
         result = max(result, fast - slow + 1)
         result_dict[value] = fast + 1
+    print(result_dict)
     return result
 
 
@@ -330,10 +332,10 @@ def longest_palindrome_stack(s):
 # length_of_longest_substring("hkcpmprxxxqw")
 # length_of_longest_substring("hkcpmprxxxqw")
 # print(length_of_longest_substring_set("pwwkew"))
-print(length_of_longest_substring_map("pwwkew"))
-print(length_of_longest_substring_map(" "))
-print(length_of_longest_substring_map_str("pwwkew"))
-print(length_of_longest_substring_map_str(" "))
+print(length_of_longest_substring_map("tmmzuxt"))
+#print(length_of_longest_substring_map(" "))
+#print(length_of_longest_substring_map_str("pwwkew"))
+#print(length_of_longest_substring_map_str(" "))
 #print(median_sorted_arrays([3], [-2, -1]))
 
 # print(longest_palindrome("babad"))

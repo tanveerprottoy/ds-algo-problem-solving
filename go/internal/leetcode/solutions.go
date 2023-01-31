@@ -4,29 +4,33 @@ import (
 	"fmt"
 	"math"
 	"sort"
+
+	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
 )
 
 func LengthOfLongestSubstring(s string) int {
-	arrLength := len(s)
-	fast, slow := 0, 0
+	slow := 0
 	mapper := make(map[string]string)
 	result := 0
-	for fast < arrLength {
+	for fast := range s {
 		value := string(s[fast])
 		existingIndex := mapper[value]
 		if existingIndex != "" {
-			// value exist, break the substring count
+			// value exists, break the substring count
 			// extend the slow range, this reset the start value
-			slow += 1
-		} else {
-			// value does not exist, continue substring count
-			// extend the fast range, this extend the result to next index
-			// add the value to set
-			// calculate result
-			mapper[value] = fmt.Sprintf("%d", fast)
-			result = int(math.Max(float64(result), float64((fast-slow)+1)))
-			fast += 1
+			existingIndexNum, err := adapter.StringToFloat(existingIndex, 64)
+			if err != nil {
+				continue
+			}
+			slow = int(math.Max(existingIndexNum, float64(slow)))
 		}
+		// value does not exist, continue substring count
+		// calculate result
+		// add the value to map
+		result = int(math.Max(float64(result), float64((fast-slow)+1)))
+		// store in map with index starting from 1
+		// as it ensures the calcaulation (fast-slow)+1 will be correct
+		mapper[value] = fmt.Sprintf("%d", fast+1)
 	}
 	return result
 }
