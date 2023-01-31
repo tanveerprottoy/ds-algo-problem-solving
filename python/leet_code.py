@@ -96,12 +96,12 @@ def longest_subsequence(s: str):
 # Input: "abcabcbb"
 # Output: 3
 # Explanation: The answer is "abc", with the length of 3.
-def length_of_longest_substring(string: str) -> int:
+def length_of_longest_substring(s: str) -> int:
     substring = ''
     substring_temp = ''
-    length_str = len(string)
+    length_str = len(s)
     for i in range(length_str):
-        value = string[i]
+        value = s[i]
         if substring_temp != '':
             remainder_count = length_str - 1 - i
             if substring_temp.__contains__(value):
@@ -138,13 +138,13 @@ def length_of_longest_substring(string: str) -> int:
 # Explanation: The answer is "abc", with the length of 3.
 # implementation using sliding window technique
 # whenever repeating char found, previous values are removed from set
-def length_of_longest_substring_set(string: str) -> int:
-    length_arr = len(string)
+def length_of_longest_substring_set(s: str) -> int:
+    length_arr = len(s)
     fast = slow = 0
     result_set = set()
     result = 0
     while fast < length_arr and slow < length_arr:
-        value = string[fast]
+        value = s[fast]
         # try to extend the range[i, j]
         if value not in result_set:
             # this portion extends the fast range
@@ -153,17 +153,17 @@ def length_of_longest_substring_set(string: str) -> int:
             result = max(result, fast - slow)
         else:
             # this portion extends the slow range
-            result_set.remove(string[slow])
+            result_set.remove(s[slow])
             slow += 1
     return result
 
 
-def length_of_longest_substring_map(string: str) -> int:
+def length_of_longest_substring_map(s: str) -> int:
     slow = 0
     result_dict = dict()
     result = 0
-    for fast in range(len(string)):
-        value = string[fast]
+    for fast in range(len(s)):
+        value = s[fast]
         if value in result_dict:
             # invalidate previous substring, slow points to the last matched value
             slow = max(result_dict[value], slow)
@@ -316,23 +316,25 @@ def longest_palindrome_stack(s):
 # print(two_sum([2, 7, 11, 15], 9))
 # print(
 
-print(
-    add_two_numbers_recursive(
-        ListNode(2, ListNode(4, ListNode(3))),
-        ListNode(5, ListNode(6, ListNode(4))),
-        0
-    )
-)
-# longest_subsequence("pwwkew")
+# print(
+#     add_two_numbers_recursive(
+#         ListNode(2, ListNode(4, ListNode(3))),
+#         ListNode(5, ListNode(6, ListNode(4))),
+#         0
+#     )
+# )
+#longest_subsequence("pwwkew")
 # length_of_longest_substring("anviaj")
 # length_of_longest_substring("pwwkew")
 # length_of_longest_substring("ruowzgiooobpple")
 # length_of_longest_substring("hkcpmprxxxqw")
 # length_of_longest_substring("hkcpmprxxxqw")
 # print(length_of_longest_substring_set("pwwkew"))
-#print(length_of_longest_substring_map_str("pwwkew"))
-#print(length_of_longest_substring_map_str(" "))
-print(median_sorted_arrays([3], [-2, -1]))
+print(length_of_longest_substring_map("pwwkew"))
+print(length_of_longest_substring_map(" "))
+print(length_of_longest_substring_map_str("pwwkew"))
+print(length_of_longest_substring_map_str(" "))
+#print(median_sorted_arrays([3], [-2, -1]))
 
 # print(longest_palindrome("babad"))
 # print(longest_palindrome("cbbd"))

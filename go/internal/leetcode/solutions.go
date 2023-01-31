@@ -1,35 +1,34 @@
 package leetcode
 
 import (
+	"fmt"
 	"math"
 	"sort"
 )
 
-func LengthOfLongestSubstring(str string) {
-	arrLength := len(str)
-	fast := 0
-	slow := 0
+func LengthOfLongestSubstring(s string) int {
+	arrLength := len(s)
+	fast, slow := 0, 0
 	mapper := make(map[string]string)
 	result := 0
-	for fast < arrLength && slow < arrLength {
-		value := string(str[fast])
+	for fast < arrLength {
+		value := string(s[fast])
 		existingIndex := mapper[value]
 		if existingIndex != "" {
 			// value exist, break the substring count
 			// extend the slow range, this reset the start value
-			// remove the existing value from map
-			delete(mapper, mapper[value])
-			slow += slow
+			slow += 1
 		} else {
 			// value does not exist, continue substring count
 			// extend the fast range, this extend the result to next index
 			// add the value to set
 			// calculate result
-			fast += 1
-			mapper[value] = string(fast)
+			mapper[value] = fmt.Sprintf("%d", fast)
 			result = int(math.Max(float64(result), float64((fast-slow)+1)))
+			fast += 1
 		}
 	}
+	return result
 }
 
 // ineffiecient solution
