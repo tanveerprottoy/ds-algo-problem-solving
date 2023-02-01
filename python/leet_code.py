@@ -228,24 +228,23 @@ def length_of_longest_substring_set_str(string: str) -> int:
 
 
 def length_of_longest_palindromic_substring(string: str) -> int:
-    return -1
-    # length_arr = len(string)
-    # fast = slow = 0
-    # result_set = set()
-    # result = 0
-    # while fast < length_arr and slow < length_arr:
-    #     value = string[fast]
-    #     # try to extend the range[i, j]
-    #     if value not in result_set:
-    #         # this portion extends the fast range
-    #         result_set.add(value)
-    #         fast += 1
-    #         result = max(result, fast - slow)
-    #     else:
-    #         # this portion extends the slow range
-    #         result_set.remove(string[slow])
-    #         slow += 1
-    # return result
+    length_arr = len(string)
+    fast = slow = 0
+    result_set = set()
+    result = 0
+    while fast < length_arr and slow < length_arr:
+        value = string[fast]
+        # try to extend the range[i, j]
+        if value not in result_set:
+            # this portion extends the fast range
+            result_set.add(value)
+            fast += 1
+            result = max(result, fast - slow)
+        else:
+            # this portion extends the slow range
+            result_set.remove(string[slow])
+            slow += 1
+    return result
 
 
 # There are two sorted arrays nums1 and nums2 of size m and n respectively.
@@ -312,6 +311,7 @@ def longest_palindrome_stack(s):
             output = output + stack.pop()
             if not output:
                 stack.append(val)
+        stack += 1
     return output
 
 
@@ -332,13 +332,13 @@ def longest_palindrome_stack(s):
 # length_of_longest_substring("hkcpmprxxxqw")
 # length_of_longest_substring("hkcpmprxxxqw")
 # print(length_of_longest_substring_set("pwwkew"))
-print(length_of_longest_substring_map("tmmzuxt"))
+#print(length_of_longest_substring_map("tmmzuxt"))
 #print(length_of_longest_substring_map(" "))
 #print(length_of_longest_substring_map_str("pwwkew"))
 #print(length_of_longest_substring_map_str(" "))
 #print(median_sorted_arrays([3], [-2, -1]))
 
-# print(longest_palindrome("babad"))
+print(longest_palindrome("abb"))
 # print(longest_palindrome("cbbd"))
 # print(longest_palindrome("ababa"))
 # print(longest_palindrome("ab"))

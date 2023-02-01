@@ -54,3 +54,26 @@ func MedianOfTwoSortedArray(nums1, nums2 []int) float64 {
 	}
 	return median
 }
+
+func LongestPalindrome(s string) string {
+	l := len(s)
+	if l == 0 || l == 1 {
+		return s
+	}
+	res := ""
+	tmp := ""
+	start, end := 0, l-1
+	for start < l && end >= 0 {
+		val := s[start]
+		if val == s[end] {
+			tmp += string(val)
+		} else {
+			// palindrome pattern broke, reset
+			if len(tmp) > len(res) {
+				res = tmp
+			}
+			tmp = string(val)
+		}
+	}
+	return res
+}
