@@ -77,3 +77,76 @@ func LongestPalindrome(s string) string {
 	}
 	return res
 }
+
+/*
+	Given an array of integers arr and an integer k.
+
+Find the least number of unique integers after removing exactly k elements.
+Example 1:
+Input: arr = [5,5,4], k = 1
+Output: 1
+Explanation: Remove the single 4, only 5 is left.
+Example 2:
+Input: arr = [4,3,1,1,3,3,2], k = 3
+Output: 2
+Explanation: Remove 4, 2 and either one of the two 1s or three 3s. 1 and 3 will be left.
+
+Constraints:
+
+1 <= arr.length <= 10^5
+1 <= arr[i] <= 10^9
+0 <= k <= arr.length
+*/
+func LeastNumOfUniqueInts(arr []int, k int) int {
+	data := make(map[int]int)
+	for i := range arr {
+		elem := arr[i]
+		count := data[elem]
+		if count != 0 {
+			// value exists, increase count
+			count++
+			data[elem] = count
+			continue
+		}
+		data[elem] = 1
+	}
+	// get the values
+	var values []int
+	for _, v := range data {
+		values = append(values, v)
+	}
+	// sort the counts
+	sort.Ints(values)
+	// remove k elements
+	// run the loop till i < len(values) or k <= 0
+	// k is decreased inside
+	for i := 0; i < len(values); i++ {
+		c := values[i]
+		// iterate over the map to find item for value
+		for key, val := range data {
+			if val == c {
+				// item found
+				if k >= c {
+					// ex: k = 3, c = 3, k >= c == true
+					// remove item as it's count is <= k
+					delete(data, key)
+				} else {
+					// ex: k = 2, c = 4, k >= c == false,
+					// c -= k == 2
+					// as c > k, c = c - k,
+					// then store it in the map
+					c -= k
+					data[key] = c
+				}
+				// subtract from k = k -c
+				// so that k is updated according to count
+				k -= c
+				break
+			}
+		}
+		if k <= 0 {
+			break
+		}
+	}
+	return len(data)
+}

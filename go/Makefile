@@ -1,0 +1,6 @@
+run-general:
+	go run cmd/general/main.go
+run-hackerrank:
+	go run cmd/hackerrank/main.go
+run-leetcode:
+	go run cmd/leetcode/main.go

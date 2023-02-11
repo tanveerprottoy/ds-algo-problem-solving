@@ -73,4 +73,86 @@ public class General {
         }
         return result;
     }
+
+    static String reverseString(String str) {
+        StringBuilder reversed = new StringBuilder();
+        for (int i = str.length() - 1; i >= 0; i--) {
+            reversed.append(str.charAt(i));
+        }
+        return reversed.toString();
+    }
+
+    static int[] largestSmallestNumberInArray(int arr[], int arrSize) {
+        int[] result = new int[] { -1, -1 };
+        // Corner case
+        if (arrSize <= 0) {
+            return result;
+        }
+        int val = 0;
+        for (int i = 0; i < arrSize; i++) {
+            val = arr[i];
+            // check large
+            if (result[0] < val) {
+                result[0] = val;
+            }
+            if (result[1] == -1 || result[1] > val) {
+                result[1] = val;
+            }
+        }
+        return result;
+    }
+
+    static int binarySearch(int array[], int x, int low, int high) {
+
+        // Repeat until the pointers low and high meet each other
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (array[mid] == x)
+                return mid;
+
+            if (array[mid] < x)
+                low = mid + 1;
+
+            else
+                high = mid - 1;
+        }
+
+        return -1;
+    }
+
+    static int gcd(int a, int b) {
+        if (a == 0)
+            return b;
+        return gcd(b % a, a);
+    }
+
+    // function to calculate
+    // lcm of two numbers.
+    static int lcm(int a, int b) {
+        return (a * b) / gcd(a, b);
+    }
+
+    public static void main(String[] args) {
+        /*
+         * System.out.println(
+         * reverseString("abcde"));
+         * 
+         * System.out.println(
+         * reverseString("123456"));
+         */
+        int arr[] = { 20, 5, 4, 6, 9 };
+        int arrSize = arr.length;
+        int[] result = largestSmallestNumberInArray(arr, arrSize);
+        System.out.print(result);
+
+        int array[] = { 3, 4, 5, 6, 7, 8, 9 };
+        int n = array.length;
+        int x = 4;
+        int result1 = binarySearch(array, x, 0, n - 1);
+        if (result1 == -1)
+            System.out.println("Not found");
+        else
+            System.out.println("Element found at index " + result);
+    }
 }

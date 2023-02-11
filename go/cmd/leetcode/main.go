@@ -1,15 +1,20 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/leetcode"
 )
 
 func main() {
-	// log.Printf("%f", leetcode.MedianOfTwoSortedArray([]int{3}, []int{-2, -1}))
-	// log.Printf("%f", leetcode.MedianOfTwoSortedArray([]int{1,2}, []int{3, 4}))
-	// log.Printf("%d", leetcode.LengthOfLongestSubstring("abcabcbb"))
-	// log.Printf("%d", leetcode.LengthOfLongestSubstring("bbbbb"))
-	log.Printf("%d", leetcode.LengthOfLongestSubstring("tmmzuxt"))
+	// fmt.Printf("%f", leetcode.MedianOfTwoSortedArray([]int{3}, []int{-2, -1}))
+	// fmt.Printf("%f", leetcode.MedianOfTwoSortedArray([]int{1,2}, []int{3, 4}))
+	// fmt.Printf("%d", leetcode.LengthOfLongestSubstring("abcabcbb"))
+	// fmt.Printf("%d", leetcode.LengthOfLongestSubstring("bbbbb"))
+	// fmt.Println(leetcode.LengthOfLongestSubstring("tmmzuxt"))
+	/* fmt.Println(leetcode.LeastNumOfUniqueInts([]int{5, 5, 4}, 1))
+	fmt.Println(leetcode.LeastNumOfUniqueInts([]int{4, 3, 1, 1, 3, 3, 2}, 3))
+	fmt.Println(leetcode.LeastNumOfUniqueInts([]int{2, 1, 1, 3, 3, 3}, 3)) */
+	// fmt.Println(leetcode.LeastNumOfUniqueInts([]int{4, 4, 4, 4, 1}, 2))
+	fmt.Println(leetcode.LeastNumOfUniqueInts([]int{1, 2, 2, 2, 2}, 4))
 }

@@ -297,6 +297,12 @@ def get_total_x(a, b):
                     result.add(factor)
     return len(result)
 
+def get_total_x1(a, b):
+    factors = []
+    for i in range(a[-1], b[0]+1):
+        if all(i%x==0 for x in a) and all(x%i==0 for x in b):
+            factors.append(i)
+    return len(factors)
 
 # Maria plays college basketball and wants to go pro.
 # Each season she maintains a
