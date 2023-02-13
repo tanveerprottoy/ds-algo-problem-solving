@@ -168,23 +168,35 @@ Example 3:
 
 Input: x = 120
 Output: 21
-*/
-func ReverseInteger(x int) []int {
-	tmp := x
-	var reversed []int
-	for tmp > 0 {
-		reversed = append(reversed, tmp%10)
-		tmp /= 10
-	}
-	return reversed
-}
 
-func ReverseInteger1(x int) []int {
-	tmp := x
-	var reversed []int
-	for tmp > 0 || tmp < 0 {
-		reversed = append(reversed, tmp%10)
-		tmp /= 10
+//pop operation:
+pop = x % 10;
+x /= 10;
+
+//push operation:
+temp = rev * 10 + pop;
+rev = temp;
+*/
+func ReverseInteger(x int) int {
+	rev := 0
+	var mod int
+	for x != 0 {
+		// pop
+		mod = x % 10
+		x /= 10
+		/*	prevent overflow
+			for positive num
+			if rev > (math.MaxInt32/10) then rev := rev*10 + mod will overflow
+			if rev == (math.MaxInt32/10) then will overflow if and only if mod > 7
+		*/
+		if rev > math.MaxInt32/10 || (rev == math.MaxInt32/10 && mod > 7) {
+			return 0
+		}
+		if rev < math.MinInt32/10 || (rev == math.MinInt32/10 && mod < -8) {
+			return 0
+		}
+		// push
+		rev = rev*10 + mod
 	}
-	return reversed
+	return rev
 }
