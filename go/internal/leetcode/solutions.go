@@ -151,6 +151,39 @@ func LeastNumOfUniqueInts(arr []int, k int) int {
 	return len(data)
 }
 
+func LeastNumOfUniqueInts1(arr []int, k int) int {
+	data := make(map[int]int)
+	for i := range arr {
+		elem := arr[i]
+		count := data[elem]
+		if count != 0 {
+			// value exists, increase count
+			count++
+			data[elem] = count
+			continue
+		}
+		data[elem] = 1
+	}
+	// get the values
+	var values []int
+	for _, v := range data {
+		values = append(values, v)
+	}
+	// sort the counts
+	sort.Ints(values)
+	// remove k elements
+	// run the loop till i < len(values) or k <= 0
+	// k is decreased inside
+	for i := 0; i < len(values); i++ {
+		c := values[i]
+		fmt.Println(c)
+		if k <= 0 {
+			break
+		}
+	}
+	return len(data)
+}
+
 /*
 	Given a signed 32-bit integer x, return x with its digits reversed.
 
