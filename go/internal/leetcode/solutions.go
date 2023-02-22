@@ -6,6 +6,7 @@ import (
 	"sort"
 
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
+	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
 )
 
 func LengthOfLongestSubstring(s string) int {
@@ -175,13 +176,19 @@ func LeastNumOfUniqueInts1(arr []int, k int) int {
 	// run the loop till i < len(values) or k <= 0
 	// k is decreased inside
 	for i := 0; i < len(values); i++ {
-		c := values[i]
-		fmt.Println(c)
 		if k <= 0 {
 			break
 		}
+		c := values[i]
+		if k >= c {
+			values = slice.RemoveAt(values, i)
+		} else {
+			c -= k
+			values[i] = c
+		}
+		k -= c
 	}
-	return len(data)
+	return len(values)
 }
 
 /*
@@ -235,5 +242,5 @@ func ReverseInteger(x int) int {
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
-	return -1   
+	return -1
 }

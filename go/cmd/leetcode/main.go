@@ -16,9 +16,10 @@ func main() {
 	fmt.Println(leetcode.LeastNumOfUniqueInts([]int{4, 3, 1, 1, 3, 3, 2}, 3))
 	fmt.Println(leetcode.LeastNumOfUniqueInts([]int{2, 1, 1, 3, 3, 3}, 3)) */
 	// fmt.Println(leetcode.LeastNumOfUniqueInts([]int{4, 4, 4, 4, 1}, 2))
-	fmt.Println(leetcode.LeastNumOfUniqueInts([]int{1, 2, 2, 2, 2}, 4))
+	// fmt.Println(leetcode.LeastNumOfUniqueInts([]int{1, 2, 2, 2, 2}, 4))
+	fmt.Println(leetcode.LeastNumOfUniqueInts1([]int{2, 1, 1, 3, 3, 3}, 3))
 	// fmt.Println(leetcode.ReverseInteger(123))
 	// fmt.Println(leetcode.ReverseInteger(-541))
 	//fmt.Println(leetcode.ReverseInteger(-2147483412))
-	fmt.Println(leetcode.ReverseInteger(-1463847412))
+	// fmt.Println(leetcode.ReverseInteger(-1463847412))
 }
