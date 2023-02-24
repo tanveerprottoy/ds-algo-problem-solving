@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"sort"
+	"strconv"
 
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
@@ -122,6 +123,49 @@ func LeastNumOfUniqueInts(arr []int, k int) int {
 	// run the loop till i < len(values) or k <= 0
 	// k is decreased inside
 	for i := 0; i < len(values); i++ {
+		if k <= 0 {
+			break
+		}
+		c := values[i]
+		if k >= c {
+			values = slice.RemoveAt(values, i)
+			// as item del from slice, decrease i
+			// so that the next iteration happens
+			// otherwise
+			i--
+		} else {
+			c -= k
+			values[i] = c
+		}
+		k -= c
+	}
+	return len(values)
+}
+
+func LeastNumOfUniqueInts1(arr []int, k int) int {
+	data := make(map[int]int)
+	for i := range arr {
+		elem := arr[i]
+		count := data[elem]
+		if count != 0 {
+			// value exists, increase count
+			count++
+			data[elem] = count
+			continue
+		}
+		data[elem] = 1
+	}
+	// get the values
+	var values []int
+	for _, v := range data {
+		values = append(values, v)
+	}
+	// sort the counts
+	sort.Ints(values)
+	// remove k elements
+	// run the loop till i < len(values) or k <= 0
+	// k is decreased inside
+	for i := 0; i < len(values); i++ {
 		c := values[i]
 		// iterate over the map to find item for value
 		for key, val := range data {
@@ -150,45 +194,6 @@ func LeastNumOfUniqueInts(arr []int, k int) int {
 		}
 	}
 	return len(data)
-}
-
-func LeastNumOfUniqueInts1(arr []int, k int) int {
-	data := make(map[int]int)
-	for i := range arr {
-		elem := arr[i]
-		count := data[elem]
-		if count != 0 {
-			// value exists, increase count
-			count++
-			data[elem] = count
-			continue
-		}
-		data[elem] = 1
-	}
-	// get the values
-	var values []int
-	for _, v := range data {
-		values = append(values, v)
-	}
-	// sort the counts
-	sort.Ints(values)
-	// remove k elements
-	// run the loop till i < len(values) or k <= 0
-	// k is decreased inside
-	for i := 0; i < len(values); i++ {
-		if k <= 0 {
-			break
-		}
-		c := values[i]
-		if k >= c {
-			values = slice.RemoveAt(values, i)
-		} else {
-			c -= k
-			values[i] = c
-		}
-		k -= c
-	}
-	return len(values)
 }
 
 /*
@@ -239,6 +244,123 @@ func ReverseInteger(x int) int {
 		rev = rev*10 + mod
 	}
 	return rev
+}
+
+/*
+	Given an array of integers arr, replace each element with its rank.
+
+The rank represents how large the element is. The rank has the following rules:
+
+Rank is an integer starting from 1.
+The larger the element, the larger the rank. If two elements are equal, their rank must be the same.
+Rank should be as small as possible.
+
+Example 1:
+
+Input: arr = [40,10,20,30]
+Output: [4,1,2,3]
+Explanation: 40 is the largest element. 10 is the smallest. 20 is the second smallest. 30 is the third smallest.
+*/
+func ArrayRankTransform(arr []int) []int {
+	data := make(map[int]int)
+	var arrCopy []int
+	var res []int
+	rank := 0
+	arrCopy = slice.AppendCopy(arr, arrCopy)
+	sort.Ints(arr)
+	for i := range arr {
+		val := arr[i]
+		if i > 0 {
+			if val == arr[i-1] {
+				// keep the last rank
+				// no need to insert in map
+				continue
+			}
+		}
+		rank++
+		data[val] = rank
+	}
+	for i := range arrCopy {
+		val := arrCopy[i]
+		rank := data[val]
+		res = append(res, rank)
+	}
+	return res
+}
+
+func IsPalindromeNumber(x int) bool {
+	str := strconv.Itoa(x)
+	len := len(str)
+	if len == 1 {
+		return true
+	}
+	for i, j := 0, len-1; i < len/2; i, j = i+1, j-1 {
+		if str[i] != str[j] {
+			return false
+		}
+	}
+	return true
+}
+
+/*
+	Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+
+Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+I can be placed before V (5) and X (10) to make 4 and 9.
+X can be placed before L (50) and C (100) to make 40 and 90.
+C can be placed before D (500) and M (1000) to make 400 and 900.
+Given a roman numeral, convert it to an integer.
+
+Example 1:
+
+Input: s = "III"
+Output: 3
+Explanation: III = 3.
+*/
+func RomanToInt(s string) int {
+	romans := map[string]int{
+		"I": 1,
+		"V": 5,
+		"X": 10,
+		"L": 50,
+		"C": 100,
+		"D": 500,
+		"M": 1000,
+	}
+	len := len(s)
+	res := 0
+	// iterate from 0 to the item before last
+	// in this approach the last element has to be added to result
+	// as the last one will not be reached for nxt < len(s)
+	for curr, nxt := 0, 1; nxt < len; curr, nxt = curr+1, nxt+1 {
+		currVal := romans[string(s[curr])]
+		nxtVal := romans[string(s[nxt])]
+		// as roman numerals are written from largest to smallest from left to right
+		// left(currVal) should be larger or equal to right(nxtVal) to be added up in res
+		// otherwise subtract currVal from res
+		// if current is larger than or equal nxt
+		// add to res
+		// else subtract it from rest
+		if currVal >= nxtVal {
+			res += currVal
+		} else {
+			res -= currVal
+		}
+	}
+	// need to add the last item to res
+	// as the last one will did not be reach for nxt < len(s)
+	return res + romans[string(s[len-1])]
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
