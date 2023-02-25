@@ -374,23 +374,72 @@ Input: strs = ["flower","flow","flight"]
 Output: "fl"
 Example 2:
 */
-// vertical solution
+// vertical scan solution
 func LongestCommonPrefixVertical(strs []string) string {
 	res := ""
-	l := len(strs)
-	if l == 0 {
+	arrLength := len(strs)
+	if arrLength == 0 {
 		return res
 	}
+	// iterate for the first element of strs
+	// stop and return result when strs[0]
+	// has been iterated
 	for i := range strs[0] {
 		char := string(strs[0][i])
-		for j := 1; j < l; j++ {
-			// breaking conditions
+		for j := 1; j < arrLength; j++ {
+			// iterate over other elements after strs[0]
+			// it will only iterate len(strs) - 1 time as j < l
+			// here j goes over other elements other than strs[0]
+			// and i used to iterate over char of string
+			// need to stop if i == other elments length
 			// stop if i == len(strs[j])
-			fmt.Println(string(strs[j][i]))
+			// or char does not match with target
 			if i == len(strs[j]) || char != string(strs[j][i]) {
 				return res
 			}
-			res += char
+		}
+		res += char
+	}
+	return res
+}
+
+// horizontal scan solution
+func LongestCommonPrefixHorizontal(strs []string) string {
+	res := ""
+	arrLength := len(strs)
+	if arrLength == 0 {
+		return res
+	}
+	res = strs[0]
+	// iterate over the other elements strs[n],
+	// where n > 0
+	for i := 1; i < arrLength; i++ {
+		// get the [i]th str
+		str := strs[i]
+		// get the length that can be used for str
+		// as len(str) might be smaller or larger
+		// than strs[0]
+		adjustedLength := len(res)
+		if adjustedLength > len(str) {
+			adjustedLength = len(str)
+		}
+		// in this we are removing char from
+		// strs[0] until it mathes with some or
+		// "" incase no match found
+		// need to loop until str[:len(res)] != res
+		// get only the string part that is
+		// equal in length of strs[0]
+		// which is str[:len(res)]
+		// other breaking condition will be inside the loop
+		for str[:len(res)] != res {
+			// remove char from res = strs[0]
+			// remove 1 char from last
+			res = res[:len(res)-1]
+			// check if str = ""
+			// then return res
+			if res == "" {
+				return res
+			}
 		}
 	}
 	return res
