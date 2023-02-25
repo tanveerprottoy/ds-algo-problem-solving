@@ -25,5 +25,6 @@ func main() {
 	// fmt.Println(leetcode.ArrayRankTransform([]int{40, 10, 20, 30}))
 	// fmt.Println(leetcode.ArrayRankTransform([]int{100, 100, 100}))
 	// fmt.Println(leetcode.ArrayRankTransform([]int{37, 12, 28, 9, 100, 56, 80, 5, 12}))
-	fmt.Println(leetcode.RomanToInt("MCMXCIV"))
+	// fmt.Println(leetcode.RomanToInt("MCMXCIV"))
+	fmt.Println(leetcode.LongestCommonPrefixVertical([]string{"flower","flow","flight"}))
 }

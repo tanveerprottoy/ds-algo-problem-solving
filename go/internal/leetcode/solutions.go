@@ -363,6 +363,39 @@ func RomanToInt(s string) int {
 	return res + romans[string(s[len-1])]
 }
 
+/*
+	Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+*/
+// vertical solution
+func LongestCommonPrefixVertical(strs []string) string {
+	res := ""
+	l := len(strs)
+	if l == 0 {
+		return res
+	}
+	for i := range strs[0] {
+		char := string(strs[0][i])
+		for j := 1; j < l; j++ {
+			// breaking conditions
+			// stop if i == len(strs[j])
+			fmt.Println(string(strs[j][i]))
+			if i == len(strs[j]) || char != string(strs[j][i]) {
+				return res
+			}
+			res += char
+		}
+	}
+	return res
+}
+
 func LongestCommonSubsequence(text1 string, text2 string) int {
 	return -1
 }
