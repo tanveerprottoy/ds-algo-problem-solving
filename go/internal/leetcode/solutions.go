@@ -406,22 +406,22 @@ func LongestCommonPrefixVertical(strs []string) string {
 // horizontal scan solution
 func LongestCommonPrefixHorizontal(strs []string) string {
 	res := ""
-	arrLength := len(strs)
-	if arrLength == 0 {
+	arrLen := len(strs)
+	if arrLen == 0 {
 		return res
 	}
 	res = strs[0]
 	// iterate over the other elements strs[n],
 	// where n > 0
-	for i := 1; i < arrLength; i++ {
+	for i := 1; i < arrLen; i++ {
 		// get the [i]th str
 		str := strs[i]
 		// get the length that can be used for str
 		// as len(str) might be smaller or larger
 		// than strs[0]
-		adjustedLength := len(res)
-		if adjustedLength > len(str) {
-			adjustedLength = len(str)
+		adjustedLen := len(res)
+		if adjustedLen > len(str) {
+			adjustedLen = len(str)
 		}
 		// in this we are removing char from
 		// strs[0] until it mathes with some or
@@ -430,8 +430,10 @@ func LongestCommonPrefixHorizontal(strs []string) string {
 		// get only the string part that is
 		// equal in length of strs[0]
 		// which is str[:len(res)]
+		// incase of len(strs[0]) > len(str)
+		// take the length from len(str) 
 		// other breaking condition will be inside the loop
-		for str[:len(res)] != res {
+		for str[:adjustedLen] != res {
 			// remove char from res = strs[0]
 			// remove 1 char from last
 			res = res[:len(res)-1]
@@ -439,6 +441,21 @@ func LongestCommonPrefixHorizontal(strs []string) string {
 			// then return res
 			if res == "" {
 				return res
+			}
+			// get len(res) after removing
+			// if len(res) <= adjustedLen
+			// reassign adjustedLen = len(res)
+			// as we want to match the word with strs[0]
+			// this ensures index out of range exception
+			// not happens and str[:end] also calculated correctly
+			// want to start the loop with len(str)
+			// in case len(res) > len(str)
+			// then after removing item[s]
+			// when len(res) <= len(str)
+			// will set adjustedLen = len(res)
+			resLen := len(res)
+			if resLen <= adjustedLen {
+				adjustedLen = resLen
 			}
 		}
 	}
