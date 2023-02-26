@@ -1,15 +1,9 @@
 package com.tanveershafeeprottoy.ds;
 
-import java.util.Map;
 import java.util.Stack;
 
 public class Bracket {
     public static final char[][] BRACKETS = { { '{', '}' }, { '[', ']' }, { '(', ')' } };
-    public static final Map<Character, Character> BRACKETS_MAP = Map.of(
-        '{', '}',
-        '[', ']',
-        '(', ')'
-    );
 
     public static boolean isOpen(char bracket) {
         for(char[] chars : BRACKETS) {

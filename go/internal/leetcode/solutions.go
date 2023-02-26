@@ -431,7 +431,7 @@ func LongestCommonPrefixHorizontal(strs []string) string {
 		// equal in length of strs[0]
 		// which is str[:len(res)]
 		// incase of len(strs[0]) > len(str)
-		// take the length from len(str) 
+		// take the length from len(str)
 		// other breaking condition will be inside the loop
 		for str[:adjustedLen] != res {
 			// remove char from res = strs[0]
@@ -457,6 +457,42 @@ func LongestCommonPrefixHorizontal(strs []string) string {
 			if resLen <= adjustedLen {
 				adjustedLen = resLen
 			}
+		}
+	}
+	return res
+}
+
+/*
+	You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+*/
+func MergeTwoLinkedLists(list1 *MergerListNode, list2 *MergerListNode) *MergerListNode {
+	res := new(MergerListNode)
+	// cover corner cases
+	if list1 == nil {
+		res = list2
+	} else if list2 == nil {
+		res = list1
+	} else {
+		// iterate the first linked list
+		var tmp0 *MergerListNode
+		var tmp1 *MergerListNode
+		tmp0 = list1
+		tmp1 = list2
+		for tmp0 != nil && tmp0.Nxt != nil {
+			res.Val = tmp0.Val
+			// iterate the second
+			if tmp1 != nil {
+				tmp1 = list2
+				res.Nxt = tmp1
+				tmp1 = tmp1.Nxt
+			} else {
+				res.Nxt = tmp0.Nxt
+			}
+			tmp0 = tmp0.Nxt
 		}
 	}
 	return res
