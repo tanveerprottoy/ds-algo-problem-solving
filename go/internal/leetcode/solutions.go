@@ -482,7 +482,7 @@ func MergeTwoLinkedLists(list1 *MergerListNode, list2 *MergerListNode) *MergerLi
 		var tmp1 *MergerListNode
 		tmp0 = list1
 		tmp1 = list2
-		for tmp0 != nil && tmp0.Nxt != nil {
+		for tmp0 != nil {
 			res.Val = tmp0.Val
 			// iterate the second
 			if tmp1 != nil {
