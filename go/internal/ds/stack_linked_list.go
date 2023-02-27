@@ -5,23 +5,23 @@ import (
 	"sync"
 )
 
-type Stack struct {
+type StackLinkedList struct {
 	lock sync.Mutex // you don't have to do this if you don't want thread safety
 	s    []int
 }
 
-func NewStack() *Stack {
-	return &Stack{sync.Mutex{}, make([]int, 0)}
+func NewStackLinkedList() *StackLinkedList {
+	return &StackLinkedList{sync.Mutex{}, make([]int, 0)}
 }
 
-func (s *Stack) Push(v int) {
+func (s *StackLinkedList) Push(v int) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	s.s = append(s.s, v)
 }
 
-func (s *Stack) Pop() (int, error) {
+func (s *StackLinkedList) Pop() (int, error) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 

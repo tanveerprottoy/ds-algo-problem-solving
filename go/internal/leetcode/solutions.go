@@ -478,24 +478,42 @@ func MergeTwoLinkedLists(list1 *MergerListNode, list2 *MergerListNode) *MergerLi
 		res = list1
 	} else {
 		// iterate the first linked list
-		var tmp0 *MergerListNode
-		var tmp1 *MergerListNode
-		tmp0 = list1
-		tmp1 = list2
-		for tmp0 != nil {
-			res.Val = tmp0.Val
-			// iterate the second
-			if tmp1 != nil {
-				tmp1 = list2
-				res.Nxt = tmp1
-				tmp1 = tmp1.Nxt
-			} else {
-				res.Nxt = tmp0.Nxt
+		tmp0 := list1
+		tmp1 := list2
+		for tmp0 != nil && tmp1 != nil {
+			if tmp0.Val < tmp1.Val {
+				
 			}
-			tmp0 = tmp0.Nxt
 		}
 	}
 	return res
+}
+
+/*
+	Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+*/
+func IsValidParentheses(s string) bool {
+	bracketMap := map[string]string{
+		"(": ")",
+		"{": "}",
+		"[": "]",
+	}
+	for i := range s {
+		char := string(s[i])
+		brac := bracketMap[char]
+		if brac != "" {
+			// it's opening bracket
+		} else if true {
+
+		}
+	}
+	return false
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
