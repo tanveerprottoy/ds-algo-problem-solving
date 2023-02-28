@@ -45,5 +45,7 @@ func main() {
 	m0.Val = 1
 	m0.Nxt = m1
 	fmt.Println(leetcode.MergeTwoLinkedLists(l0, m0)) */
-	fmt.Println(leetcode.IsValidParentheses("()[]{}"))
+	// fmt.Println(leetcode.IsValidParentheses("()[]{}"))
+	fmt.Println(leetcode.RemoveElement([]int{3, 2, 2, 3}, 3))
+	fmt.Println(leetcode.RemoveElement([]int{0, 1, 2, 2, 3, 0, 4, 2}, 2))
 }
