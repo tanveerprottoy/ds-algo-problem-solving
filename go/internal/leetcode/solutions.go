@@ -6,6 +6,7 @@ import (
 	"sort"
 	"strconv"
 
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
 )
@@ -482,7 +483,7 @@ func MergeTwoLinkedLists(list1 *MergerListNode, list2 *MergerListNode) *MergerLi
 		tmp1 := list2
 		for tmp0 != nil && tmp1 != nil {
 			if tmp0.Val < tmp1.Val {
-				
+
 			}
 		}
 	}
@@ -499,21 +500,91 @@ Open brackets must be closed in the correct order.
 Every close bracket has a corresponding open bracket of the same type.
 */
 func IsValidParentheses(s string) bool {
-	bracketMap := map[string]string{
+	// put brackets
+	bracketsMap := map[string]string{
 		"(": ")",
 		"{": "}",
 		"[": "]",
 	}
+	// init the stack
+	brackets := ds.NewStack[string]()
 	for i := range s {
 		char := string(s[i])
-		brac := bracketMap[char]
+		// check if its opening or
+		// close bracket
+		brac := bracketsMap[char]
 		if brac != "" {
 			// it's opening bracket
-		} else if true {
-
+			brackets.Push(char)
+		} else if brackets.IsEmpty() {
+			// closed bracket was found
+			// but the stack is empty
+			// no open bracket was added
+			// in this case its invalid
+			return false
+		} else {
+			// pop from stack
+			p := brackets.PopAlt()
+			// popped is the
+			closeBrac := bracketsMap[p]
+			fmt.Println(p)
+			fmt.Println(closeBrac)
+			if char != closeBrac {
+				return false
+			}
 		}
 	}
-	return false
+	return brackets.IsEmpty()
+}
+
+/*
+	Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The relative order of the elements may be changed.
+
+Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array nums. More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.
+
+Return k after placing the final result in the first k slots of nums.
+
+Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
+
+Example 1:
+
+Input: nums = [3,2,2,3], val = 3
+Output: 2, nums = [2,2,_,_]
+Explanation: Your function should return k = 2, with the first two elements of nums being 2.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+*/
+func RemoveElement(nums []int, val int) int {
+	// store the len(nums)
+	l := len(nums)
+	if l == 0 {
+		return l
+	}
+	matchCount := 0
+	// iterate and find the val
+	// if found move it l + 1 position
+	for i := 0; i < l; i++ {
+		n := nums[0]
+		if n == val {
+			// increment match count
+			matchCount++
+			// calculate the length after removing
+			// this new item to last
+			// l -= matchCount
+			l -= matchCount
+			// move the item
+			for j := i; j < l+1; j++ {
+				// get at j
+				u := nums[j]
+				// get at j + 1
+				v := nums[j+1]
+				// move j + 1 to j
+				nums[j] = v
+				// move j to j + 1
+				nums[j+1] = u
+			}
+		}
+	}
+	return l
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {

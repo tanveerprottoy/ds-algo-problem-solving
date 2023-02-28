@@ -5,32 +5,52 @@ import (
 	"sync"
 )
 
-type Stack struct {
-	lock sync.Mutex // you don't have to do this if you don't want thread safety
-	s    []int
+// thread safe with lock
+type Stack[T any] struct {
+	lock sync.Mutex
+	data []T
 }
 
-func NewStack() *Stack {
-	return &Stack{sync.Mutex{}, make([]int, 0)}
+func NewStack[T any]() *Stack[T] {
+	return &Stack[T]{sync.Mutex{}, make([]T, 0)}
 }
 
-func (s *Stack) Push(v int) {
+func (s *Stack[T]) IsEmpty() bool {
+	return len(s.data) == 0
+}
+
+func (s *Stack[T]) Length() int {
+	return len(s.data)
+}
+
+func (s *Stack[T]) Push(v T) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
-
-	s.s = append(s.s, v)
+	s.data = append(s.data, v)
 }
 
-func (s *Stack) Pop() (int, error) {
+func (s *Stack[T]) Pop() (T, error) {
+	var res T
 	s.lock.Lock()
 	defer s.lock.Unlock()
-
-	l := len(s.s)
-	if l == 0 {
-		return 0, errors.New("Empty Stack")
+	if s.IsEmpty() {
+		return res, errors.New("empty stack")
 	}
-
-	res := s.s[l-1]
-	s.s = s.s[:l-1]
+	l := s.Length()
+	res = s.data[l-1]
+	s.data = s.data[:l-1]
 	return res, nil
+}
+
+func (s *Stack[T]) PopAlt() T {
+	var res T
+	s.lock.Lock()
+	defer s.lock.Unlock()
+	if s.IsEmpty() {
+		return res
+	}
+	l := s.Length()
+	res = s.data[l-1]
+	s.data = s.data[:l-1]
+	return res
 }

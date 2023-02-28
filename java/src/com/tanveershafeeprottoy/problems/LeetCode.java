@@ -230,9 +230,9 @@ public class LeetCode {
         return R - L - 1;
     }
 
-    
-
     public static void main(String[] args) {
+        /* Set set = new HashSet<String>();
+        set. */
         int arr[] = { 2, 1, 1, 3, 3, 3 };
         int result = findLeastNumOfUniqueInts(arr, 3);
         System.out.print(result);

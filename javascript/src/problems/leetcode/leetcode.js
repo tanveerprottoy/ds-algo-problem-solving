@@ -130,4 +130,15 @@ export class LeetCode {
         }
         return median;
     }
+
+    isValidParentheses(s) {
+        const bracketsMap = new Map([
+            ["(", ")"],
+            ["{", "}"],
+            ["[", "]"],
+        ]);
+        for(const e of s) {
+             
+        }
+    }
 }

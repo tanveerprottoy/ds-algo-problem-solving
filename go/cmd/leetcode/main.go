@@ -28,7 +28,7 @@ func main() {
 	// fmt.Println(leetcode.RomanToInt("MCMXCIV"))
 	// fmt.Println(leetcode.LongestCommonPrefixVertical([]string{"flower","flow","flight"}))
 	// fmt.Println(leetcode.LongestCommonPrefixHorizontal([]string{"flower","flow","flight"}))
-	l2 := new(leetcode.MergerListNode)
+	/* l2 := new(leetcode.MergerListNode)
 	l2.Val = 4
 	l1 := new(leetcode.MergerListNode)
 	l1.Val = 2
@@ -44,5 +44,6 @@ func main() {
 	m0 := new(leetcode.MergerListNode)
 	m0.Val = 1
 	m0.Nxt = m1
-	fmt.Println(leetcode.MergeTwoLinkedLists(l0, m0))
+	fmt.Println(leetcode.MergeTwoLinkedLists(l0, m0)) */
+	fmt.Println(leetcode.IsValidParentheses("()[]{}"))
 }
