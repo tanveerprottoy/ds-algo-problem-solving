@@ -50,6 +50,9 @@ func main() {
 	// fmt.Println(leetcode.RemoveElement([]int{0, 1, 2, 2, 3, 0, 4, 2}, 2))
 	// fmt.Println(leetcode.RemoveDuplicates([]int{1, 1, 2}))
 	// fmt.Println(leetcode.RemoveDuplicates([]int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}))
-	fmt.Println(leetcode.RemoveDuplicatesOverTwo([]int{1, 1, 1, 2, 2, 3}))
-	fmt.Println(leetcode.RemoveDuplicatesOverTwo([]int{0, 0, 1, 1, 1, 1, 2, 3, 3}))
+	// fmt.Println(leetcode.RemoveDuplicatesOverTwo([]int{1, 1, 1, 2, 2, 3}))
+	// fmt.Println(leetcode.RemoveDuplicatesOverTwo([]int{0, 0, 1, 1, 1, 1, 2, 3, 3}))
+	fmt.Println(leetcode.SearchInsert([]int{1, 3, 5, 6}, 5))
+	fmt.Println(leetcode.SearchInsert([]int{1, 3, 5, 6}, 2))
+	fmt.Println(leetcode.SearchInsert([]int{1, 3, 5, 6}, 0))
 }
