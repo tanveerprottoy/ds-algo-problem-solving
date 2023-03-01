@@ -5,6 +5,7 @@ import (
 	"math"
 	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
@@ -704,6 +705,64 @@ func SearchInsert(nums []int, target int) int {
 		i++
 	}
 	return i
+}
+
+/*
+	Given a string s consisting of words and spaces, return the length of the last word in the string.
+
+A word is a maximal
+substring
+
+	consisting of non-space characters only.
+
+Example 1:
+
+Input: s = "Hello World"
+Output: 5
+Explanation: The last word is "World" with length 5.
+*/
+func LengthOfLastWord(s string) int {
+	// remove right/end whitespaces
+	s = strings.TrimRight(s, " ")
+	i := len(s) - 1
+	// iterate from last
+	for i >= 0 {
+		// look for space
+		if fmt.Sprintf("%c", s[i]) == " " {
+			// space found word ends
+			// as iterating from last
+			// as i is set as len(s) - 1
+			// and expected to loop till 0
+			// and stop when -1
+			// need to add the 1 in order to get
+			// the correct length
+			// return len(s) - (i + 1)
+			return len(s) - (i + 1)
+		}
+		// decrement and continue
+		i--
+	}
+	// has to be (i + 1) as the loop exists
+	// when i == -1
+	return len(s) - (i + 1)
+}
+
+/*
+	Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+Note that you must do this in-place without making a copy of the array.
+
+Example 1:
+
+Input: nums = [0,1,0,3,12]
+Output: [1,3,12,0,0]
+*/
+func MoveZeroes(nums []int) {
+	/*
+		     for i := range nums {
+				return
+			}
+	*/
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
