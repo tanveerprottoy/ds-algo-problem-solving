@@ -1,5 +1,6 @@
 package com.tanveershafeeprottoy.problems;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -230,12 +231,31 @@ public class LeetCode {
         return R - L - 1;
     }
 
+    static int removeElement(int[] nums, int val) {
+        int k = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[k] = nums[i];
+                k++;
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+        return k;
+    }
+
     public static void main(String[] args) {
-        /* Set set = new HashSet<String>();
-        set. */
+        /*
+         * Set set = new HashSet<String>();
+         * set.
+         */
         int arr[] = { 2, 1, 1, 3, 3, 3 };
         int result = findLeastNumOfUniqueInts(arr, 3);
-        System.out.print(result);
-        System.out.print(reverseInt(-2147483412));
+        /*
+         * System.out.print(result);
+         * System.out.print(reverseInt(-2147483412));
+         */
+        // System.out.println(String.valueOf(removeElement(new int[] { 0, 1, 2, 2, 3, 0,
+        // 4, 2 }, 2)));
+        System.out.println(String.valueOf(removeElement(new int[] { 3, 2, 2, 3 }, 3)));
     }
 }

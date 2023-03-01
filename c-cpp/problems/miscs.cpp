@@ -1,4 +1,5 @@
 #include <iostream>
+#include<bits/stdc++.h>
 
 using namespace std;
 
@@ -20,6 +21,19 @@ int* largestSmallestNumberInArray(int arr[], unsigned int arrSize) {
         }
     }
     return result;
+}
+
+int removeElement(vector<int>& nums, int val) {
+    int counter = 0, size = nums.size();
+    for (int i = 0; i < size; i++) {
+        if (nums[i] == val) {
+            continue;
+        } else {
+            nums[counter] = nums[i];
+            counter++;
+        }
+    }
+    return counter;
 }
 
 int main() {

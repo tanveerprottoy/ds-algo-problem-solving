@@ -13,7 +13,8 @@
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "${default}",
-            "compilerPath": "/usr/bin/cpp"
+            "compilerPath": "/usr/bin/cpp",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

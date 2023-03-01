@@ -6,3 +6,5 @@ run-leetcode:
 	go run cmd/leetcode/main.go
 run-ds:
 	go run cmd/ds/main.go
+run-algorithm:
+	go run cmd/algorithm/main.go
