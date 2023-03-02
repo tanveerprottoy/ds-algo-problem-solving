@@ -3,8 +3,10 @@ package leetcode
 import (
 	"fmt"
 	"math"
+	"regexp"
 	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
@@ -666,6 +668,66 @@ func RemoveDuplicatesOverTwo(nums []int) int {
 	}
 	fmt.Println("nums", nums)
 	return k
+}
+
+/*
+	You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+
+Increment the large integer by one and return the resulting array of digits.
+
+Example 1:
+
+Input: digits = [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Incrementing by one gives 123 + 1 = 124.
+Thus, the result should be [1,2,4].
+*/
+func PlusOne(digits []int) []int {
+	// iterate from last
+	for i := len(digits) - 1; i >= 0; i-- {
+		// check if digits[i] < 9
+		// in this case task is simple
+		// just add 1 to digits[i]
+		if digits[i] < 9 {
+			// can add
+			// and return the array
+			// this case handles the last
+			// element and also the carry 1
+			// case which occurs digits[i] == 9
+			digits[i]++
+			return digits
+		}
+		// digits[i] == 9
+		// make curr elem digits[i] = 0
+		// this creates a carry 1 value
+		digits[i] = 0
+	}
+	// if the code reached here
+	// it means has a carry 1
+	// the array has to be increased
+	// in size by 1 and 1 to be added in
+	// newArr[0]
+	var newArr []int
+	newArr = append(newArr, 1)
+	newArr = append(newArr, digits...)
+	return newArr
+}
+
+func IsPalindromeAfterRemoval(s string) bool {
+	if len(s) == 0 || len(s) == 1 {
+		return true
+	}
+	s = strings.ToLower(s)
+	r := regexp.MustCompile(`[^a-zA-Z0-9]`)
+	s = r.ReplaceAllString(s, "")
+	fmt.Println(s)
+	for i, j := 0, len(s)-1; i < len(s)/2; i, j = i+1, j-1 {
+		if fmt.Sprintf("%c", s[i]) != fmt.Sprintf("%c", s[j]) {
+			return false
+		}
+	}
+	return true
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
