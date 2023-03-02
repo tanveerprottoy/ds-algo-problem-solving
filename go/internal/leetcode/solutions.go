@@ -778,7 +778,7 @@ func PlusOne(digits []int) []int {
 	// it means has a carry 1
 	// the array has to be increased
 	// in size by 1 and 1 to be added in
-	// newArr[0]
+	// newArr[0] array
 	var newArr []int
 	newArr = append(newArr, 1)
 	newArr = append(newArr, digits...)
