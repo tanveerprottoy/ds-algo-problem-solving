@@ -671,6 +671,77 @@ func RemoveDuplicatesOverTwo(nums []int) int {
 }
 
 /*
+	Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+You must write an algorithm with O(log n) runtime complexity.
+Example 1:
+Input: nums = [1,3,5,6], target = 5
+Output: 2
+*/
+func SearchInsert(nums []int, target int) int {
+	i := 0
+	for i < len(nums) {
+		// if match found return i
+		if nums[i] == target {
+			return i
+		} else if i > 0 {
+			// if iterated to atleast 2nd item
+			// check with current and previous
+			// target needs to be => prev and <= curr
+			// in order to sit in i
+			if target >= nums[i-1] && target <= nums[i] {
+				return i
+			}
+		} else {
+			// in case when i == 0
+			// need to check if target <= nums[i]
+			// in this case return 0
+			if target < nums[i] {
+				return i
+			}
+		}
+		// increment i as loop iterates to next
+		i++
+	}
+	return i
+}
+
+/*
+	Given a string s consisting of words and spaces, return the length of the last word in the string.
+A word is a maximal
+substring
+	consisting of non-space characters only.
+Example 1:
+Input: s = "Hello World"
+Output: 5
+Explanation: The last word is "World" with length 5.
+*/
+func LengthOfLastWord(s string) int {
+	// remove right/end whitespaces
+	s = strings.TrimRight(s, " ")
+	i := len(s) - 1
+	// iterate from last
+	for i >= 0 {
+		// look for space
+		if fmt.Sprintf("%c", s[i]) == " " {
+			// space found word ends
+			// as iterating from last
+			// as i is set as len(s) - 1
+			// and expected to loop till 0
+			// and stop when -1
+			// need to add the 1 in order to get
+			// the correct length
+			// return len(s) - (i + 1)
+			return len(s) - (i + 1)
+		}
+		// decrement and continue
+		i--
+	}
+	// has to be (i + 1) as the loop exists
+	// when i == -1
+	return len(s) - (i + 1)
+}
+
+/*
 	You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
 
 Increment the large integer by one and return the resulting array of digits.
@@ -728,6 +799,21 @@ func IsPalindromeAfterRemoval(s string) bool {
 		}
 	}
 	return true
+}
+
+/*
+	Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+Note that you must do this in-place without making a copy of the array.
+Example 1:
+Input: nums = [0,1,0,3,12]
+Output: [1,3,12,0,0]
+*/
+func MoveZeroes(nums []int) {
+	/*
+		     for i := range nums {
+				return
+			}
+	*/
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
