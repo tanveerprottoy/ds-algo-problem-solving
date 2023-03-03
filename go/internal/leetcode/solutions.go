@@ -559,15 +559,19 @@ func RemoveElement(nums []int, val int) int {
 	if len(nums) == 0 {
 		return 0
 	}
-	// mod index
+	// 2nd index
+	// k tracks the last inserted
+	// non target val nums[i] != val
 	k := 0
 	for i := 0; i < len(nums); i++ {
-		// this algo moves non val items
-		// from start of array to the length
-		// of total non val items found
+		// move values that are not
+		// the target(val)
+		// from start of array
+		// keep increasing k whenever
+		// nums[i] != val
 		if nums[i] != val {
 			// when n != val, want to
-			// move the item to mIdx
+			// move the item to k
 			// modIdx starts from 0 then
 			// increments only when element
 			// is not equal to val
@@ -599,22 +603,51 @@ func RemoveDuplicates(nums []int) int {
 	if len(nums) == 0 {
 		return 0
 	}
-	chker := make(map[string]string)
+	// 2nd index
+	// k tracks the last inserted
+	// unique val
+	// start from 1 as
+	// comparision needed from i = 1
+	k := 1
+	// similar as RemoveElement
+	// here duplicates will be removed
+	// start from index 1
+	for i := 1; i < len(nums); i++ {
+		// as nums arr is sorted
+		// duplicates will be one after another
+		// need to check with the previous item
+		if nums[i] != nums[i-1] {
+			// if not equal set nums[k] = nums[i]
+			// increase k after move
+			nums[k] = nums[i]
+			k++
+		}
+	}
+	fmt.Println("nums", nums)
+	return k
+}
+
+func RemoveDuplicatesMap(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	uniques := make(map[int]int)
 	k := 0
 	// similar as RemoveElement
 	// here duplicates will be removed
 	for i := 0; i < len(nums); i++ {
 		// check if value exists in map
-		if chker[fmt.Sprint(nums[i])] == "" {
-			// if not in map, move to k
+		if _, ok := uniques[nums[i]]; ok {
+			// it's not in map, move to k
 			// increase k after move
 			nums[k] = nums[i]
 			k++
 		}
 		// add val to map
-		chker[fmt.Sprint(nums[i])] = fmt.Sprint(i)
+		uniques[nums[i]] = i
 	}
 	fmt.Println("nums", nums)
+	fmt.Println("uniques", uniques)
 	return k
 }
 
@@ -672,6 +705,7 @@ func RemoveDuplicatesOverTwo(nums []int) int {
 
 /*
 	Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
 You must write an algorithm with O(log n) runtime complexity.
 Example 1:
 Input: nums = [1,3,5,6], target = 5
@@ -707,9 +741,12 @@ func SearchInsert(nums []int, target int) int {
 
 /*
 	Given a string s consisting of words and spaces, return the length of the last word in the string.
+
 A word is a maximal
 substring
+
 	consisting of non-space characters only.
+
 Example 1:
 Input: s = "Hello World"
 Output: 5
@@ -802,7 +839,33 @@ func IsPalindromeAfterRemoval(s string) bool {
 }
 
 /*
+	Given an integer array nums, return true if any value appears at least twice in the array,
+	and return false if every element is distinct.
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+Output: true
+*/
+func ContainsDuplicate(nums []int) bool {
+	uniques := make(map[int]int)
+	for i := range nums {
+		// check if value is in map
+		if _, ok := uniques[nums[i]]; ok {
+			// if its in map
+			// its duplicate return true
+			return true
+		}
+		// add val to map
+		uniques[nums[i]] = i
+	}
+	// no duplicates found
+	return false
+}
+
+/*
 	Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
 Note that you must do this in-place without making a copy of the array.
 Example 1:
 Input: nums = [0,1,0,3,12]
