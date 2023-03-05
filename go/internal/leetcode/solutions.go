@@ -888,6 +888,8 @@ func MoveZeroes(nums []int) []int {
 			// swap nums[k] = nums[i]
 			// then set nums[i] = tmp, which is previous nums[k]
 			// this way nums[i] will retain the overwritten velues
+			// as this algo only swaps the non zero values
+			// the retained value will be 0
 			// nums[i] = tmp
 			// done in go's shorthand way
 			nums[k], nums[i] = nums[i], nums[k]
