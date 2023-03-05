@@ -871,12 +871,32 @@ Example 1:
 Input: nums = [0,1,0,3,12]
 Output: [1,3,12,0,0]
 */
-func MoveZeroes(nums []int) {
-	/*
-		     for i := range nums {
-				return
-			}
-	*/
+func MoveZeroes(nums []int) []int {
+	// two index solution
+	// 2nd index
+	k := 0
+	for i := range nums {
+		// check if not zero
+		if nums[i] != 0 {
+			// move non zero to k,
+			// swap values, set val of k = i
+			// and val of prev i = prev k
+			// assign nums[k] = nums[i]
+			// and prev nums[i] = prev nums[k]
+			// store current nums[k]
+			// tmp := nums[k]
+			// swap nums[k] = nums[i]
+			// then set nums[i] = tmp, which is previous nums[k]
+			// this way nums[i] will retain the overwritten velues
+			// nums[i] = tmp
+			// done in go's shorthand way
+			nums[k], nums[i] = nums[i], nums[k]
+			// increment k
+			k++
+		}
+		// no need to anything when nums[i] = 0
+	}
+	return nums
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
