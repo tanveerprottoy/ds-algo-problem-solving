@@ -901,6 +901,42 @@ func MoveZeroes(nums []int) []int {
 	return nums
 }
 
+/*
+	Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times.
+You may assume that the majority element always exists in the array.
+*/
+func MajorityElement(nums []int) int {
+	// check corener cases
+	if len(nums) == 0 {
+		return 0
+	}
+	// if nums has only 1 item
+	// return that
+	if len(nums) == 1 {
+		return nums[0]
+	}
+	// frequency map
+	freq := make(map[int]int)
+	for i := range nums {
+		// check if item is in map
+		if val, ok := freq[nums[i]]; ok {
+			// increase freq
+			val++
+			// check if freq > len(nums)/2
+			if val > len(nums)/2 {
+				return nums[i]
+			}
+			// else store the updated freq
+			freq[nums[i]] = val
+		} else {
+			freq[nums[i]] = 1
+		}
+	}
+	return 0
+}
+
 func LongestCommonSubsequence(text1 string, text2 string) int {
 	return -1
 }

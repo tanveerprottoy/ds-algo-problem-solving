@@ -69,5 +69,8 @@ func main() {
 	// fmt.Println(leetcode.LengthOfLastWord("moon"))
 	// fmt.Println(leetcode.LengthOfLastWord("moon"))
 	// fmt.Println(leetcode.ContainsDuplicate([]int{1,2,3,4}))
-	fmt.Println(leetcode.MoveZeroes([]int{0, 1, 0, 3, 12}))
+	// fmt.Println(leetcode.MoveZeroes([]int{0, 1, 0, 3, 12}))
+	// fmt.Println(leetcode.MajorityElement([]int{3, 2, 3}))
+	// fmt.Println(leetcode.MajorityElement([]int{2, 2, 1, 1, 1, 2, 2}))
+	fmt.Println(leetcode.MajorityElement([]int{1}))
 }
