@@ -1,6 +1,8 @@
 package general
 
-import "math"
+import (
+	"math"
+)
 
 func Reverse(arr []int) []int {
 	// 1st assign, 2nd condition, 3rd increment, decrement
@@ -12,8 +14,13 @@ func Reverse(arr []int) []int {
 
 func Factorial(n int32) int32 {
 	if n < 2 {
+		// stop here, as no need
+		// to calculate 1
 		return n
 	}
+	// this algo decreases the
+	// input by 1 and multiply
+	// with n to form the factorial
 	return n * Factorial(n-1)
 }
 
@@ -77,4 +84,20 @@ func IntFromArray(nums []int) int {
 		mul /= 10
 	}
 	return num
+}
+
+func Fibonacci(n int64) int64 {
+	// formula: Fn = Fn-1+Fn-2
+	if n < 2 {
+		// stop at 1, as seq
+		// starts from 1
+		return n
+	}
+	// this algo calculates
+	// fib seq the n
+	// it decreases the
+	// input by 1 and 2 respectively
+	// then add them up to calcualate
+	// the seq
+	return Fibonacci(n-1) + Fibonacci(n-2)
 }

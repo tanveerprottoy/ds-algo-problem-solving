@@ -884,15 +884,15 @@ func MoveZeroes(nums []int) []int {
 			// assign nums[k] = nums[i]
 			// and prev nums[i] = prev nums[k]
 			// store current nums[k]
-			// tmp := nums[k]
+			tmp := nums[k]
 			// swap nums[k] = nums[i]
 			// then set nums[i] = tmp, which is previous nums[k]
 			// this way nums[i] will retain the overwritten velues
 			// as this algo only swaps the non zero values
 			// the retained value will be 0
-			// nums[i] = tmp
+			nums[i] = tmp
 			// done in go's shorthand way
-			nums[k], nums[i] = nums[i], nums[k]
+			// nums[k], nums[i] = nums[i], nums[k]
 			// increment k
 			k++
 		}
