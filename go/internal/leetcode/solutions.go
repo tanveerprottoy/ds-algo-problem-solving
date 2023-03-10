@@ -937,6 +937,62 @@ func MajorityElement(nums []int) int {
 	return 0
 }
 
+/*
+	Given a non-empty array of integers nums,
+
+every element appears twice except for one. Find that single one.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+Example 1:
+
+Input: nums = [2,2,1]
+Output: 1
+*/
+func SingleNumber(nums []int) int {
+	// store items in a map
+	freqs := make(map[int]int)
+	for i := range nums {
+		if freq, ok := freqs[nums[i]]; ok {
+			// if item exists in map
+			// check freq == 1
+			// as every element appears twice except for one
+			if freq == 1 {
+				// if freq == 1
+				// twice appeared item it is
+				// del this it will ensure
+				// freq == 1 will remain
+				delete(freqs, nums[i])
+			} else {
+				// increase freq
+				freq++
+				// store in map
+				freqs[nums[i]] = freq
+			}
+		} else {
+			freqs[nums[i]] = 1
+		}
+	}
+	for k := range freqs {
+		// return the first key
+		return k
+	}
+	return 0
+}
+
+/* Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+
+ 
+
+Example 1:
+
+Input: nums = [3,0,1]
+Output: 2
+Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums. */
+func MissingNumber(nums []int) int {
+     return 0
+}
+
 func LongestCommonSubsequence(text1 string, text2 string) int {
 	return -1
 }
