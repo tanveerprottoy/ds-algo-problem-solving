@@ -131,14 +131,97 @@ export class LeetCode {
         return median;
     }
 
+    /*
+    Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+    An input string is valid if:
+
+    Open brackets must be closed by the same type of brackets.
+    Open brackets must be closed in the correct order.
+    Every close bracket has a corresponding open bracket of the same type.
+    */
     isValidParentheses(s) {
         const bracketsMap = new Map([
             ["(", ")"],
             ["{", "}"],
             ["[", "]"],
         ]);
-        for(const e of s) {
-             
+        const brackets = new Array();
+        for(const c of s) {
+            // check if it's open
+            const closedBracket = bracketsMap.get(c);
+            if(closedBracket) {
+                // c == open bracket
+                // push to stack
+                brackets.push(c);
+            }
+            else if(brackets.length === 0) {
+                // c == closed bracket
+                // but no other open
+                // bracket was pushed
+                // so it's invalid
+                return false;
+            }
+            else {
+                // c == closed bracket
+                // stack has open brackets
+                // pop and compare the closed brackets
+                // if they match then it's good
+                // to continue
+                // if dont match then return false
+                const openBracket = brackets.pop();
+                const closed = bracketsMap.get(openBracket);
+                if(c !== closed) {
+                    return false;
+                }
+            }
         }
+        // return brackets is empty
+        return brackets.length === 0;
+    }
+
+    /*
+    Given an integer array nums and an integer val, remove all occurrences of val 
+    in nums in-place. The relative order of the elements may be changed.
+    Since it is impossible to change the length of the array in some languages, 
+    you must instead have the result be placed in the first part of the array nums. 
+    More formally, if there are k elements after removing the duplicates, 
+    then the first k elements of nums should hold the final result. 
+    It does not matter what you leave beyond the first k elements.
+    Return k after placing the final result in the first k slots of nums.
+    Do not allocate extra space for another array. You must do this by modifying 
+    the input array in-place with O(1) extra memory.
+
+    Example 1:
+
+    Input: nums = [3,2,2,3], val = 3
+    Output: 2, nums = [2,2,_,_]
+    Explanation: Your function should return k = 2, with the first two elements of 
+    nums being 2.
+    It does not matter what you leave beyond the returned k 
+    (hence they are underscores).
+    */
+    removeElement(nums, val) {
+        // 2 pointers solution
+        if(nums.length === 0) {
+            return 0;
+        }
+        // 2nd pointer
+        // will track the index that will be overwritten
+        // during a loop
+        let k = 0;
+        for(const n of nums) {
+            // this algo will move the
+            // non val values (n !== val)
+            // to k index (2nd pointer)
+            if(n !== val) {
+                // move nums[i] to k
+                nums[k] = n;
+                k++;
+            }
+            // do not need to move n === val
+        }
+        console.log(nums)
+        return k;
     }
 }

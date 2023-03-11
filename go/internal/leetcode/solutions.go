@@ -540,22 +540,32 @@ func IsValidParentheses(s string) bool {
 }
 
 /*
-	Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The relative order of the elements may be changed.
+    Given an integer array nums and an integer val, remove all occurrences of val 
+    in nums in-place. The relative order of the elements may be changed.
+    Since it is impossible to change the length of the array in some languages, 
+    you must instead have the result be placed in the first part of the array nums. 
+    More formally, if there are k elements after removing the duplicates, 
+    then the first k elements of nums should hold the final result. 
+    It does not matter what you leave beyond the first k elements.
+    Return k after placing the final result in the first k slots of nums.
+    Do not allocate extra space for another array. You must do this by modifying 
+    the input array in-place with O(1) extra memory.
 
-Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array nums. More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.
+    Example 1:
 
-Return k after placing the final result in the first k slots of nums.
-
-Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
-
-Example 1:
-
-Input: nums = [3,2,2,3], val = 3
-Output: 2, nums = [2,2,_,_]
-Explanation: Your function should return k = 2, with the first two elements of nums being 2.
-It does not matter what you leave beyond the returned k (hence they are underscores).
+    Input: nums = [3,2,2,3], val = 3
+    Output: 2, nums = [2,2,_,_]
+    Explanation: Your function should return k = 2, with the first two elements of 
+    nums being 2.
+    It does not matter what you leave beyond the returned k 
+    (hence they are underscores).
 */
 func RemoveElement(nums []int, val int) int {
+	// effiecient 2 pointers solution
+	// 2 pointer technique is keeping
+	// a 2nd pointer along with the
+	// looping one which tracks the
+	// index that will be overwritten
 	if len(nums) == 0 {
 		return 0
 	}
@@ -980,17 +990,29 @@ func SingleNumber(nums []int) int {
 	return 0
 }
 
-/* Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
-
- 
+/*
+	Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
 
 Example 1:
-
 Input: nums = [3,0,1]
 Output: 2
-Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums. */
+Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.
+*/
 func MissingNumber(nums []int) int {
-     return 0
+	// first sort the nums
+	sort.Ints(nums)
+	// loop from 0 to len(nums)
+	for i := range nums {
+		// in each iteration
+		// should be i == nums[i]
+		// if not then it's
+		// the missing number
+		// is i return it
+		if i != nums[i] {
+			return i
+		}
+	}
+	return -1
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
