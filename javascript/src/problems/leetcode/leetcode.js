@@ -224,4 +224,97 @@ export class LeetCode {
         console.log(nums)
         return k;
     }
+
+    /*
+    Given an integer array nums sorted in non-decreasing order, 
+    remove the duplicates in-place such that each unique element appears only once.
+    The relative order of the elements should be kept the same.
+    Since it is impossible to change the length of the array in some languages, 
+    you must instead have the result be placed in the first part of the array nums. More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.
+    Return k after placing the final result in the first k slots of nums.
+    Do not allocate extra space for another array. You must do this by modifying 
+    the input array in-place with O(1) extra memory.
+    
+    Example 1:
+    Input: nums = [1,1,2]
+    Output: 2, nums = [1,2,_]
+    Explanation: Your function should return k = 2, with the first two elements
+    of nums being 1 and 2 respectively.
+    It does not matter what you leave beyond the returned k 
+    (hence they are underscores).
+    */
+    removeDuplicates(nums) {
+        if(nums.length === 0) {
+            return 0;
+        }
+        // this algo will not use any
+        // auxilary ds, instead it will
+        // start from index 1 and check with the
+        // previous/adjacent item if they are same or not
+        // 2nd pointer, also starts from 1
+        let k = 1;
+        for(let i = 1; i < nums.length; i++) {
+            // need to only rearrange
+            // the non duplicate ones
+            // as iterating need to check with
+            // the previous one
+            if(nums[i] !== nums[i - 1]) {
+                // if diff than previous/adjacent
+                // then rearrange
+                nums[k] = nums[i];
+                k++;
+            }
+        }
+        console.log(nums);
+        return k;
+    }
+
+    removeDuplicatesSet(nums) {
+        if(nums.length === 0) {
+            return 0;
+        }
+        // 2nd pointer
+        let k = 0;
+        // need a ds to store duplicates
+        // set will be a good one for this
+        const numSet = new Set();
+        for(const n of nums) {
+            // need to only rearrange
+            // the non duplicate ones
+            if(!numSet.has(n)) {
+                nums[k] = n;
+                k++;
+                numSet.add(n);
+            }
+        }
+        console.log(nums);
+        return k;
+    }
+
+    /*
+    Given an integer array nums sorted in non-decreasing order, 
+    remove some duplicates in-place such that each unique element 
+    appears at most twice. The relative order of the elements should be kept the same.
+    Since it is impossible to change the length of the array in some languages, 
+    you must instead have the result be placed in the first part of the array nums. 
+    More formally, if there are k elements after removing the duplicates, then the 
+    first k elements of nums should hold the final result. It does not matter what 
+    you leave beyond the first k elements.
+    Return k after placing the final result in the first k slots of nums.
+    Do not allocate extra space for another array. You must do this by modifying 
+    the input array in-place with O(1) extra memory.
+
+    Example 1:
+    Input: nums = [1,1,1,2,2,3]
+    Output: 5, nums = [1,1,2,2,3,_]
+    Explanation: Your function should return k = 5, with the first five elements 
+    of nums being 1, 1, 2, 2 and 3 respectively.
+    It does not matter what you leave beyond the returned k 
+    (hence they are underscores).
+    */
+    removeDuplicatesOverTwo(nums) {
+        if(nums.length === 0) {
+            return 0;
+        }
+    }
 }
