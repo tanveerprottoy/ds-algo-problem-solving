@@ -1,16 +1,17 @@
 {
-  "name": "ds-algo-problem-solving",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "type": "module",
-  "scripts": {
-    "start": "node src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "typescript": "^5.0.2"
-  }
+    "name": "ds-algo-problem-solving",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "type": "commonjs",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build-general": "tsc src/problems/general/runner.ts",
+        "start-general": "tsc src/problems/general/runner.ts && node src/problems/general/runner.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "typescript": "^5.0.2"
+    }
 }
