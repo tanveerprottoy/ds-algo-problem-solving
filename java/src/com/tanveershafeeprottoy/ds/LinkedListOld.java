@@ -1,0 +1,38 @@
+package com.tanveershafeeprottoy.ds;
+
+import java.util.Iterator;
+
+public class LinkedListOld<T> implements Iterable<T> {
+
+    private class Node<T> {
+        private T data;
+        private Node<T> next;
+
+        Node(T data, Node<T> next) {
+            this.data = data;
+            this.next = next;
+        }
+    }
+
+    public boolean hasCycle(Node<T> head) {
+        if(head == null) return false;
+        // fast starts from 2nd
+        Node<T> fast = head.next;
+        Node<T> slow = head;
+        while(fast != null && fast.next != null && slow != null) {
+            if(fast == slow) {
+                return true;
+            }
+            // move forward
+            // fast goes two steps
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return false;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
+    }
+}

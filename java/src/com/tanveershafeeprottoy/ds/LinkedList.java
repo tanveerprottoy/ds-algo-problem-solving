@@ -1,6 +1,10 @@
 package com.tanveershafeeprottoy.ds;
 
-public class LinkedList<T> {
+import java.util.Iterator;
+
+public class LinkedList<T> implements Iterable<T> {
+    private int size = 0;
+    private Node<T> head;
 
     private class Node<T> {
         private T data;
@@ -12,20 +16,8 @@ public class LinkedList<T> {
         }
     }
 
-    public boolean hasCycle(Node<T> head) {
-        if(head == null) return false;
-        // fast starts from 2nd
-        Node<T> fast = head.next;
-        Node<T> slow = head;
-        while(fast != null && fast.next != null && slow != null) {
-            if(fast == slow) {
-                return true;
-            }
-            // move forward
-            // fast goes two steps
-            fast = fast.next.next;
-            slow = slow.next;
-        }
-        return false;
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 }
