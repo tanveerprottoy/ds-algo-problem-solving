@@ -12,16 +12,16 @@ func Reverse(arr []int) []int {
 	return arr
 }
 
-func Factorial(n int32) int32 {
+func FactorialInefficient(n int32) int32 {
 	if n < 2 {
 		// stop here, as no need
-		// to calculate 1
+		// to calculate <=1
 		return n
 	}
 	// this algo decreases the
 	// input by 1 and multiply
 	// with n to form the factorial
-	return n * Factorial(n-1)
+	return n * FactorialInefficient(n-1)
 }
 
 func ReverseInt(num int) int {
@@ -86,18 +86,20 @@ func IntFromArray(nums []int) int {
 	return num
 }
 
-func Fibonacci(n int64) int64 {
+func FibonacciInefficient(n int64) int64 {
 	// formula: Fn = Fn-1+Fn-2
-	if n < 2 {
-		// stop at 1, as seq
-		// starts from 1
+	if n <= 1 {
+		// stop at 0 and 1, as seq
+		// starts from 0, 1
 		return n
 	}
 	// this algo calculates
-	// fib seq the n
+	// fib seq to the nth
 	// it decreases the
 	// input by 1 and 2 respectively
 	// then add them up to calcualate
 	// the seq
-	return Fibonacci(n-1) + Fibonacci(n-2)
+	// i.e. f(5) = f(5 - 1) + f(5 - 2)
+	//			 => f(4 - 1) + f(4 - 2)...
+	return FibonacciInefficient(n-1) + FibonacciInefficient(n-2)
 }

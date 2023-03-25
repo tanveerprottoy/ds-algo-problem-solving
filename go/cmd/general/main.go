@@ -14,5 +14,7 @@ func main() {
 	// fmt.Println(general.ReverseIntToArr(124))
 	/* fmt.Println(general.ReverseInt(124))
 	fmt.Println(general.IntFromArray([]int{1, 2, 4})) */
-	fmt.Println(general.Fibonacci(10))
+	fmt.Println(general.FibonacciInefficient(5))
+	fmt.Println(general.FibonacciInefficient(8))
+	fmt.Println(general.FibonacciInefficient(50))
 }
