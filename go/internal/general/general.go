@@ -103,3 +103,26 @@ func FibonacciInefficient(n int64) int64 {
 	//			 => f(4 - 1) + f(4 - 2)...
 	return FibonacciInefficient(n-1) + FibonacciInefficient(n-2)
 }
+
+/*
+		given a number n sum all nonnegative numbers upto n
+		# tips for recursive problem
+	 	1. first think of the simplest possible input, for this
+		prob simplest input is n = 0, the simplest possible input
+		most often play as the base case for the recursive algo
+		2. visaulize the inputs and outputs, write down and form the tree
+		for the recursive algo
+		3. compare hard cases for the larger input with the simpler cases
+		for smaller input, find the pattern in them, in recursive algo
+		often the computation builds upon from smaller to larger blocks
+		4. figure out and generalize the pattern, for this prob
+		will have to calculate sum(n - 1) then add n to it
+		i.e. n + sum(n - 1)
+*/
+func SumNonNegativeNums(n uint32) uint32 {
+	// base case
+	if n == 0 {
+		return n
+	}
+	return n + SumNonNegativeNums(n-1)
+}
