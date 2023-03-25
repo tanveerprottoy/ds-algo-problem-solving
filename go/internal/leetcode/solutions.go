@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds"
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/stack"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
 )
@@ -509,7 +509,7 @@ func IsValidParentheses(s string) bool {
 		"[": "]",
 	}
 	// init the stack
-	brackets := ds.NewStack[string]()
+	brackets := stack.NewStack[string]()
 	for i := range s {
 		char := string(s[i])
 		// check if its opening or

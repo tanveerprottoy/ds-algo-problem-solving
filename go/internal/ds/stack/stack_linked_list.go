@@ -1,4 +1,4 @@
-package ds
+package stack
 
 import (
 	"errors"
@@ -10,8 +10,8 @@ type StackLinkedList[T any] struct {
 	data []T
 }
 
-func NewStackLinkedList[T any]() *Stack[T] {
-	return &Stack[T]{sync.Mutex{}, make([]T, 0)}
+func NewStackLinkedList[T any]() *StackSafe[T] {
+	return &StackSafe[T]{sync.Mutex{}, make([]T, 0)}
 }
 
 func (s *StackLinkedList[T]) Push(v T) {

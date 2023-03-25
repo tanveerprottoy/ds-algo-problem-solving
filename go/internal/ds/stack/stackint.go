@@ -1,7 +1,7 @@
-package ds
+package stack
 
 type StackInt struct {
-	d []int
+	data []int
 }
 
 func NewStackInt() *StackInt {
@@ -9,15 +9,15 @@ func NewStackInt() *StackInt {
 }
 
 func (s *StackInt) IsEmpty() bool {
-	return len(s.d) == 0
+	return len(s.data) < 1
 }
 
 func (s *StackInt) Length() int {
-	return len(s.d)
+	return len(s.data)
 }
 
 func (s *StackInt) Push(v int) {
-	s.d = append(s.d, v)
+	s.data = append(s.data, v)
 }
 
 func (s *StackInt) Pop() int {
@@ -26,7 +26,7 @@ func (s *StackInt) Pop() int {
 	if l == 0 {
 		return res
 	}
-	res = s.d[l-1]
-	s.d = s.d[:l-1]
+	res = s.data[l-1]
+	s.data = s.data[:l-1]
 	return res
 }

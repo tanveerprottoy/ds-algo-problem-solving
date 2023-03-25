@@ -1,4 +1,4 @@
-package ds
+package stack
 
 import (
 	"errors"
@@ -6,30 +6,30 @@ import (
 )
 
 // thread safe with lock
-type Stack[T any] struct {
+type StackSafe[T any] struct {
 	lock sync.Mutex
 	data []T
 }
 
-func NewStack[T any]() *Stack[T] {
-	return &Stack[T]{sync.Mutex{}, make([]T, 0)}
+func NewStackSafe[T any]() *StackSafe[T] {
+	return &StackSafe[T]{sync.Mutex{}, make([]T, 0)}
 }
 
-func (s *Stack[T]) IsEmpty() bool {
-	return len(s.data) == 0
+func (s *StackSafe[T]) IsEmpty() bool {
+	return len(s.data) < 1
 }
 
-func (s *Stack[T]) Length() int {
+func (s *StackSafe[T]) Length() int {
 	return len(s.data)
 }
 
-func (s *Stack[T]) Push(v T) {
+func (s *StackSafe[T]) Push(v T) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	s.data = append(s.data, v)
 }
 
-func (s *Stack[T]) Pop() (T, error) {
+func (s *StackSafe[T]) Pop() (T, error) {
 	var res T
 	s.lock.Lock()
 	defer s.lock.Unlock()
@@ -42,7 +42,7 @@ func (s *Stack[T]) Pop() (T, error) {
 	return res, nil
 }
 
-func (s *Stack[T]) PopAlt() T {
+func (s *StackSafe[T]) PopAlt() T {
 	var res T
 	s.lock.Lock()
 	defer s.lock.Unlock()

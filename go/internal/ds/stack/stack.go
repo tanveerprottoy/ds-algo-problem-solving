@@ -1,31 +1,31 @@
-package ds
+package stack
 
 import (
 	"errors"
 )
 
 // not thread safe
-type StackUnsafe[T any] struct {
+type Stack[T any] struct {
 	data []T
 }
 
-func NewUnsafeStack[T any]() *StackUnsafe[T] {
-	return &StackUnsafe[T]{make([]T, 0)}
+func NewStack[T any]() *Stack[T] {
+	return &Stack[T]{make([]T, 0)}
 }
 
-func (s *StackUnsafe[T]) IsEmpty() bool {
-	return len(s.data) == 0
+func (s *Stack[T]) IsEmpty() bool {
+	return len(s.data) < 1
 }
 
-func (s *StackUnsafe[T]) Length() int {
+func (s *Stack[T]) Length() int {
 	return len(s.data)
 }
 
-func (s *StackUnsafe[T]) Push(v T) {
+func (s *Stack[T]) Push(v T) {
 	s.data = append(s.data, v)
 }
 
-func (s *StackUnsafe[T]) Pop() (T, error) {
+func (s *Stack[T]) Pop() (T, error) {
 	var res T
 	if s.IsEmpty() {
 		return res, errors.New("empty StackUnsafe")
@@ -36,7 +36,7 @@ func (s *StackUnsafe[T]) Pop() (T, error) {
 	return res, nil
 }
 
-func (s *StackUnsafe[T]) PopAlt() T {
+func (s *Stack[T]) PopAlt() T {
 	var res T
 	if s.IsEmpty() {
 		return res
