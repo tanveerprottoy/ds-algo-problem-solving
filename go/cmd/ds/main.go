@@ -8,5 +8,6 @@ func main() {
 	l2 := linkedlist.NewLinkedList(&linkedlist.Node[int]{Val: 3, Nxt: nil})
 	l1 := linkedlist.NewLinkedList(&linkedlist.Node[int]{Val: 2, Nxt: l2.Head})
 	l0 := linkedlist.NewLinkedList(&linkedlist.Node[int]{Val: 1, Nxt: l1.Head})
-	l0.Traverse()
+	// l0.Traverse()
+	l0.TraverseRecur(l0.Head)
 }

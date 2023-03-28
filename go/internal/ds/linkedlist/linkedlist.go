@@ -19,11 +19,20 @@ func (l *LinkedList[T]) Traverse() {
 	}
 }
 
-func (l *LinkedList[T]) Insert(e T) {
+func (l *LinkedList[T]) TraverseRecur(node *Node[T]) {
+	if node.Nxt == nil {
+		return
+	}
+	fmt.Println("val: ", node.Val)
+	fmt.Println("next: ", node.Nxt)
+	l.TraverseRecur(node.Nxt)
+}
+
+func (l *LinkedList[T]) Insert(e T, pos int) {
 
 }
 
-func (l *LinkedList[T]) Search(e T) {
+func (l *LinkedList[T]) Find(e T)  {
 
 }
 
