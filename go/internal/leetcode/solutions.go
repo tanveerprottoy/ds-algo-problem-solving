@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/stack"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
@@ -1025,19 +1026,32 @@ func MissingNumber(nums []int) int {
 /*
 You are given the heads of two sorted linked lists list1 and list2.
 
-Merge the two lists in a one sorted list. The list should be made by splicing together 
+Merge the two lists in a one sorted list. The list should be made by splicing together
 the nodes of the first two lists.
 
 Return the head of the merged linked list.
 */
-func mergeTwoLists(list1, list2 *MergerListNode) *MergerListNode {
+func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
+	if list1 == nil {
+		return list2
+	}
 	tmp0 := list1
 	tmp1 := list2
-	// loop till one of them 
-	for tmp0.Nxt != nil && tmp1.Nxt != nil {
-
+	res := tmp0
+	// loop till one of them
+	for tmp0 != nil && tmp1 != nil {
+		// check and compare both values
+		if tmp0.Val <= tmp1.Val {
+			res.Nxt = tmp0
+			// move to next
+			tmp0 = tmp0.Nxt
+		} else if tmp1.Val <= tmp0.Val {
+			res.Nxt = tmp1
+			// move to next
+			tmp1 = tmp1.Nxt
+		}
 	}
-	return nil
+	return res
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {

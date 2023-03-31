@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/leetcode"
 )
 
@@ -74,5 +73,11 @@ func main() {
 	// fmt.Println(leetcode.MajorityElement([]int{2, 2, 1, 1, 1, 2, 2}))
 	// fmt.Println(leetcode.MajorityElement([]int{1}))
 	// fmt.Println(leetcode.SingleNumber([]int{2, 2, 1}))
-	fmt.Println(leetcode.SingleNumber([]int{4, 1, 2, 1, 2}))
+	// fmt.Println(leetcode.SingleNumber([]int{4, 1, 2, 1, 2}))
+	l3 := linkedlist.NewNode(4, nil)
+	l2 := linkedlist.NewNode(3, l3)
+	l1 := linkedlist.NewNode(2, nil)
+	l0 := linkedlist.NewNode(1, l1)
+	res := leetcode.MergeTwoLists(l0, l2)
+	res.Traverse(res)
 }

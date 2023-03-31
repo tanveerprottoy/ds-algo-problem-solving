@@ -130,19 +130,38 @@ func SumNonNegativeNums(n uint32) uint32 {
 }
 
 func ZipLinkedLists(l1, l2 *linkedlist.Node[int]) *linkedlist.Node[int] {
+	if l1 == nil {
+		return l2
+	}
 	tmp0 := l1
 	tmp1 := l2
+	// res will always start from l1
 	res := l1
 	// use toggler to toggle between two lists
-	// if even read tmp0, tmp1 when odd
+	// if even read tmp1, tmp0 when odd, as res
+	// starts from l1(tmp0), need to read from l2(tmp1)
+	// first
 	toggler := 0
 	// traverse till one of the lists is empty
-	for tmp0.Nxt != nil && tmp1.Nxt != nil {
+	for tmp0 != nil && tmp1 != nil {
 		if toggler%2 == 0 {
-			res.Nxt = tmp0.Nxt
-		} else {
 			res.Nxt = tmp1
+			// move forward
+			tmp1 = tmp1.Nxt
+		} else {
+			res.Nxt = tmp0
+			// move forward
+			tmp0 = tmp0.Nxt
 		}
+		// move res
+		res = res.Nxt
+		// increase toggler
+		toggler += 1
+	}
+	// corner cases
+	// if tmp1 still remains, add it to res
+	if tmp1 != nil {
+		res.Nxt = tmp1
 	}
 	return res
 }

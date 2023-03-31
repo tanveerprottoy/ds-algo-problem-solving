@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/general"
 )
 
@@ -17,6 +16,12 @@ func main() {
 	/* fmt.Println(general.FibonacciInefficient(5))
 	fmt.Println(general.FibonacciInefficient(8))
 	fmt.Println(general.FibonacciInefficient(50)) */
-	fmt.Println(general.SumNonNegativeNums(5))
-	fmt.Println(general.SumNonNegativeNums(10000000))
+	// fmt.Println(general.SumNonNegativeNums(5))
+	// fmt.Println(general.SumNonNegativeNums(10000000))
+	l3 := linkedlist.NewNode(4, nil)
+	l2 := linkedlist.NewNode(3, l3)
+	l1 := linkedlist.NewNode(2, nil)
+	l0 := linkedlist.NewNode(1, l1)
+	res := general.ZipLinkedLists(l0, l2)
+	res.Traverse(res)
 }
