@@ -1022,8 +1022,22 @@ func MissingNumber(nums []int) int {
 	return -1
 }
 
-func mergeTwoLists(list1 *MergerListNode, list2 *MergerListNode) *MergerListNode {
-	
+/*
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists in a one sorted list. The list should be made by splicing together 
+the nodes of the first two lists.
+
+Return the head of the merged linked list.
+*/
+func mergeTwoLists(list1, list2 *MergerListNode) *MergerListNode {
+	tmp0 := list1
+	tmp1 := list2
+	// loop till one of them 
+	for tmp0.Nxt != nil && tmp1.Nxt != nil {
+
+	}
+	return nil
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {

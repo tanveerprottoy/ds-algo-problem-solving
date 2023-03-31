@@ -2,6 +2,8 @@ package general
 
 import (
 	"math"
+
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist"
 )
 
 func Reverse(arr []int) []int {
@@ -125,4 +127,22 @@ func SumNonNegativeNums(n uint32) uint32 {
 		return n
 	}
 	return n + SumNonNegativeNums(n-1)
+}
+
+func ZipLinkedLists(l1, l2 *linkedlist.Node[int]) *linkedlist.Node[int] {
+	tmp0 := l1
+	tmp1 := l2
+	res := l1
+	// use toggler to toggle between two lists
+	// if even read tmp0, tmp1 when odd
+	toggler := 0
+	// traverse till one of the lists is empty
+	for tmp0.Nxt != nil && tmp1.Nxt != nil {
+		if toggler%2 == 0 {
+			res.Nxt = tmp0.Nxt
+		} else {
+			res.Nxt = tmp1
+		}
+	}
+	return res
 }
