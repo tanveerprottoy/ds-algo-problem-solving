@@ -1022,6 +1022,10 @@ func MissingNumber(nums []int) int {
 	return -1
 }
 
+func mergeTwoLists(list1 *MergerListNode, list2 *MergerListNode) *MergerListNode {
+	
+}
+
 func LongestCommonSubsequence(text1 string, text2 string) int {
 	return -1
 }
