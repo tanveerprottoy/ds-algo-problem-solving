@@ -22,6 +22,8 @@ func main() {
 	l2 := linkedlist.NewNode(3, l3)
 	l1 := linkedlist.NewNode(2, nil)
 	l0 := linkedlist.NewNode(1, l1)
-	res := general.ZipLinkedLists(l0, l2)
-	res.Traverse(res)
+	/* res := general.ZipLinkedLists(l0, l2)
+	res.Traverse(res) */
+	res1 := general.ZipLinkedListsRecur(l0, l2)
+	res1.Traverse(res1)
 }

@@ -1035,23 +1035,33 @@ func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 	if list1 == nil {
 		return list2
 	}
+	if list2 == nil {
+		return list1
+	}
+	// result traversal, mutating the list1,
+	// result will be list1
 	tmp0 := list1
-	tmp1 := list2
-	res := tmp0
-	// loop till one of them
+	// list1 traversal, starting point must be
+	// next as tmp0 is assigned to l1
+	tmp1 := list1.Nxt
+	// list2 traversal
+	tmp2 := list2
+	// loop till one of them is null
 	for tmp0 != nil && tmp1 != nil {
 		// check and compare both values
-		if tmp0.Val <= tmp1.Val {
-			res.Nxt = tmp0
-			// move to next
-			tmp0 = tmp0.Nxt
-		} else if tmp1.Val <= tmp0.Val {
-			res.Nxt = tmp1
+		if tmp1.Val <= tmp2.Val {
+			tmp0.Nxt = tmp1
 			// move to next
 			tmp1 = tmp1.Nxt
+		} else if tmp2.Val <= tmp1.Val {
+			tmp0.Nxt = tmp2
+			// move to next
+			tmp2 = tmp2.Nxt
 		}
+		// move tmp2 forward
+		tmp0 = tmp0.Nxt
 	}
-	return res
+	return list1
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
