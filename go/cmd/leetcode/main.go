@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/leetcode"
 )
 
@@ -81,8 +80,9 @@ func main() {
 	res := leetcode.MergeTwoLists(l0, l2)
 	res.Traverse(res) */
 
-	l2 := linkedlist.NewNode(1, nil)
+	/* l2 := linkedlist.NewNode(1, nil)
 	l0 := linkedlist.NewNode(2, nil)
 	res := leetcode.MergeTwoLists(l0, l2)
-	res.Traverse(res)
+	res.Traverse(res) */
+	leetcode.MergeSortedArraysSimple([]int{1,2,3,0,0,0}, 3, []int{2,5,6}, 3)
 }

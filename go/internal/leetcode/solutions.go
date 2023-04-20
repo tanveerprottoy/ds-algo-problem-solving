@@ -1089,20 +1089,78 @@ func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 }
 
 /*
-*
-You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two
-integers m and n, representing the number of elements in nums1 and nums2 respectively.
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order,
+and two integers m and n, representing the number of elements in nums1 and nums2
+respectively.
 
 Merge nums1 and nums2 into a single array sorted in non-decreasing order.
 
-The final sorted array should not be returned by the function, but instead be stored inside the
-array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote
-the elements that should be merged, and the last n elements are set to 0 and should be ignored.
-nums2 has a length of n.
+The final sorted array should not be returned by the function, but instead be
+stored inside the array nums1. To accommodate this, nums1 has a length of m + n,
+where the first m elements denote the elements that should be merged, and the last
+n elements are set to 0 and should be ignored. nums2 has a length of n.
 */
+func MergeSortedArraysSimple(nums1 []int, m int, nums2 []int, n int) {
+	// need to mutate and decorate nums1 as the result
+	if m == 0 {
+		nums1 = nums2
+		return
+	}
+	if n == 0 {
+		return
+	}
+	// first pointer to remember
+	// the last index visited on the 1st arr
+	i := 0
+	// will keep a second pointer to remember
+	// the last index visited on the 2nd arr
+	j := 0
+	tmp := []int{}
+	for i+j < m+n {
+		if nums1[i] <= nums2[j] {
+			// keep the nums1[i] element
+			tmp = append(tmp, nums1[i])
+			// increment i
+			i++
+		} else {
+			// keep the nums2[j] element
+			tmp = append(tmp, nums2[j])
+			// increment j
+			j++
+		}
+	}
+	nums1 = tmp
+	fmt.Print(nums1)
+}
 
-func mergeSortedArrays(nums1 []int, m int, nums2 []int, n int) {
+/*
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order,
+and two integers m and n, representing the number of elements in nums1 and nums2
+respectively.
 
+Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+
+The final sorted array should not be returned by the function, but instead be
+stored inside the array nums1. To accommodate this, nums1 has a length of m + n,
+where the first m elements denote the elements that should be merged, and the last
+n elements are set to 0 and should be ignored. nums2 has a length of n.
+*/
+func MergeSortedArrays(nums1 []int, m int, nums2 []int, n int) {
+	// need to mutate and decorate nums1 as the result
+	if m == 0 {
+		nums1 = nums2
+		return
+	}
+	if n == 0 {
+		return
+	}
+	// will keep a second pointer to remember
+	// the last index visited on the 2nd arr
+	// j := 0
+	// nums1 has len of m + n
+	for i := 0; i < m+n; i++ {
+		// if nums1[i]
+	}
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
