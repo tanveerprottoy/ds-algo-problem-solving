@@ -1038,16 +1038,33 @@ func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 	if list2 == nil {
 		return list1
 	}
-	// result traversal, mutating the list1,
-	// result will be list1
-	tmp0 := list1
-	// list1 traversal, starting point must be
-	// next as tmp0 is assigned to l1
-	tmp1 := list1.Nxt
-	// list2 traversal
-	tmp2 := list2
+	// check which has the smaller value at first,
+	// that will be the starting list
+	// will mutate the starting list, store & traverse with tmp0
+	// result will be starting list
+	var tmp0 *linkedlist.Node[int]
+	var tmp1 *linkedlist.Node[int]
+	var tmp2 *linkedlist.Node[int]
+	var res *linkedlist.Node[int]
+	if list1.Val <= list2.Val {
+		tmp0 = list1
+		// list1 traversal, starting point must be
+		// next as tmp0 is assigned to l1
+		tmp1 = list1.Nxt
+		// list2 traversal
+		tmp2 = list2
+		res = list1
+	} else {
+		tmp0 = list2
+		// list2 traversal, starting point must be
+		// next as tmp0 is assigned to l2
+		tmp1 = list2.Nxt
+		// list1 traversal
+		tmp2 = list1
+		res = list2
+	}
 	// loop till one of them is null
-	for tmp0 != nil && tmp1 != nil {
+	for tmp1 != nil && tmp2 != nil {
 		// check and compare both values
 		if tmp1.Val <= tmp2.Val {
 			tmp0.Nxt = tmp1
@@ -1058,10 +1075,34 @@ func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 			// move to next
 			tmp2 = tmp2.Nxt
 		}
-		// move tmp2 forward
+		// move list1 forward
 		tmp0 = tmp0.Nxt
 	}
-	return list1
+	// handle if any remaining items are there
+	if tmp1 != nil {
+		tmp0.Nxt = tmp1
+	}
+	if tmp2 != nil {
+		tmp0.Nxt = tmp2
+	}
+	return res
+}
+
+/*
+*
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two
+integers m and n, representing the number of elements in nums1 and nums2 respectively.
+
+Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+
+The final sorted array should not be returned by the function, but instead be stored inside the
+array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote
+the elements that should be merged, and the last n elements are set to 0 and should be ignored.
+nums2 has a length of n.
+*/
+
+func mergeSortedArrays(nums1 []int, m int, nums2 []int, n int) {
+
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {

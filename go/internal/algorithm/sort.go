@@ -1,8 +1,26 @@
 package algorithm
 
 func BubbleSort(arr []int) []int {
-	l := len(arr)
-	for i := 0; i < l; i++ {
+	for i := 0; i < len(arr); i++ {
+		for j := 0; j < i-1; j++ {
+			// this loop rearranges
+			// the array
+			// swap arr[j] with arr[j+1] if arr[j] > arr[j+1]
+			if arr[j] > arr[j+1] {
+				// store arr[j]
+				tmp := arr[j]
+				// set arr[j] to arr[j+1]
+				arr[j] = arr[j+1]
+				// set previous arr[j] to arr[j+1]
+				arr[j+1] = tmp
+			}
+		}
+	}
+	return arr
+}
+
+func InsertionSort(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
 		for j := 0; j < i-1; j++ {
 			// this loop rearranges
 			// the array
@@ -20,4 +38,8 @@ func BubbleSort(arr []int) []int {
 		}
 	}
 	return arr
+}
+
+func SelectionSort(arr []int) []int {
+	return int[]]{}
 }
