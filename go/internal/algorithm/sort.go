@@ -41,5 +41,5 @@ func InsertionSort(arr []int) []int {
 }
 
 func SelectionSort(arr []int) []int {
-	return int[]]{}
+	return []int{}
 }
