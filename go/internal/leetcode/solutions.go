@@ -1050,7 +1050,7 @@ func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 		tmp0 = list1
 		// list1 traversal, starting point must be
 		// next as tmp0 is assigned to l1
-		tmp1 = list1.Nxt
+		tmp1 = list1.Next
 		// list2 traversal
 		tmp2 = list2
 		res = list1
@@ -1058,7 +1058,7 @@ func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 		tmp0 = list2
 		// list2 traversal, starting point must be
 		// next as tmp0 is assigned to l2
-		tmp1 = list2.Nxt
+		tmp1 = list2.Next
 		// list1 traversal
 		tmp2 = list1
 		res = list2
@@ -1067,23 +1067,23 @@ func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 	for tmp1 != nil && tmp2 != nil {
 		// check and compare both values
 		if tmp1.Val <= tmp2.Val {
-			tmp0.Nxt = tmp1
+			tmp0.Next = tmp1
 			// move to next
-			tmp1 = tmp1.Nxt
+			tmp1 = tmp1.Next
 		} else if tmp2.Val <= tmp1.Val {
-			tmp0.Nxt = tmp2
+			tmp0.Next = tmp2
 			// move to next
-			tmp2 = tmp2.Nxt
+			tmp2 = tmp2.Next
 		}
 		// move list1 forward
-		tmp0 = tmp0.Nxt
+		tmp0 = tmp0.Next
 	}
 	// handle if any remaining items are there
 	if tmp1 != nil {
-		tmp0.Nxt = tmp1
+		tmp0.Next = tmp1
 	}
 	if tmp2 != nil {
-		tmp0.Nxt = tmp2
+		tmp0.Next = tmp2
 	}
 	return res
 }
@@ -1117,20 +1117,24 @@ func MergeSortedArraysSimple(nums1 []int, m int, nums2 []int, n int) {
 	j := 0
 	tmp := []int{}
 	for i+j < m+n {
-		if nums1[i] <= nums2[j] {
+		// only operate on nums1 when i < m
+		if i < m && nums1[i] <= nums2[j] {
 			// keep the nums1[i] element
 			tmp = append(tmp, nums1[i])
 			// increment i
 			i++
 		} else {
-			// keep the nums2[j] element
-			tmp = append(tmp, nums2[j])
-			// increment j
-			j++
+			// only operate on nums2 when j < n
+			if j < n {
+				// keep the nums2[j] element
+				tmp = append(tmp, nums2[j])
+				// increment j
+				j++
+			}
 		}
 	}
 	nums1 = tmp
-	fmt.Print(nums1)
+	fmt.Println(nums1)
 }
 
 /*
@@ -1149,18 +1153,168 @@ func MergeSortedArrays(nums1 []int, m int, nums2 []int, n int) {
 	// need to mutate and decorate nums1 as the result
 	if m == 0 {
 		nums1 = nums2
+		fmt.Println(nums1)
 		return
 	}
 	if n == 0 {
 		return
 	}
-	// will keep a second pointer to remember
-	// the last index visited on the 2nd arr
-	// j := 0
-	// nums1 has len of m + n
-	for i := 0; i < m+n; i++ {
-		// if nums1[i]
+	// will start from the last of num1
+	// as it will be easier to shift from last
+	// will use 3 pointers
+	// i to keep track of nums1
+	// j to keep track of nums2
+	// k to keep track of last of nums1 where
+	// inserting values will be started
+	// all of them will start from last
+	i, j, k := m-1, n-1, (m+n)-1
+	for i >= 0 && j >= 0 {
+		if nums1[i] >= nums2[j] {
+			// store nums1[i] on k
+			nums1[k] = nums1[i]
+			// move i 1 place backward
+			i--
+		} else {
+			nums1[k] = nums2[j]
+			// move j 1 place backward
+			j--
+		}
+		// move k 1 place backward
+		k--
 	}
+	fmt.Println(nums1)
+}
+
+func MergeSortedArraysForDLC(nums1 []int, m int, nums2 []int, n int) {
+	// need to mutate and decorate nums1 as the result
+	// will start from the last of num1
+	// as it will be easier to shift from last
+	// will use 3 pointers
+	// i to keep track of nums1
+	// j to keep track of nums2
+	// k to keep track of last of nums1 where
+	// inserting values will be started
+	// all of them will start from last
+	i, j, k := m-1, n-1, (m+n)-1
+	for i >= 0 && j >= 0 {
+		if nums1[i] >= nums2[j] {
+			// store nums1[i] on k
+			nums1[k] = nums1[i]
+			// move i 1 place backward
+			i--
+		} else {
+			nums1[k] = nums2[j]
+			// move j 1 place backward
+			j--
+		}
+		// move k 1 place backward
+		k--
+	}
+	// will need to check for leftovers
+	// as for i >= 0 the loop will break
+	// j might still be j >= 0
+	for j >= 0 {
+		// store the remainder of nums2
+		nums1[k] = nums2[j]
+		j--
+		k--
+	}
+	fmt.Println(nums1)
+}
+
+/*
+Given an integer array nums sorted in non-decreasing order, return an array of the squares
+of each number sorted in non-decreasing order. Example 1:
+Input: nums = [-4,-1,0,3,10]
+Output: [0,1,9,16,100]
+Explanation: After squaring, the array becomes [16,1,0,9,100].
+After sorting, it becomes [0,1,9,16,100].
+Example 2:
+Input: nums = [-7,-3,2,3,11]
+Output: [4,9,9,49,121]
+*/
+func SortedSquaresSimple(nums []int) []int {
+	for i := range nums {
+		// calculate and store the sqaure of the element
+		nums[i] = nums[i] * nums[i]
+	}
+	sort.Ints(nums)
+	return nums
+}
+
+/*
+Given an integer array nums sorted in non-decreasing order, return an array of the squares
+of each number sorted in non-decreasing order. Example 1:
+Input: nums = [-4,-1,0,3,10]
+Output: [0,1,9,16,100]
+Explanation: After squaring, the array becomes [16,1,0,9,100].
+After sorting, it becomes [0,1,9,16,100].
+Example 2:
+Input: nums = [-7,-3,2,3,11]
+Output: [4,9,9,49,121]
+*/
+func SortedSquares(nums []int) []int {
+	res := make([]int, len(nums))
+	// will use 2 pointers to the left
+	// and to the right
+	// initial smallest side
+	i := 0
+	// initial largest side
+	j := len(nums) - 1
+	// new array tracker
+	// which will add element
+	// from last
+	k := j
+	// iterate till left <= right
+	for i <= j {
+		// create the square first
+		// for both ends
+		// compare them and set the largest
+		// val to the right
+		if nums[i]*nums[i] >= nums[j]*nums[j] {
+			res[k] = nums[i] * nums[i]
+			// increment i
+			i++
+		} else {
+			res[k] = nums[j] * nums[j]
+			// decrement j
+			j--
+		}
+		// decrement k res tracker index
+		k--
+	}
+	return res
+}
+
+/*
+Given the head of a sorted linked list, delete all duplicates such that each element appears only once.
+Return the linked list sorted as well.
+ex1: Input: head = [1,1,2]
+Output: [1,2]
+ex2: Input: head = [1,1,2,3,3]
+Output: [1,2,3]
+*/
+func DeleteDuplicates(head *linkedlist.Node[int]) *linkedlist.Node[int] {
+	// corner case
+	if head.Next == nil {
+		return head
+	}
+	// will mutate the head
+	// result will be head
+	// start from the 2nd item
+	tmp := head
+	// traverse the list
+	for tmp != nil {
+		// as the list is sorted check with
+		// next val
+		// if they are equal remove the next
+		if tmp.Val == tmp.Next.Val {
+			// will remove the tmp.next reference
+			// from tmp, and set tmp.next to tmp.next.next
+			tmp.Next = tmp.Next.Next
+		}
+	}
+	return head
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {

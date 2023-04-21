@@ -12,35 +12,35 @@ func NewLinkedList[T any](head *Node[T]) *LinkedList[T] {
 
 func (l *LinkedList[T]) Traverse() {
 	tmp := l.Head
-	for tmp.Nxt != nil {
+	for tmp.Next != nil {
 		fmt.Println("val: ", tmp.Val)
-		fmt.Println("next: ", tmp.Nxt)
-		tmp = tmp.Nxt
+		fmt.Println("next: ", tmp.Next)
+		tmp = tmp.Next
 	}
 }
 
 func (l *LinkedList[T]) TraverseRecur(node *Node[T]) {
-	if node.Nxt == nil {
+	if node.Next == nil {
 		return
 	}
 	fmt.Println("val: ", node.Val)
-	fmt.Println("next: ", node.Nxt)
-	l.TraverseRecur(node.Nxt)
+	fmt.Println("next: ", node.Next)
+	l.TraverseRecur(node.Next)
 }
 
 func (l *LinkedList[T]) InsertAtHead(e T) {
-	nxt := l.Head.Nxt
+	nxt := l.Head.Next
 	n := NewNode(e, nxt)
 	l.Head = n
 }
 
 func (l *LinkedList[T]) InsertAtTail(e T) {
 	tmp := l.Head
-	for tmp.Nxt != nil {
-		tmp = tmp.Nxt
+	for tmp.Next != nil {
+		tmp = tmp.Next
 	}
 	n := NewNode(e, nil)
-	tmp.Nxt = n
+	tmp.Next = n
 }
 
 func (l *LinkedList[T]) InsertAtPosition(e T, pos int) {

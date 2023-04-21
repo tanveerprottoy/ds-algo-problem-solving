@@ -141,7 +141,7 @@ func ZipLinkedLists(l1, l2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 	tmp0 := l1
 	// l1 traversal, starting point must be
 	// next as tmp0 is assigned to l1
-	tmp1 := l1.Nxt
+	tmp1 := l1.Next
 	// l2 traversal
 	tmp2 := l2
 	// use toggler to toggle between two lists
@@ -151,27 +151,27 @@ func ZipLinkedLists(l1, l2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 	// traverse till one of the lists is empty
 	for tmp0 != nil && tmp1 != nil {
 		if toggler%2 == 0 {
-			tmp0.Nxt = tmp2
+			tmp0.Next = tmp2
 			// move forward
-			tmp2 = tmp2.Nxt
+			tmp2 = tmp2.Next
 		} else {
-			tmp0.Nxt = tmp1
+			tmp0.Next = tmp1
 			// move forward
-			tmp1 = tmp1.Nxt
+			tmp1 = tmp1.Next
 		}
 		// move tmp2
-		tmp0 = tmp0.Nxt
+		tmp0 = tmp0.Next
 		// increase toggler
 		toggler += 1
 	}
 	// corner cases
 	// if tmp1 still remains, add it to tmp0
 	if tmp1 != nil {
-		tmp0.Nxt = tmp1
+		tmp0.Next = tmp1
 	}
 	// if tmp2 still remains, add it to tmp0
 	if tmp2 != nil {
-		tmp0.Nxt = tmp2
+		tmp0.Next = tmp2
 	}
 	return l1
 }
@@ -188,11 +188,11 @@ func ZipLinkedListsRecur(l1, l2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 		return l1
 	}
 	// keep l1.nxt
-	nxt0 := l1.Nxt
+	nxt0 := l1.Next
 	// keep l1.nxt
-	nxt1 := l2.Nxt
+	nxt1 := l2.Next
 	// set l1.nxt = l2
-	l1.Nxt = l2
-	l2.Nxt = ZipLinkedListsRecur(nxt0, nxt1)
+	l1.Next = l2
+	l2.Next = ZipLinkedListsRecur(nxt0, nxt1)
 	return l1
 }
