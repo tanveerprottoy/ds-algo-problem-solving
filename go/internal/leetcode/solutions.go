@@ -1296,15 +1296,14 @@ Output: [1,2,3]
 */
 func DeleteDuplicates(head *linkedlist.Node[int]) *linkedlist.Node[int] {
 	// corner case
-	if head.Next == nil {
+	if head == nil || head.Next == nil {
 		return head
 	}
 	// will mutate the head
 	// result will be head
-	// start from the 2nd item
 	tmp := head
 	// traverse the list
-	for tmp != nil {
+	for tmp != nil && tmp.Next != nil {
 		// as the list is sorted check with
 		// next val
 		// if they are equal remove the next
@@ -1312,9 +1311,52 @@ func DeleteDuplicates(head *linkedlist.Node[int]) *linkedlist.Node[int] {
 			// will remove the tmp.next reference
 			// from tmp, and set tmp.next to tmp.next.next
 			tmp.Next = tmp.Next.Next
+			// need to continue the loop, as the newly changed
+			// tmp.next might be equal to tmp val
+		} else {
+			// will only move to next node when 2 adjacent nodes
+			// do not match, as the current node might match with
+			// with the changed next node, need to check it first
+			// move to next node
+			tmp = tmp.Next
 		}
 	}
 	return head
+}
+
+/*
+Given the head of a sorted linked list, delete all nodes that have duplicate numbers,
+leaving only distinct numbers from the original list. Return the linked list sorted as well.
+*/
+func DeleteDuplicates2(head *linkedlist.Node[int]) *linkedlist.Node[int] {
+	// corner case
+	if head == nil || head.Next == nil {
+		return head
+	}
+	// store the distinct node
+	dummy := *linkedlist.NewNode(0, head)
+	// will return dummy, so will traverse with
+	// the head, no need for tmp reference
+	// traverse the list
+	for head != nil && head.Next != nil {
+		// as the list is sorted check with
+		// next val
+		if head.Val == head.Next.Val {
+			// traverse & look for further non distinct values
+			for head != nil && head.Next != nil && head.Val == head.Next.Val {
+				head = head.Next
+			}
+			// next distinct node found
+			// link to dummy
+			dummy.Next = head.Next
+		} else {
+			// move dummy pointer, as it's distinct node
+			dummy.Next = head
+		}
+		// move head
+		head = head.Next
+	}
+	return dummy.Next
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {

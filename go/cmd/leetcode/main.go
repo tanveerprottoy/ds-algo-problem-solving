@@ -93,11 +93,34 @@ func main() {
 	leetcode.MergeSortedArraysForDLC([]int{0}, 0, []int{1}, 1) */
 	// fmt.Println(leetcode.SortedSquares([]int{-4, -1, 0, 3, 10}))
 	/* Input: head = [1,1,2]
-Output: [1,2]
-	Input: head = [1,1,2,3,3]
-Output: [1,2,3] */
-	l2 := linkedlist.NewNode(1, nil)
-	l0 := linkedlist.NewNode(2, nil)
-	res := leetcode.MergeTwoLists(l0, l2)
+	Output: [1,2]
+		Input: head = [1,1,2,3,3]
+	Output: [1,2,3] */
+	/* l2 := linkedlist.NewNode(2, nil)
+	l1 := linkedlist.NewNode(1, l2)
+	l0 := linkedlist.NewNode(1, l1)
+	res := leetcode.DeleteDuplicates(l0)
+	res.Traverse(res)
+
+	l4 := linkedlist.NewNode(3, nil)
+	l3 := linkedlist.NewNode(3, l4)
+	l2 = linkedlist.NewNode(2, l3)
+	l1 = linkedlist.NewNode(1, l2)
+	l0 = linkedlist.NewNode(1, l1)
+	res = leetcode.DeleteDuplicates(l0)
+	res.Traverse(res)
+
+	l2 = linkedlist.NewNode(1, nil)
+	l1 = linkedlist.NewNode(1, l2)
+	l0 = linkedlist.NewNode(1, l1)
+	res = leetcode.DeleteDuplicates(l0)
+	res.Traverse(res) */
+
+	l4 := linkedlist.NewNode(3, nil)
+	l3 := linkedlist.NewNode(3, l4)
+	l2 := linkedlist.NewNode(1, l3)
+	l1 := linkedlist.NewNode(1, l2)
+	l0 := linkedlist.NewNode(1, l1)
+	res := leetcode.DeleteDuplicates2(l0)
 	res.Traverse(res)
 }
