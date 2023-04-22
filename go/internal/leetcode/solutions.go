@@ -1334,7 +1334,10 @@ func DeleteDuplicates2(head *linkedlist.Node[int]) *linkedlist.Node[int] {
 		return head
 	}
 	// store the distinct node
-	dummy := *linkedlist.NewNode(0, head)
+	// dummy := *linkedlist.NewNode(0, head)
+	dummy := head
+	// distinct value pointer
+	tmp := dummy
 	// will return dummy, so will traverse with
 	// the head, no need for tmp reference
 	// traverse the list
@@ -1348,15 +1351,15 @@ func DeleteDuplicates2(head *linkedlist.Node[int]) *linkedlist.Node[int] {
 			}
 			// next distinct node found
 			// link to dummy
-			dummy.Next = head.Next
+			tmp.Next = head.Next
 		} else {
 			// move dummy pointer, as it's distinct node
-			dummy.Next = head
+			tmp = tmp.Next
 		}
 		// move head
 		head = head.Next
 	}
-	return dummy.Next
+	return dummy
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
