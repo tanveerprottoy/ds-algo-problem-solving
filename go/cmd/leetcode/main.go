@@ -1,8 +1,6 @@
 package main
 
 import (
-	// "fmt"
-
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/leetcode"
 )
@@ -123,4 +121,7 @@ func main() {
 	l0 := linkedlist.NewNode(1, l1)
 	res := leetcode.DeleteDuplicates2(l0)
 	res.Traverse(res)
+
+/* 	fmt.Println(leetcode.AddBinary("11", "1"))
+	fmt.Println(leetcode.AddBinary("1010", "1011")) */
 }

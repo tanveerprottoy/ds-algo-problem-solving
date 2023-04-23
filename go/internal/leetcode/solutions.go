@@ -1334,10 +1334,10 @@ func DeleteDuplicates2(head *linkedlist.Node[int]) *linkedlist.Node[int] {
 		return head
 	}
 	// store the distinct node
-	// dummy := *linkedlist.NewNode(0, head)
-	dummy := head
+	dummy := *linkedlist.NewNode(0, head)
+	// dummy := head
 	// distinct value pointer
-	tmp := dummy
+	tmp := &dummy
 	// will return dummy, so will traverse with
 	// the head, no need for tmp reference
 	// traverse the list
@@ -1359,7 +1359,52 @@ func DeleteDuplicates2(head *linkedlist.Node[int]) *linkedlist.Node[int] {
 		// move head
 		head = head.Next
 	}
-	return dummy
+	return dummy.Next
+}
+
+/*
+Given two binary strings a and b, return their sum as a binary string.
+Example 1:
+Input: a = "11", b = "1"
+Output: "100"
+Example 2:
+
+Input: a = "1010", b = "1011"
+Output: "10101"
+*/
+func AddBinary(a string, b string) string {
+	if len(b) == 0 {
+		return a
+	}
+	if len(a) == 0 {
+		return b
+	}
+	carr := "0"
+	res := ""
+	for i := len(a) - 1; i >= 0; i-- {
+		if string(a[i]) == "1" && string(b[i]) == "1" {
+			carr = "1"
+			res += "0"
+		} else if string(a[i]) == "1" || string(b[i]) == "1" {
+			// check carry
+			if carr == "1" {
+				res += "0"
+			} else {
+				res += "1"
+			}
+		} else {
+			// both are zero
+			// check carry
+			if carr == "1" {
+				res += "1"
+				// reset carry to 0
+				carr = "0"
+			} else {
+				res += "0"
+			}
+		}
+	}
+	return res
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
