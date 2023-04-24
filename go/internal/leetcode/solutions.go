@@ -1379,32 +1379,106 @@ func AddBinary(a string, b string) string {
 	if len(a) == 0 {
 		return b
 	}
-	carr := "0"
+	carr := 0
 	res := ""
-	for i := len(a) - 1; i >= 0; i-- {
-		if string(a[i]) == "1" && string(b[i]) == "1" {
-			carr = "1"
-			res += "0"
-		} else if string(a[i]) == "1" || string(b[i]) == "1" {
-			// check carry
-			if carr == "1" {
-				res += "0"
-			} else {
-				res += "1"
-			}
-		} else {
-			// both are zero
-			// check carry
-			if carr == "1" {
-				res += "1"
-				// reset carry to 0
-				carr = "0"
-			} else {
-				res += "0"
-			}
+	// will use two pointers
+	// i = len(a) - 1
+	// j = len(b) - 1
+	i := len(a) - 1
+	j := len(b) - 1
+	// loop till both of them are not >= 0
+	for i >= 0 || j >= 0 {
+		// need to convert the str to int
+		// build up from there
+		// initial value will be 0
+		val0 := 0
+		val1 := 0
+		if i >= 0 {
+			// only access array if it's index is valid
+			val0, _ = strconv.Atoi(string(a[i]))
 		}
+		if j >= 0 {
+			// only access array if it's index is valid
+			val1, _ = strconv.Atoi(string(b[j]))
+		}
+		// max possible value
+		// 1 + 1 + 1 = 3
+		total := val0 + val1 + carr
+		// digit will be mod 2
+		// as its binary
+		// 3 % 2 = 1
+		// 2 % 2 = 0
+		// 1 % 2 = 1
+		digit := total % 2
+		// prepend to res
+		res = fmt.Sprint(digit) + res
+		// carry will be divided by 2
+		// as its binary
+		// 3 / 2 = 1.5 -> int 1
+		// 2 / 2 = 1
+		// 1 / 2 = 0.5 -> int 0
+		carr = total / 2
+		i--
+		j--
+	}
+	// carry might be 1 after the loop
+	// check and add if its 1
+	if carr > 0 {
+		res = "1" + res
 	}
 	return res
+}
+
+/*
+Given head, the head of a linked list, determine if the linked list has a cycle in it.
+There is a cycle in a linked list if there is some node in the list that can be
+reached again by continuously following the next pointer. Internally, pos is used
+to denote the index of the node that tail's next pointer is connected to.
+Note that pos is not passed as a parameter.
+Return true if there is a cycle in the linked list. Otherwise, return false.
+*/
+func HasCycleSimple(head *linkedlist.Node[int]) bool {
+	// the linked list is circular when
+	// If any node seems to be pointing towards the head or starting node
+	// If no node is pointing to null.
+	tmp := head
+	// iterate till pointer is not null
+	for tmp != nil {
+		// check if next node points to head
+		if tmp.Next == head {
+			// it has completed a cycle, has cycle
+			return true
+		}
+		tmp = tmp.Next
+	}
+	return false
+}
+
+/*
+Given head, the head of a linked list, determine if the linked list has a cycle in it.
+There is a cycle in a linked list if there is some node in the list that can be
+reached again by continuously following the next pointer. Internally, pos is used
+to denote the index of the node that tail's next pointer is connected to.
+Note that pos is not passed as a parameter.
+Return true if there is a cycle in the linked list. Otherwise, return false.
+*/
+func HasCycle(head *linkedlist.Node[int]) bool {
+	// Floyd's Algorithm
+	// Also called Tortoise and hare algorithm
+	// the linked list is circular when
+	// If any node seems to be pointing towards the head or starting node
+	// If no node is pointing to null.
+	tmp := head
+	// iterate till pointer is not null
+	// && tmp != head, so the loop will
+	// stop when pointer is null or tmp == head
+	for tmp != nil && tmp != head {
+
+	}
+	// check and return if tmp == head
+	// as the loop might stop for non cycle list
+	// tmp == nil
+	return tmp == head
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {

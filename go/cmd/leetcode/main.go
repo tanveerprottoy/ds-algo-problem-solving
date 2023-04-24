@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/leetcode"
 )
@@ -114,14 +116,16 @@ func main() {
 	res = leetcode.DeleteDuplicates(l0)
 	res.Traverse(res) */
 
-	l4 := linkedlist.NewNode(3, nil)
+	/* l4 := linkedlist.NewNode(3, nil)
 	l3 := linkedlist.NewNode(3, l4)
 	l2 := linkedlist.NewNode(1, l3)
 	l1 := linkedlist.NewNode(1, l2)
 	l0 := linkedlist.NewNode(1, l1)
 	res := leetcode.DeleteDuplicates2(l0)
-	res.Traverse(res)
+	res.Traverse(res) */
 
-/* 	fmt.Println(leetcode.AddBinary("11", "1"))
-	fmt.Println(leetcode.AddBinary("1010", "1011")) */
+	// fmt.Println(leetcode.AddBinary("11", "1"))
+	// fmt.Println(leetcode.AddBinary("10", "1011"))
+	l0 := linkedlist.NewNode(1, nil)
+	fmt.Println(leetcode.HasCycleSimple(l0))
 }
