@@ -1466,19 +1466,26 @@ func HasCycle(head *linkedlist.Node[int]) bool {
 	// Floyd's Algorithm
 	// Also called Tortoise and hare algorithm
 	// the linked list is circular when
-	// If any node seems to be pointing towards the head or starting node
-	// If no node is pointing to null.
-	tmp := head
-	// iterate till pointer is not null
-	// && tmp != head, so the loop will
-	// stop when pointer is null or tmp == head
-	for tmp != nil && tmp != head {
-
+	// fast & and slow meets at certain step
+	// fast will catch up to slow eventually if
+	// the linked list has cycle
+	fast, slow := head, head
+	// iterate till fast != nil && fast.Next != nil && slow != nil
+	// it will only stop when 
+	for fast != nil && fast.Next != nil && slow != nil {
+		// slow 1 step
+		slow = slow.Next
+		// fast 2 steps
+		fast = fast.Next.Next
+		// check if fast and slow are equal
+		if fast == slow {
+			// cycle found
+			return true
+		}
 	}
-	// check and return if tmp == head
-	// as the loop might stop for non cycle list
-	// tmp == nil
-	return tmp == head
+	// cycle was not found
+	// loop finished
+	return false
 }
 
 func LongestCommonSubsequence(text1 string, text2 string) int {
