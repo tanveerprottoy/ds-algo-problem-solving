@@ -86,16 +86,19 @@ func InsertionSort(arr []int) []int {
 		// store arr[i] in key
 		key := arr[i]
 		// init 2nd pointer j = i - 1
-		// with 
+		// this will compare key with previous values
 		j := i - 1
 		// compare key with all elements in sorted sub list
 		// Compare key with each element on the left of it until
 		// an element smaller than key is found.
+		fmt.Println("outer loop pass: ", arr)
 		for j >= 0 && key < arr[j] {
+			fmt.Println("inner loop pass: ", arr)
 			// Shift all the elements in the sorted sub-list
 			// that is greater than the value to be sorted
 			arr[j+1] = arr[j]
 			j--
+			fmt.Println("inner loop pass after swap: ", arr)
 		}
 		// Place key at after the element just smaller than it.
 		// Insert the value
