@@ -2,6 +2,13 @@ package algorithm
 
 import "fmt"
 
+/*
+Bubble sort is a sorting algorithm that compares two adjacent
+elements and swaps them until they are in the intended order.
+Just like the movement of air bubbles in the water that rise
+up to the surface, each element of the array move to the end
+in each iteration. Therefore, it is called a bubble sort.
+*/
 func BubbleSort(arr []int) []int {
 	for i := 0; i < len(arr); i++ {
 		// outer loop is for access each array element
@@ -80,19 +87,31 @@ func BubbleSortOpt(arr []int) []int {
 	return arr
 }
 
+/*
+Insertion sort is a sorting algorithm that places an unsorted
+element at its suitable place in each iteration.
+Insertion sort works similarly as we sort cards in our
+hand in a card game.
+We assume that the first card is already sorted then,
+we select an unsorted card. If the unsorted card is
+greater than the card in hand, it is placed on the
+right otherwise, to the left. In the same way, other
+unsorted cards are taken and put in their right place.
+*/
 func InsertionSort(arr []int) []int {
 	// starts from 2nd element
 	for i := 1; i < len(arr); i++ {
 		// store arr[i] in key
 		key := arr[i]
 		// init 2nd pointer j = i - 1
-		// this will compare key with previous values
+		// this will compare key with values left side of it
 		j := i - 1
 		// compare key with all elements in sorted sub list
-		// Compare key with each element on the left of it until
-		// an element smaller than key is found.
+		// sorted sub list is every item left side of the key
 		fmt.Println("outer loop pass: ", arr)
 		for j >= 0 && key < arr[j] {
+			// Compare key with each element on the left of it
+			// an element smaller than key is found.
 			fmt.Println("inner loop pass: ", arr)
 			// Shift all the elements in the sorted sub-list
 			// that is greater than the value to be sorted
@@ -101,7 +120,8 @@ func InsertionSort(arr []int) []int {
 			fmt.Println("inner loop pass after swap: ", arr)
 		}
 		// Place key at after the element just smaller than it.
-		// Insert the value
+		// Insert the value, j will be in the position where
+		// item before is is smaller than k
 		arr[j+1] = key
 	}
 	return arr
@@ -121,6 +141,25 @@ func SelectionSort(arr []int) []int {
 		tmp := arr[i]
 		arr[i] = arr[minIdx]
 		arr[minIdx] = tmp
+	}
+	return arr
+}
+
+func Bubble(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
+		// outer
+		for j := 0; j < len(arr)-i-1; j++ {
+			// inner
+			// this takes the largest value to the right end
+			// with every completion pass
+			// check adjacent values
+			if arr[j] > arr[j+1] {
+				// shift
+				tmp := arr[j]
+				arr[j] = arr[j+1]
+				arr[j+1] = tmp
+			}
+		}
 	}
 	return arr
 }
