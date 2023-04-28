@@ -87,6 +87,20 @@ func BubbleSortOpt(arr []int) []int {
 	return arr
 }
 
+func BubbleSortDesc(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
+		for j := 0; j < len(arr)-i-1; j++ {
+			if arr[j] < arr[j+1] {
+				// shift
+				tmp := arr[j]
+				arr[j] = arr[j+1]
+				arr[j+1] = tmp
+			}
+		}
+	}
+	return arr
+}
+
 /*
 Insertion sort is a sorting algorithm that places an unsorted
 element at its suitable place in each iteration.
@@ -127,26 +141,54 @@ func InsertionSort(arr []int) []int {
 	return arr
 }
 
+func InsertionSortDesc(arr []int) []int {
+	for i := 1; i < len(arr); i++ {
+		key := arr[i]
+		j := i - 1
+		for j >= 0 && key > arr[j] {
+			arr[j+1] = arr[j]
+			j--
+		}
+		arr[j+1] = key
+	}
+	return arr
+}
+
 /*
-Selection sort is a sorting algorithm that selects the smallest element from 
-an unsorted list in each iteration and places that element at the beginning of 
+Selection sort is a sorting algorithm that selects the smallest element from
+an unsorted list in each iteration and places that element at the beginning of
 the unsorted list.
 */
 func SelectionSort(arr []int) []int {
-	for i := 0; i < len(arr)-1; i++ {
+	for i := 0; i < len(arr); i++ {
+		// set initial min index as current index
 		minIdx := i
 		for j := i + 1; j < len(arr); j++ {
+			// start inner loop from i + 1
+			// this loop finds the smallest value starting from
+			// the adjacent right of the i/minIdx, j := i + 1
+			// find if current arr[j] is smaller than arr[minIdx]
 			// To sort in descending order, change > to < in this line.
-			// Select the minimum element in each loop.
 			if arr[j] < arr[minIdx] {
+				// if arr[j] < arr[minIdx] then set minIdx = j
 				minIdx = j
 			}
 		}
-		// put min at the correct position
+		// swap arr[i] with arr[minIdx]
 		tmp := arr[i]
 		arr[i] = arr[minIdx]
 		arr[minIdx] = tmp
 	}
+	return arr
+}
+
+/*
+Merge Sort is one of the most popular sorting algorithms that is based on the principle 
+of Divide and Conquer Algorithm.
+Here, a problem is divided into multiple sub-problems. Each sub-problem is solved individually.
+Finally, sub-problems are combined to form the final solution.
+*/
+func MergeSort(arr []int) []int {
 	return arr
 }
 
@@ -170,7 +212,7 @@ func Bubble(arr []int) []int {
 }
 
 func Insertion(arr []int) []int {
-	for i := 1; i < len(arr); i ++ {
+	for i := 1; i < len(arr); i++ {
 		key := arr[i]
 		j := i - 1
 		for j >= 0 && key < arr[j] {
@@ -178,6 +220,21 @@ func Insertion(arr []int) []int {
 			j--
 		}
 		arr[j+1] = key
+	}
+	return arr
+}
+
+func Selection(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
+		minIdx := i
+		for j := i + 1; j < len(arr); j++ {
+			if arr[j] < arr[minIdx] {
+				minIdx = j
+			}
+		}
+		tmp := arr[i]
+		arr[i] = arr[minIdx]
+		arr[minIdx] = tmp
 	}
 	return arr
 }
