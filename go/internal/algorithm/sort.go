@@ -127,6 +127,11 @@ func InsertionSort(arr []int) []int {
 	return arr
 }
 
+/*
+Selection sort is a sorting algorithm that selects the smallest element from 
+an unsorted list in each iteration and places that element at the beginning of 
+the unsorted list.
+*/
 func SelectionSort(arr []int) []int {
 	for i := 0; i < len(arr)-1; i++ {
 		minIdx := i
@@ -160,6 +165,19 @@ func Bubble(arr []int) []int {
 				arr[j+1] = tmp
 			}
 		}
+	}
+	return arr
+}
+
+func Insertion(arr []int) []int {
+	for i := 1; i < len(arr); i ++ {
+		key := arr[i]
+		j := i - 1
+		for j >= 0 && key < arr[j] {
+			arr[j+1] = arr[j]
+			j--
+		}
+		arr[j+1] = key
 	}
 	return arr
 }
