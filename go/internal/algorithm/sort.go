@@ -124,11 +124,20 @@ func InsertionSort(arr []int) []int {
 		// sorted sub list is every item left side of the key
 		fmt.Println("outer loop pass: ", arr)
 		for j >= 0 && key < arr[j] {
+			// Shift all the elements in the sorted sub-list
+			// that is greater than the value to be sorted
+			// to the right
+			// so for the first iteration of this inner loop
+			// arr[j+1] = arr[j] swaps item to where current key
+			// is, as j := i - 1
+			// ex: key := arr[1]
+			// j := 1 - 1
+			// arr[0+1] = arr[0]
+			// it places swapped value into index 1
+			// where the key was
 			// Compare key with each element on the left of it
 			// an element smaller than key is found.
 			fmt.Println("inner loop pass: ", arr)
-			// Shift all the elements in the sorted sub-list
-			// that is greater than the value to be sorted
 			arr[j+1] = arr[j]
 			j--
 			fmt.Println("inner loop pass after swap: ", arr)
@@ -136,6 +145,9 @@ func InsertionSort(arr []int) []int {
 		// Place key at after the element just smaller than it.
 		// Insert the value, j will be in the position where
 		// item before is is smaller than k
+		// finally the key will be set in the right place
+		// where the previous value is just smaller than the key
+		// ex: arr[-1+1] = key
 		arr[j+1] = key
 	}
 	return arr
@@ -208,16 +220,27 @@ func Bubble(arr []int) []int {
 func Insertion(arr []int) []int {
 	for i := 1; i < len(arr); i++ {
 		key := arr[i]
-		// j keep tracks of left sided items
 		j := i - 1
 		for j >= 0 && key < arr[j] {
-			
+			arr[j+1] = arr[j]
+			j--
 		}
+		arr[j+1] = key
 	}
 	return arr
 }
 
 func Selection(arr []int) []int {
-
+	for i := 0; i < len(arr); i++ {
+		minIdx := i
+		for j := 0; j < len(arr); j++ {
+			if arr[j] < arr[minIdx] {
+				minIdx = j
+			}
+		}
+		tmp := arr[i]
+		arr[i] = arr[minIdx]
+		arr[minIdx] = tmp
+	}
 	return arr
 }
