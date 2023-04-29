@@ -183,7 +183,7 @@ func SelectionSort(arr []int) []int {
 }
 
 /*
-Merge Sort is one of the most popular sorting algorithms that is based on the principle 
+Merge Sort is one of the most popular sorting algorithms that is based on the principle
 of Divide and Conquer Algorithm.
 Here, a problem is divided into multiple sub-problems. Each sub-problem is solved individually.
 Finally, sub-problems are combined to form the final solution.
@@ -194,14 +194,8 @@ func MergeSort(arr []int) []int {
 
 func Bubble(arr []int) []int {
 	for i := 0; i < len(arr); i++ {
-		// outer
 		for j := 0; j < len(arr)-i-1; j++ {
-			// inner
-			// this takes the largest value to the right end
-			// with every completion pass
-			// check adjacent values
 			if arr[j] > arr[j+1] {
-				// shift
 				tmp := arr[j]
 				arr[j] = arr[j+1]
 				arr[j+1] = tmp
@@ -214,27 +208,16 @@ func Bubble(arr []int) []int {
 func Insertion(arr []int) []int {
 	for i := 1; i < len(arr); i++ {
 		key := arr[i]
+		// j keep tracks of left sided items
 		j := i - 1
 		for j >= 0 && key < arr[j] {
-			arr[j+1] = arr[j]
-			j--
+			
 		}
-		arr[j+1] = key
 	}
 	return arr
 }
 
 func Selection(arr []int) []int {
-	for i := 0; i < len(arr); i++ {
-		minIdx := i
-		for j := i + 1; j < len(arr); j++ {
-			if arr[j] < arr[minIdx] {
-				minIdx = j
-			}
-		}
-		tmp := arr[i]
-		arr[i] = arr[minIdx]
-		arr[minIdx] = tmp
-	}
+
 	return arr
 }
