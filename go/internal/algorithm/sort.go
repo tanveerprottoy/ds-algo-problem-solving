@@ -217,12 +217,13 @@ func SelectionSortDesc(arr []int) []int {
 }
 
 /*
-Merge Sort is one of the most popular sorting algorithms that is based on the principle
-of Divide and Conquer Algorithm.
-Here, a problem is divided into multiple sub-problems. Each sub-problem is solved individually.
-Finally, sub-problems are combined to form the final solution.
+Merge Sort is one of the most popular sorting algorithms that is based
+on the principle of Divide and Conquer Algorithm.
+Here, a problem is divided into multiple sub-problems. Each sub-problem 
+is solved individually. Finally, sub-problems are combined to form the final solution.
 
-tips: 
+In simple terms, we can say that the process of merge sort is to divide the array into two halves, sort each half, and then merge the sorted halves back together. This process is repeated until the entire array is sorted.
+
 Have we reached the end of any of the arrays?
     No:
         Compare current elements of both arrays 
@@ -230,7 +231,35 @@ Have we reached the end of any of the arrays?
         Move pointer of element containing smaller element
     Yes:
         Copy all remaining elements of non-empty array
+
+Suppose we had to sort an array A. A subproblem would be to sort a sub-section of this array starting at index p and ending at index r, denoted as A[p..r].
+
+Divide
+
+If q is the half-way point between p and r, then we can split the subarray A[p..r] into two arrays A[p..q] and A[q+1, r].
+
+Conquer
+
+In the conquer step, we try to sort both the subarrays A[p..q] and A[q+1, r]. If we haven't yet reached the base case, we again divide both these subarrays and try to sort them.
+
+Combine
+
+When the conquer step reaches the base step and we get two sorted subarrays A[p..q] and A[q+1, r] for array A[p..r], we combine the results by creating a sorted array A[p..r] from two sorted subarrays A[p..q] and A[q+1, r].
+
+The merge function works as follows:
+
+Create copies of the subarrays L <- A[p..q] and M <- A[q+1..r].
+Create three pointers i, j and k
+i maintains current index of L, starting at 1
+j maintains current index of M, starting at 1
+k maintains the current index of A[p..q], starting at p.
+Until we reach the end of either L or M, pick the larger among the elements from L and M and place them in the correct position at A[p..q]
+When we run out of elements in either L or M, pick up the remaining elements and put in A[p..q]
 */
+func Merge(arr []int, p, q, r int) []int {
+	return arr
+}
+
 func MergeSort(arr []int) []int {
 	return arr
 }
