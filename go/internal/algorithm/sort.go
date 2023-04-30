@@ -194,13 +194,59 @@ func SelectionSort(arr []int) []int {
 	return arr
 }
 
+func SelectionSortDesc(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
+		// set initial min index as current index
+		maxIdx := i
+		for j := i + 1; j < len(arr); j++ {
+			// start inner loop from i + 1
+			// this loop finds the largest value starting from
+			// the adjacent right of the i/maxIdx, j := i + 1
+			// find if current arr[j] is larger than arr[maxIdx]
+			if arr[maxIdx] > arr[j] {
+				// if arr[maxIdx] > arr[j] then set maxIdx = j
+				maxIdx = j
+			}
+		}
+		// swap arr[i] with arr[maxIdx]
+		tmp := arr[i]
+		arr[i] = arr[maxIdx]
+		arr[maxIdx] = tmp
+	}
+	return arr
+}
+
 /*
 Merge Sort is one of the most popular sorting algorithms that is based on the principle
 of Divide and Conquer Algorithm.
 Here, a problem is divided into multiple sub-problems. Each sub-problem is solved individually.
 Finally, sub-problems are combined to form the final solution.
+
+tips: 
+Have we reached the end of any of the arrays?
+    No:
+        Compare current elements of both arrays 
+        Copy smaller element into sorted array
+        Move pointer of element containing smaller element
+    Yes:
+        Copy all remaining elements of non-empty array
 */
 func MergeSort(arr []int) []int {
+	return arr
+}
+
+func CountingSort(arr []int) []int {
+	return arr
+}
+
+/*
+Heapsort is an efficient sorting algorithm based on the
+use of max/min heaps. A heap is a tree-based data structure
+that satisfies the heap property – that is for a max heap,
+the key of any node is less than or equal to the key
+of its parent (if it has a parent).
+*/
+func HeapSort(arr []int) []int {
 	return arr
 }
 
@@ -212,6 +258,24 @@ func Bubble(arr []int) []int {
 				arr[j] = arr[j+1]
 				arr[j+1] = tmp
 			}
+		}
+	}
+	return arr
+}
+
+func BubbleOpt(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
+		isSwapped := false
+		for j := 0; j < len(arr)-i-1; j++ {
+			if arr[j] > arr[j+1] {
+				tmp := arr[j]
+				arr[j] = arr[j+1]
+				arr[j+1] = tmp
+				isSwapped = true
+			}
+		}
+		if !isSwapped {
+			break
 		}
 	}
 	return arr
@@ -233,7 +297,7 @@ func Insertion(arr []int) []int {
 func Selection(arr []int) []int {
 	for i := 0; i < len(arr); i++ {
 		minIdx := i
-		for j := 0; j < len(arr); j++ {
+		for j := i + 1; j < len(arr); j++ {
 			if arr[j] < arr[minIdx] {
 				minIdx = j
 			}
