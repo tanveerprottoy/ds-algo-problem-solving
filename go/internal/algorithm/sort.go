@@ -309,11 +309,13 @@ func Merge(arr []int, left, mid, right int) {
 	// with one of them finishing to it's target value
 	// for that need to check if if any item remains on the
 	// leftArr & rightArr respectively
+	// check leftArr
 	for i < leng0 {
 		arr[k] = leftArr[i]
 		i++
 		k++
 	}
+	// check rightArr
 	for i < leng1 {
 		arr[k] = rightArr[j]
 		j++
@@ -347,7 +349,15 @@ func HeapSort(arr []int) []int {
 }
 
 func Bubble(arr []int) []int {
-
+	for i := 0; i < len(arr); i++ {
+		for j := 0; j < len(arr)-i-1; j++ {
+			if arr[j] > arr[j+1] {
+				tmp := arr[j]
+				arr[j] = arr[j+1]
+				arr[j+1] = tmp
+			}
+		}
+	}
 	return arr
 }
 
