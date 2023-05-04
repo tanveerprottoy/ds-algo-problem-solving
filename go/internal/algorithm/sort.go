@@ -222,7 +222,9 @@ on the principle of Divide and Conquer Algorithm.
 Here, a problem is divided into multiple sub-problems. Each sub-problem
 is solved individually. Finally, sub-problems are combined to form the final solution.
 
-In simple terms, we can say that the process of merge sort is to divide the array into two halves, sort each half, and then merge the sorted halves back together. This process is repeated until the entire array is sorted.
+In simple terms, we can say that the process of merge sort is to divide the array into two halves, 
+sort each half, and then merge the sorted halves back together. This process is repeated until 
+the entire array is sorted.
 
 Have we reached the end of any of the arrays?
 
@@ -233,19 +235,24 @@ Have we reached the end of any of the arrays?
 	Yes:
 	    Copy all remaining elements of non-empty array
 
-Suppose we had to sort an array A. A subproblem would be to sort a sub-section of this array starting at index p and ending at index r, denoted as A[p..r].
+Suppose we had to sort an array A. A subproblem would be to sort a sub-section of this array starting
+at index p and ending at index r, denoted as A[p..r].
 
 # Divide
 
-If q is the half-way point between p and r, then we can split the subarray A[p..r] into two arrays A[p..q] and A[q+1, r].
+If q is the half-way point between p and r, then we can split the subarray A[p..r] into two 
+arrays A[p..q] and A[q+1, r].
 
 # Conquer
 
-In the conquer step, we try to sort both the subarrays A[p..q] and A[q+1, r]. If we haven't yet reached the base case, we again divide both these subarrays and try to sort them.
+In the conquer step, we try to sort both the subarrays A[p..q] and A[q+1, r]. If we haven't yet 
+reached the base case, we again divide both these subarrays and try to sort them.
 
 # Combine
 
-When the conquer step reaches the base step and we get two sorted subarrays A[p..q] and A[q+1, r] for array A[p..r], we combine the results by creating a sorted array A[p..r] from two sorted subarrays A[p..q] and A[q+1, r].
+When the conquer step reaches the base step and we get two sorted subarrays A[p..q] and A[q+1, r] 
+for array A[p..r], we combine the results by creating a sorted array A[p..r] from two sorted 
+subarrays A[p..q] and A[q+1, r].
 
 The merge function works as follows:
 
@@ -254,13 +261,19 @@ Create three pointers i, j and k
 i maintains current index of L, starting at 1
 j maintains current index of M, starting at 1
 k maintains the current index of A[p..q], starting at p.
-Until we reach the end of either L or M, pick the larger among the elements from L and M and place them in the correct position at A[p..q]
+Until we reach the end of either L or M, pick the larger among the elements from L and M and 
+place them in the correct position at A[p..q]
 When we run out of elements in either L or M, pick up the remaining elements and put in A[p..q]
 */
 func Merge(arr []int, left, mid, right int) {
 	// calculate sizes of two subarrays to be merged
 	// for 1st its end is mid and start is left
 	// for 2nd its end is right and start is mid
+	fmt.Println("MergeSort")
+	fmt.Println("arr: ", arr)
+	fmt.Println("left: ", left)
+	fmt.Println("mid: ", mid)
+	fmt.Println("right: ", right)
 	leng0 := mid - left + 1
 	leng1 := right - mid
 	// init temp arrays
@@ -316,7 +329,7 @@ func Merge(arr []int, left, mid, right int) {
 		k++
 	}
 	// check rightArr
-	for i < leng1 {
+	for j < leng1 {
 		arr[k] = rightArr[j]
 		j++
 		k++
@@ -324,11 +337,18 @@ func Merge(arr []int, left, mid, right int) {
 }
 
 func MergeSort(arr []int, left, right int) {
+	// []int{4, 3, 2, 1}
+	fmt.Println("MergeSort")
+	fmt.Println("arr: ", arr)
+	fmt.Println("left: ", left)
+	fmt.Println("right: ", right)
 	if left >= right {
 		return
 	}
 	mid := (left + right) / 2
+	// left half
 	MergeSort(arr, left, mid)
+	// right half
 	MergeSort(arr, mid+1, right)
 	Merge(arr, left, mid, right)
 }
