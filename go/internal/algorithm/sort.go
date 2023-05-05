@@ -222,8 +222,8 @@ on the principle of Divide and Conquer Algorithm.
 Here, a problem is divided into multiple sub-problems. Each sub-problem
 is solved individually. Finally, sub-problems are combined to form the final solution.
 
-In simple terms, we can say that the process of merge sort is to divide the array into two halves, 
-sort each half, and then merge the sorted halves back together. This process is repeated until 
+In simple terms, we can say that the process of merge sort is to divide the array into two halves,
+sort each half, and then merge the sorted halves back together. This process is repeated until
 the entire array is sorted.
 
 Have we reached the end of any of the arrays?
@@ -240,18 +240,18 @@ at index p and ending at index r, denoted as A[p..r].
 
 # Divide
 
-If q is the half-way point between p and r, then we can split the subarray A[p..r] into two 
+If q is the half-way point between p and r, then we can split the subarray A[p..r] into two
 arrays A[p..q] and A[q+1, r].
 
 # Conquer
 
-In the conquer step, we try to sort both the subarrays A[p..q] and A[q+1, r]. If we haven't yet 
+In the conquer step, we try to sort both the subarrays A[p..q] and A[q+1, r]. If we haven't yet
 reached the base case, we again divide both these subarrays and try to sort them.
 
 # Combine
 
-When the conquer step reaches the base step and we get two sorted subarrays A[p..q] and A[q+1, r] 
-for array A[p..r], we combine the results by creating a sorted array A[p..r] from two sorted 
+When the conquer step reaches the base step and we get two sorted subarrays A[p..q] and A[q+1, r]
+for array A[p..r], we combine the results by creating a sorted array A[p..r] from two sorted
 subarrays A[p..q] and A[q+1, r].
 
 The merge function works as follows:
@@ -261,7 +261,7 @@ Create three pointers i, j and k
 i maintains current index of L, starting at 1
 j maintains current index of M, starting at 1
 k maintains the current index of A[p..q], starting at p.
-Until we reach the end of either L or M, pick the larger among the elements from L and M and 
+Until we reach the end of either L or M, pick the larger among the elements from L and M and
 place them in the correct position at A[p..q]
 When we run out of elements in either L or M, pick up the remaining elements and put in A[p..q]
 */
@@ -269,11 +269,13 @@ func Merge(arr []int, left, mid, right int) {
 	// calculate sizes of two subarrays to be merged
 	// for 1st its end is mid and start is left
 	// for 2nd its end is right and start is mid
-	fmt.Println("MergeSort")
-	fmt.Println("arr: ", arr)
+	fmt.Print("\n")
+	fmt.Println("Merge")
+	//fmt.Println("arr: ", arr)
 	fmt.Println("left: ", left)
 	fmt.Println("mid: ", mid)
 	fmt.Println("right: ", right)
+	fmt.Print("\n")
 	leng0 := mid - left + 1
 	leng1 := right - mid
 	// init temp arrays
@@ -286,6 +288,8 @@ func Merge(arr []int, left, mid, right int) {
 	for i := 0; i < leng1; i++ {
 		rightArr[i] = arr[mid+1+i]
 	}
+	fmt.Println("leftArr: ", leftArr)
+	fmt.Println("rightArr: ", rightArr)
 	// initial index of 1st sub-array
 	i := 0
 	// initial index of 2nd sub-array
@@ -334,23 +338,109 @@ func Merge(arr []int, left, mid, right int) {
 		j++
 		k++
 	}
+	fmt.Println("arr: ", arr)
+	fmt.Print("\n")
 }
 
 func MergeSort(arr []int, left, right int) {
 	// []int{4, 3, 2, 1}
+	/* fmt.Print("\n")
 	fmt.Println("MergeSort")
 	fmt.Println("arr: ", arr)
 	fmt.Println("left: ", left)
 	fmt.Println("right: ", right)
+	fmt.Print("\n") */
 	if left >= right {
 		return
 	}
 	mid := (left + right) / 2
+	// fmt.Println("mid: ", mid)
 	// left half
 	MergeSort(arr, left, mid)
 	// right half
 	MergeSort(arr, mid+1, right)
 	Merge(arr, left, mid, right)
+}
+
+func MergeAlt(leftArr, rightArr, arr []int) {
+	leng0 := len(leftArr)
+	leng1 := len(rightArr)
+	// init temp arrays
+
+	fmt.Println("leftArr: ", leftArr)
+	fmt.Println("rightArr: ", rightArr)
+	// initial index of 1st sub-array
+	i := 0
+	// initial index of 2nd sub-array
+	j := 0
+	// initial index of merged sub-array
+	k := 0
+	// until reached either end of either L or M, pick larger among
+	// elements leftArr and rightArr and place them in the correct position on a
+	for i < leng0 && j < leng1 {
+		// check if leftArr[i] < rightArr[j]
+		if leftArr[i] <= rightArr[j] {
+			// set arr[k] = leftArr[i]
+			// that way smaller value is placed
+			// at the correct position
+			arr[k] = leftArr[i]
+			// do increment 1st sub arr index
+			// when merging array item was placed
+			// from it
+			i++
+		} else {
+			// otherwise
+			// set arr[k] = rightArr[j]
+			// as rightArr[j] is the smaller value
+			arr[k] = rightArr[j]
+			// do increment 2nd sub arr index
+			// when merging array item was placed
+			// from it
+			j++
+		}
+		// for each iteration increase the merged arr index
+		k++
+	}
+	// the loop might stop as i < leng0 && j < leng1
+	// with one of them finishing to it's target value
+	// for that need to check if if any item remains on the
+	// leftArr & rightArr respectively
+	// check leftArr
+	for i < leng0 {
+		arr[k] = leftArr[i]
+		i++
+		k++
+	}
+	// check rightArr
+	for j < leng1 {
+		arr[k] = rightArr[j]
+		j++
+		k++
+	}
+	fmt.Println("arr: ", arr)
+	fmt.Print("\n")
+}
+
+func MergeSortAlt(arr []int) {
+	length := len(arr)
+	if length <= 1 {
+		return
+	}
+	mid := length / 2
+	leftArr := make([]int, mid)
+	rightArr := make([]int, length-mid)
+	// fill temp arrays with values
+	for i := 0; i < mid; i++ {
+		leftArr[i] = arr[i]
+	}
+	for i := mid; i < length; i++ {
+		rightArr[i-mid] = arr[i]
+	}
+	// left half
+	MergeSortAlt(leftArr)
+	// right half
+	MergeSortAlt(rightArr)
+	MergeAlt(leftArr, rightArr, arr)
 }
 
 func CountingSort(arr []int) []int {

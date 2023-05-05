@@ -1,5 +1,7 @@
 package com.tanveershafeeprottoy.algorithms;
 
+import java.util.Arrays;
+
 /*
 Loop invariant:
     Initialization: It is true prior to the first iteration of the loop.
@@ -25,24 +27,20 @@ Loop invariant:
 */
 
 public class Sort {
-    /*  insertion sort
-        for j = 2 to A:length
-            key = A[j]􏰀
-            // Insert A[j] 􏰀 into the sorted sequence A[1..j - 1]
-            i = j - 􏰐1
-            while i > 0 and A[i]􏰀>key
-                A[i +1] = A[i]􏰀
-                i = i-1
-            A[i+1]􏰀=key*/
+    /*
+     * insertion sort for j = 2 to A:length key = A[j]􏰀 // Insert A[j] 􏰀 into the
+     * sorted sequence A[1..j - 1] i = j - 􏰐1 while i > 0 and A[i]􏰀>key A[i +1] =
+     * A[i]􏰀 i = i-1 A[i+1]􏰀=key
+     */
     public static int[] insertionSort(int[] numArray) {
         int element, i;
-        for(int j = 1; j < numArray.length; j++) {
+        for (int j = 1; j < numArray.length; j++) {
             // numArray[1..j - 1] = currently shorted range in array
             // numArray[j + 1..n] = left to be shorted range in array
             element = numArray[j];
             // go back one index
             i = j - 1;
-            while(i >= 0 && numArray[i] > element) {
+            while (i >= 0 && numArray[i] > element) {
                 // this is where the sorting happens
                 // this traverses from j - 1 to 0 [goes back] and sorts
                 // previous values if required
@@ -58,20 +56,65 @@ public class Sort {
         return numArray;
     }
 
-    public static void mergeSort(
-        Comparable[] a,
-        int lo,
-        int mid,
-        int hi
-    ) { // Merge a[lo..mid] with a[mid+1..hi].
-        int i = lo, j = mid + 1;
-        Comparable[] aux = new Comparable[a.length];
-        for(int k = lo; k <= hi; k++) // Copy a[lo..hi] to aux[lo..hi].
-            aux[k] = a[k];
-        for(int k = lo; k <= hi; k++) // Merge back to a[lo..hi].
-            if(i > mid) a[k] = aux[j++];
-            else if(j > hi) a[k] = aux[i++];
-            // else if(less(aux[j], aux[i])) a[k] = aux[j++];
-            else a[k] = aux[i++];
+    public static void mergeSort(int[] array) {
+
+        int length = array.length;
+        if (length <= 1)
+            return; // base case
+
+        int middle = length / 2;
+        int[] leftArray = new int[middle];
+        int[] rightArray = new int[length - middle];
+
+        int i = 0; // left array
+        int j = 0; // right array
+
+        for (; i < length; i++) {
+            if (i < middle) {
+                leftArray[i] = array[i];
+            }
+            else {
+                rightArray[j] = array[i];
+                j++;
+            }
+        }
+        mergeSort(leftArray);
+        mergeSort(rightArray);
+        merge(leftArray, rightArray, array);
+    }
+
+    public static void merge(int[] leftArray, int[] rightArray, int[] array) {
+        System.out.println("merge");
+        System.out.println(Arrays.toString(leftArray));
+        System.out.println(Arrays.toString(rightArray));
+        // int leftSize = array.length / 2;
+        int leftSize = leftArray.length;
+        int rightSize = rightArray.length;
+        int i = 0, l = 0, r = 0; // indices
+
+        // check the conditions for merging
+        while (l < leftSize && r < rightSize) {
+            if (leftArray[l] < rightArray[r]) {
+                array[i] = leftArray[l];
+                i++;
+                l++;
+            }
+            else {
+                array[i] = rightArray[r];
+                i++;
+                r++;
+            }
+        }
+        while (l < leftSize) {
+            array[i] = leftArray[l];
+            i++;
+            l++;
+        }
+        while (r < rightSize) {
+            array[i] = rightArray[r];
+            i++;
+            r++;
+        }
+        System.out.println(Arrays.toString(array));
     }
 }

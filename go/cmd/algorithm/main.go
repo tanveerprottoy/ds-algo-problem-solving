@@ -16,7 +16,8 @@ func main() {
 	// fmt.Println(algorithm.Insertion([]int{111, 102, 90, 0, -2}))
 	// arr := []int{111, 102, 90, 80, -2, 25, 0, -9}
 	arr := []int{4, 3, 2, 1}
-	algorithm.MergeSort(arr, 0, len(arr)-1)
+	// algorithm.MergeSort(arr, 0, len(arr)-1)
+	algorithm.MergeSortAlt(arr)
 	fmt.Println(arr)
 	// fmt.Println(algorithm.Bubble([]int{111, 102, 90, 0, -2}))
 }
