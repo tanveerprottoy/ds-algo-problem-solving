@@ -1,6 +1,8 @@
 package algorithm
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /*
 Bubble sort is a sorting algorithm that compares two adjacent
@@ -331,6 +333,50 @@ func MergeSort(arr []int, left, right int) {
 	MergeSort(arr, left, mid)
 	MergeSort(arr, mid+1, right)
 	Merge(arr, left, mid, right)
+}
+
+func MergeTest(arr []int, left, mid, right int) {
+	lengthLeft := (mid - left) + 1
+	lengthRight := (right - mid) + 1
+	leftArr := make([]int, 0)
+	rightArr := make([]int, 0)
+	for i := left; i < lengthLeft; i++ {
+		leftArr[i] = arr[i]
+	}
+	for i := mid; i < lengthRight; i++ {
+		rightArr[i] = arr[i]
+	}
+	i, j, k := 0, 0, left
+	for i < lengthLeft && j < lengthRight {
+		if leftArr[i] > arr[k] {
+			arr[k] = leftArr[i]
+			i++
+		} else if rightArr[j] > arr[k] {
+			arr[k] = rightArr[j]
+			j++
+		}
+		k++
+	}
+	for i < lengthLeft {
+		arr[k] = leftArr[i]
+		i++
+		k++
+	}
+	for j < lengthRight {
+		arr[k] = rightArr[i]
+		j++
+		k++
+	}
+}
+
+func MergeSortTest(arr []int, left, right int) {
+	if left >= right {
+		return
+	}
+	mid := (left + right) / 2
+	MergeSortTest(arr, left, mid)
+	MergeSortTest(arr, mid+1, right)
+	MergeTest(arr, left, mid, right)
 }
 
 func CountingSort(arr []int) []int {
