@@ -278,16 +278,16 @@ func Merge(arr []int, left, mid, right int) {
 	fmt.Println("mid: ", mid)
 	fmt.Println("right: ", right)
 	fmt.Print("\n")
-	leng0 := mid - left + 1
-	leng1 := right - mid
+	lenLeft := mid - left + 1
+	lenRight := right - mid
 	// init temp arrays
-	leftArr := make([]int, leng0)
-	rightArr := make([]int, leng1)
+	leftArr := make([]int, lenLeft)
+	rightArr := make([]int, lenRight)
 	// fill temp arrays with values
-	for i := 0; i < leng0; i++ {
+	for i := 0; i < lenLeft; i++ {
 		leftArr[i] = arr[left+i]
 	}
-	for i := 0; i < leng1; i++ {
+	for i := 0; i < lenRight; i++ {
 		rightArr[i] = arr[mid+1+i]
 	}
 	fmt.Println("leftArr: ", leftArr)
@@ -300,7 +300,7 @@ func Merge(arr []int, left, mid, right int) {
 	k := left
 	// until reached either end of either L or M, pick larger among
 	// elements leftArr and rightArr and place them in the correct position on a
-	for i < leng0 && j < leng1 {
+	for i < lenLeft && j < lenRight {
 		// check if leftArr[i] < rightArr[j]
 		if leftArr[i] <= rightArr[j] {
 			// set arr[k] = leftArr[i]
@@ -329,13 +329,13 @@ func Merge(arr []int, left, mid, right int) {
 	// for that need to check if if any item remains on the
 	// leftArr & rightArr respectively
 	// check leftArr
-	for i < leng0 {
+	for i < lenLeft {
 		arr[k] = leftArr[i]
 		i++
 		k++
 	}
 	// check rightArr
-	for j < leng1 {
+	for j < lenRight {
 		arr[k] = rightArr[j]
 		j++
 		k++
@@ -365,10 +365,8 @@ func MergeSort(arr []int, left, right int) {
 }
 
 func MergeAlt(leftArr, rightArr, arr []int) {
-	leng0 := len(leftArr)
-	leng1 := len(rightArr)
-	// init temp arrays
-
+	lenLeft := len(leftArr)
+	lenRight := len(rightArr)
 	fmt.Println("leftArr: ", leftArr)
 	fmt.Println("rightArr: ", rightArr)
 	// initial index of 1st sub-array
@@ -379,7 +377,7 @@ func MergeAlt(leftArr, rightArr, arr []int) {
 	k := 0
 	// until reached either end of either L or M, pick larger among
 	// elements leftArr and rightArr and place them in the correct position on a
-	for i < leng0 && j < leng1 {
+	for i < lenLeft && j < lenRight {
 		// check if leftArr[i] < rightArr[j]
 		if leftArr[i] <= rightArr[j] {
 			// set arr[k] = leftArr[i]
@@ -408,13 +406,13 @@ func MergeAlt(leftArr, rightArr, arr []int) {
 	// for that need to check if if any item remains on the
 	// leftArr & rightArr respectively
 	// check leftArr
-	for i < leng0 {
+	for i < lenLeft {
 		arr[k] = leftArr[i]
 		i++
 		k++
 	}
 	// check rightArr
-	for j < leng1 {
+	for j < lenRight {
 		arr[k] = rightArr[j]
 		j++
 		k++
@@ -435,8 +433,8 @@ func MergeSortAlt(arr []int) {
 	for i := 0; i < mid; i++ {
 		leftArr[i] = arr[i]
 	}
-	for i := mid; i < length; i++ {
-		rightArr[i-mid] = arr[i]
+	for i := 0; i < length-mid; i++ {
+		rightArr[i] = arr[i+mid]
 	}
 	// left half
 	MergeSortAlt(leftArr)
@@ -446,34 +444,34 @@ func MergeSortAlt(arr []int) {
 }
 
 func MergeTest(arr []int, left, mid, right int) {
-	lengthLeft := (mid - left) + 1
-	lengthRight := (right - mid) + 1
-	leftArr := make([]int, 0)
-	rightArr := make([]int, 0)
-	for i := left; i < lengthLeft; i++ {
-		leftArr[i] = arr[i]
+	lenLeft := mid - left + 1
+	lenRight := right - mid
+	leftArr := make([]int, lenLeft)
+	rightArr := make([]int, lenRight)
+	for i := 0; i < lenLeft; i++ {
+		leftArr[i] = arr[i+left]
 	}
-	for i := mid; i < lengthRight; i++ {
-		rightArr[i] = arr[i]
+	for i := 0; i < lenRight; i++ {
+		rightArr[i] = arr[i+mid+1]
 	}
 	i, j, k := 0, 0, left
-	for i < lengthLeft && j < lengthRight {
-		if leftArr[i] > arr[k] {
+	for i < lenLeft && j < lenRight {
+		if leftArr[i] <= rightArr[j] {
 			arr[k] = leftArr[i]
 			i++
-		} else if rightArr[j] > arr[k] {
+		} else {
 			arr[k] = rightArr[j]
 			j++
 		}
 		k++
 	}
-	for i < lengthLeft {
+	for i < lenLeft {
 		arr[k] = leftArr[i]
 		i++
 		k++
 	}
-	for j < lengthRight {
-		arr[k] = rightArr[i]
+	for j < lenRight {
+		arr[k] = rightArr[j]
 		j++
 		k++
 	}
@@ -487,6 +485,51 @@ func MergeSortTest(arr []int, left, right int) {
 	MergeSortTest(arr, left, mid)
 	MergeSortTest(arr, mid+1, right)
 	MergeTest(arr, left, mid, right)
+}
+
+func MergeTestAlt(leftArr, rightArr, arr []int) {
+	lenLeft := len(leftArr)
+	lenRight := len(rightArr)
+	i, j, k := 0, 0, 0
+	for i < lenLeft && j < lenRight {
+		if leftArr[i] <= rightArr[j] {
+			arr[k] = leftArr[i]
+			i++
+		} else {
+			arr[k] = rightArr[j]
+			j++
+		}
+		k++
+	}
+	for i < lenLeft {
+		arr[k] = leftArr[i]
+		i++
+		k++
+	}
+	for j < lenRight {
+		arr[k] = rightArr[j]
+		j++
+		k++
+	}
+}
+
+func MergeSortTestAlt(arr []int) {
+	length := len(arr)
+	if length <= 1 {
+		return
+	}
+	mid := length / 2
+	leftArr := make([]int, mid)
+	rightArr := make([]int, length-mid)
+	for i := 0; i < mid; i++ {
+		leftArr[i] = arr[i]
+	}
+	for i := 0; i < length-mid; i++ {
+		rightArr[i] = arr[i+mid]
+	}
+	MergeSortTestAlt(leftArr)
+	MergeSortTestAlt(rightArr)
+	MergeTestAlt(leftArr, rightArr, arr)
 }
 
 func CountingSort(arr []int) []int {
