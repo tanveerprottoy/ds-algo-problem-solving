@@ -456,11 +456,11 @@ func MergeTest(arr []int, left, mid, right int) {
 	}
 	i, j, k := 0, 0, left
 	for i < lenLeft && j < lenRight {
-		if leftArr[i] <= rightArr[j] {
+		if leftArr[i] < rightArr[j] {
 			arr[k] = leftArr[i]
 			i++
 		} else {
-			arr[k] = rightArr[j]
+			arr[k] = leftArr[j]
 			j++
 		}
 		k++
@@ -481,7 +481,7 @@ func MergeSortTest(arr []int, left, right int) {
 	if left >= right {
 		return
 	}
-	mid := (left + right) / 2
+	mid := len(arr) / 2
 	MergeSortTest(arr, left, mid)
 	MergeSortTest(arr, mid+1, right)
 	MergeTest(arr, left, mid, right)
@@ -492,7 +492,7 @@ func MergeTestAlt(leftArr, rightArr, arr []int) {
 	lenRight := len(rightArr)
 	i, j, k := 0, 0, 0
 	for i < lenLeft && j < lenRight {
-		if leftArr[i] <= rightArr[j] {
+		if leftArr[i] < rightArr[j] {
 			arr[k] = leftArr[i]
 			i++
 		} else {
@@ -532,6 +532,28 @@ func MergeSortTestAlt(arr []int) {
 	MergeTestAlt(leftArr, rightArr, arr)
 }
 
+/*
+	Quicksort is a sorting algorithm based on the divide and conquer approach where
+
+An array is divided into subarrays by selecting a pivot element (element selected from the array).
+
+While dividing the array, the pivot element should be positioned in such a way that elements less than pivot are kept on the left side and elements greater than pivot are on the right side of the pivot.
+The left and right subarrays are also divided using the same approach. This process continues until each subarray contains a single element.
+At this point, elements are already sorted. Finally, elements are combined to form a sorted array.
+*/
+func Partition(arr []int, left, right int) int {
+	return 0
+}
+
+func QuickSort(arr []int, left, right int) {
+	for left >= right {
+		return
+	}
+	pivotIdx := Partition(arr, left, right)
+	QuickSort(arr, left, pivotIdx)
+	QuickSort(arr, pivotIdx+1, right)
+}
+
 func CountingSort(arr []int) []int {
 	return arr
 }
@@ -561,16 +583,49 @@ func Bubble(arr []int) []int {
 }
 
 func BubbleOpt(arr []int) []int {
-
+	for i := 0; i < len(arr); i++ {
+		swapped := false
+		for j := 0; j < len(arr)-i-1; j++ {
+			if arr[j] > arr[j+1] {
+				tmp := arr[j]
+				arr[j] = arr[j+1]
+				arr[j+1] = tmp
+				swapped = true
+			}
+		}
+		if !swapped {
+			break
+		}
+	}
 	return arr
 }
 
 func Insertion(arr []int) []int {
-
+	for i := 1; i < len(arr); i++ {
+		key := arr[i]
+		j := i - 1
+		for j >= 0 && arr[j] > key {
+			tmp := arr[j]
+			arr[j] = arr[j+1]
+			arr[j+1] = tmp
+			j--
+		}
+		arr[j+1] = key
+	}
 	return arr
 }
 
 func Selection(arr []int) []int {
-
+	for i := 0; i < len(arr); i++ {
+		minIdx := i
+		for j := i - 1; j >= 0; j-- {
+			if arr[j] < arr[j+1] {
+				minIdx = j
+			}
+		}
+		tmp := arr[i]
+		arr[i] = arr[minIdx]
+		arr[minIdx] = tmp
+	}
 	return arr
 }
