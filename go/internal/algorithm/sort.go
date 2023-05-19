@@ -542,7 +542,26 @@ The left and right subarrays are also divided using the same approach. This proc
 At this point, elements are already sorted. Finally, elements are combined to form a sorted array.
 */
 func Partition(arr []int, left, right int) int {
-	return 0
+	// store the pivot
+	pivot := arr[right]
+	// smaller than pivot item found pointer
+	i := left - 1
+	for j := left; j < right; j++ {
+		if arr[j] < pivot {
+			// if smaller element found than pivot
+			// increment i first
+			i++
+			// swap it with arr[i]
+			tmp := arr[i]
+			arr[i] = arr[j]
+			arr[j] = tmp
+		}
+	}
+	// swap pivot with arr[i+1]
+	tmp := arr[i+1]
+	arr[i+1] = arr[right]
+	arr[right] = tmp
+	return i + 1
 }
 
 func QuickSort(arr []int, left, right int) {
@@ -550,7 +569,7 @@ func QuickSort(arr []int, left, right int) {
 		return
 	}
 	pivotIdx := Partition(arr, left, right)
-	QuickSort(arr, left, pivotIdx)
+	QuickSort(arr, left, pivotIdx-1)
 	QuickSort(arr, pivotIdx+1, right)
 }
 
@@ -564,6 +583,45 @@ use of max/min heaps. A heap is a tree-based data structure
 that satisfies the heap property – that is for a max heap,
 the key of any node is less than or equal to the key
 of its parent (if it has a parent).
+
+If the index of any element in the array is i, the element in the index 2i+1 will become the 
+left child and element in 2i+2 index will become the right child. Also, the parent of any 
+element at index i is given by the lower bound of (i-1)/2.
+
+Left child of 1 (index 0)
+= element in (2*0+1) index 
+= element in 1 index 
+= 12
+
+
+Right child of 1
+= element in (2*0+2) index
+= element in 2 index 
+= 9
+
+Similarly,
+Left child of 12 (index 1)
+= element in (2*1+1) index
+= element in 3 index
+= 5
+
+Right child of 12
+= element in (2*1+2) index
+= element in 4 index
+= 6
+Let us also confirm that the rules hold for finding parent of any node
+
+Parent of 9 (position 2) 
+= (2-1)/2 
+= ½ 
+= 0.5
+~ 0 index 
+= 1
+
+Parent of 12 (position 1) 
+= (1-1)/2 
+= 0 index 
+= 1
 */
 func HeapSort(arr []int) []int {
 	return arr
