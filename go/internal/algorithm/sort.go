@@ -219,7 +219,7 @@ func SelectionSortDesc(arr []int) []int {
 }
 
 /*
-Merge Sort is one of the most popular sorting algorithms that is based
+merge Sort is one of the most popular sorting algorithms that is based
 on the principle of Divide and Conquer Algorithm.
 Here, a problem is divided into multiple sub-problems. Each sub-problem
 is solved individually. Finally, sub-problems are combined to form the final solution.
@@ -267,7 +267,7 @@ Until we reach the end of either L or M, pick the larger among the elements from
 place them in the correct position at A[p..q]
 When we run out of elements in either L or M, pick up the remaining elements and put in A[p..q]
 */
-func Merge(arr []int, left, mid, right int) {
+func merge(arr []int, left, mid, right int) {
 	// calculate sizes of two subarrays to be merged
 	// for 1st its end is mid and start is left
 	// for 2nd its end is right and start is mid
@@ -361,10 +361,10 @@ func MergeSort(arr []int, left, right int) {
 	MergeSort(arr, left, mid)
 	// right half
 	MergeSort(arr, mid+1, right)
-	Merge(arr, left, mid, right)
+	merge(arr, left, mid, right)
 }
 
-func MergeAlt(leftArr, rightArr, arr []int) {
+func mergeAlt(leftArr, rightArr, arr []int) {
 	lenLeft := len(leftArr)
 	lenRight := len(rightArr)
 	fmt.Println("leftArr: ", leftArr)
@@ -440,10 +440,10 @@ func MergeSortAlt(arr []int) {
 	MergeSortAlt(leftArr)
 	// right half
 	MergeSortAlt(rightArr)
-	MergeAlt(leftArr, rightArr, arr)
+	mergeAlt(leftArr, rightArr, arr)
 }
 
-func MergeTest(arr []int, left, mid, right int) {
+func mergeTest(arr []int, left, mid, right int) {
 	lenLeft := mid - left + 1
 	lenRight := right - mid
 	leftArr := make([]int, lenLeft)
@@ -484,10 +484,10 @@ func MergeSortTest(arr []int, left, right int) {
 	mid := len(arr) / 2
 	MergeSortTest(arr, left, mid)
 	MergeSortTest(arr, mid+1, right)
-	MergeTest(arr, left, mid, right)
+	mergeTest(arr, left, mid, right)
 }
 
-func MergeTestAlt(leftArr, rightArr, arr []int) {
+func mergeTestAlt(leftArr, rightArr, arr []int) {
 	lenLeft := len(leftArr)
 	lenRight := len(rightArr)
 	i, j, k := 0, 0, 0
@@ -529,7 +529,7 @@ func MergeSortTestAlt(arr []int) {
 	}
 	MergeSortTestAlt(leftArr)
 	MergeSortTestAlt(rightArr)
-	MergeTestAlt(leftArr, rightArr, arr)
+	mergeTestAlt(leftArr, rightArr, arr)
 }
 
 /*
@@ -541,7 +541,7 @@ While dividing the array, the pivot element should be positioned in such a way t
 The left and right subarrays are also divided using the same approach. This process continues until each subarray contains a single element.
 At this point, elements are already sorted. Finally, elements are combined to form a sorted array.
 */
-func Partition(arr []int, left, right int) int {
+func partition(arr []int, left, right int) int {
 	// store the pivot
 	pivot := arr[right]
 	// smaller than pivot item found pointer
@@ -568,7 +568,7 @@ func QuickSort(arr []int, left, right int) {
 	for left >= right {
 		return
 	}
-	pivotIdx := Partition(arr, left, right)
+	pivotIdx := partition(arr, left, right)
 	QuickSort(arr, left, pivotIdx-1)
 	QuickSort(arr, pivotIdx+1, right)
 }
@@ -584,47 +584,45 @@ that satisfies the heap property – that is for a max heap,
 the key of any node is less than or equal to the key
 of its parent (if it has a parent).
 
-If the index of any element in the array is i, the element in the index 2i+1 will become the 
-left child and element in 2i+2 index will become the right child. Also, the parent of any 
+If the index of any element in the array is i, the element in the index 2i+1 will become the
+left child and element in 2i+2 index will become the right child. Also, the parent of any
 element at index i is given by the lower bound of (i-1)/2.
-
-Left child of 1 (index 0)
-= element in (2*0+1) index 
-= element in 1 index 
-= 12
-
-
-Right child of 1
-= element in (2*0+2) index
-= element in 2 index 
-= 9
-
-Similarly,
-Left child of 12 (index 1)
-= element in (2*1+1) index
-= element in 3 index
-= 5
-
-Right child of 12
-= element in (2*1+2) index
-= element in 4 index
-= 6
-Let us also confirm that the rules hold for finding parent of any node
-
-Parent of 9 (position 2) 
-= (2-1)/2 
-= ½ 
-= 0.5
-~ 0 index 
-= 1
-
-Parent of 12 (position 1) 
-= (1-1)/2 
-= 0 index 
-= 1
+[4, 3, 2, 1, 0, 4, 3, 2, 1, 0]
 */
-func HeapSort(arr []int) []int {
-	return arr
+func heapify(arr []int, length, i int) {
+	// Find largest among root, left child and right child
+	largest := i
+	left := 2*i + 1
+	right := 2*i + 2
+	if left < length && arr[left] > arr[largest] {
+		largest = left
+	}
+	if right < length && arr[right] > arr[largest] {
+		largest = right
+	}
+	// Swap and continue heapifying if root is not largest
+	if largest != i {
+		tmp := arr[i]
+		arr[i] = arr[largest]
+		arr[largest] = tmp
+		heapify(arr, length, largest)
+	}
+}
+
+func HeapSort(arr []int) {
+	length := len(arr)
+	// Build max heap
+	for i := (length/2 - 1); i >= 0; i-- {
+		heapify(arr, length, i)
+	}
+	// Heap sort
+	for i := length - 1; i >= 0; i-- {
+		tmp := arr[0]
+		arr[0] = arr[i]
+		arr[i] = tmp
+		// Heapify root element
+		heapify(arr, i, 0)
+	}
 }
 
 func Bubble(arr []int) []int {
