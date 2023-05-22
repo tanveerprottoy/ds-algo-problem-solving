@@ -1,21 +1,25 @@
 package singly
 
-import "fmt"
+import (
+	"fmt"
 
-type Node[T any] struct {
+	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/types"
+)
+
+type Node[T types.Number] struct {
 	Val  T
 	Next *Node[T]
 }
 
-func NewNode[T any](val T, next *Node[T]) *Node[T] {
+func NewNode[T types.Number](val T, next *Node[T]) *Node[T] {
 	return &Node[T]{Val: val, Next: next}
 }
 
-type LinkedList[T any] struct {
+type LinkedList[T types.Number] struct {
 	Head *Node[T]
 }
 
-func NewLinkedList[T any](head *Node[T]) *LinkedList[T] {
+func NewLinkedList[T types.Number](head *Node[T]) *LinkedList[T] {
 	return &LinkedList[T]{Head: head}
 }
 
@@ -37,33 +41,48 @@ func (l *LinkedList[T]) TraverseRecur(node *Node[T]) {
 	l.TraverseRecur(node.Next)
 }
 
-func (l *LinkedList[T]) InsertAtHead(e T) {
+func (l *LinkedList[T]) InsertAtHead(v T) {
 	nxt := l.Head.Next
-	n := NewNode(e, nxt)
+	n := NewNode(v, nxt)
 	l.Head = n
 }
 
-func (l *LinkedList[T]) InsertAtTail(e T) {
+func (l *LinkedList[T]) InsertAtTail(v T) {
 	tmp := l.Head
 	for tmp.Next != nil {
 		tmp = tmp.Next
 	}
-	n := NewNode(e, nil)
+	n := NewNode(v, nil)
 	tmp.Next = n
 }
 
-func (l *LinkedList[T]) InsertAtPosition(e T, pos int) {
-
+func (l *LinkedList[T]) InsertAtPosition(v T, pos int) {
+	i := 0
+	tmp := l.Head
+	for i < pos && tmp.Next != nil {
+		if i == pos-1 {
+			nxt := tmp.Next
+			n := NewNode(v, nxt)
+			tmp.Next = n
+		}
+		i++
+	}
 }
 
-func (l *LinkedList[T]) Find(e T) {
-
+func (l *LinkedList[T]) Find(v T) {
+	/* tmp := l.Head
+	for tmp.Next != nil {
+		switch t := tmp.Val.(type) {
+		case int:
+			fmt.Print(v == 1)
+		}
+	} */
 }
 
 func (l *LinkedList[T]) Sort() {
 
 }
 
-func (l *LinkedList[T]) Delete(e T) {
+func (l *LinkedList[T]) Delete(v T) {
 
 }

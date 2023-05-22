@@ -589,6 +589,12 @@ left child and element in 2i+2 index will become the right child. Also, the pare
 element at index i is given by the lower bound of (i-1)/2.
 [4, 3, 2, 1, 0, 4, 3, 2, 1, 0]
 */
+func buildMaxHeap(arr []int, length int) {
+	for i := (length/2 - 1); i >= 0; i-- {
+		heapify(arr, length, i)
+	}
+}
+
 func heapify(arr []int, length, i int) {
 	// Find largest among root, left child and right child
 	largest := i
@@ -612,10 +618,8 @@ func heapify(arr []int, length, i int) {
 func HeapSort(arr []int) {
 	length := len(arr)
 	// Build max heap
-	for i := (length/2 - 1); i >= 0; i-- {
-		heapify(arr, length, i)
-	}
-	// Heap sort
+	buildMaxHeap(arr, length)
+	// sort
 	for i := length - 1; i >= 0; i-- {
 		tmp := arr[0]
 		arr[0] = arr[i]

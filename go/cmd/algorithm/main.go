@@ -18,7 +18,7 @@ func main() {
 	arr := []int{4, 3, 2, 1}
 	// algorithm.MergeSort(arr, 0, len(arr)-1)
 	// algorithm.MergeSortTest(arr, 0, len(arr)-1)
-	algorithm.QuickSort(arr, 0, len(arr)-1)
+	algorithm.HeapSort(arr)
 	fmt.Println(arr)
 	// fmt.Println(algorithm.Bubble([]int{111, 102, 90, 0, -2}))
 }
