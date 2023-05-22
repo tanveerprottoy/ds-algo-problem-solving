@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist"
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/stack"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
@@ -473,7 +473,7 @@ Merge the two lists in a one sorted list. The list should be made by splicing to
 
 Return the head of the merged linked list.
 */
-func MergeTwoLinkedLists(list1 *MergerListNode, list2 *MergerListNode) *MergerListNode {
+func MergeTwosinglys(list1 *MergerListNode, list2 *MergerListNode) *MergerListNode {
 	res := new(MergerListNode)
 	// cover corner cases
 	if list1 == nil {
@@ -1031,7 +1031,7 @@ the nodes of the first two lists.
 
 Return the head of the merged linked list.
 */
-func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
+func MergeTwoLists(list1, list2 *singly.Node[int]) *singly.Node[int] {
 	if list1 == nil {
 		return list2
 	}
@@ -1042,10 +1042,10 @@ func MergeTwoLists(list1, list2 *linkedlist.Node[int]) *linkedlist.Node[int] {
 	// that will be the starting list
 	// will mutate the starting list, store & traverse with tmp0
 	// result will be starting list
-	var tmp0 *linkedlist.Node[int]
-	var tmp1 *linkedlist.Node[int]
-	var tmp2 *linkedlist.Node[int]
-	var res *linkedlist.Node[int]
+	var tmp0 *singly.Node[int]
+	var tmp1 *singly.Node[int]
+	var tmp2 *singly.Node[int]
+	var res *singly.Node[int]
 	if list1.Val <= list2.Val {
 		tmp0 = list1
 		// list1 traversal, starting point must be
@@ -1294,7 +1294,7 @@ Output: [1,2]
 ex2: Input: head = [1,1,2,3,3]
 Output: [1,2,3]
 */
-func DeleteDuplicates(head *linkedlist.Node[int]) *linkedlist.Node[int] {
+func DeleteDuplicates(head *singly.Node[int]) *singly.Node[int] {
 	// corner case
 	if head == nil || head.Next == nil {
 		return head
@@ -1328,13 +1328,13 @@ func DeleteDuplicates(head *linkedlist.Node[int]) *linkedlist.Node[int] {
 Given the head of a sorted linked list, delete all nodes that have duplicate numbers,
 leaving only distinct numbers from the original list. Return the linked list sorted as well.
 */
-func DeleteDuplicates2(head *linkedlist.Node[int]) *linkedlist.Node[int] {
+func DeleteDuplicates2(head *singly.Node[int]) *singly.Node[int] {
 	// corner case
 	if head == nil || head.Next == nil {
 		return head
 	}
 	// store the distinct node
-	dummy := *linkedlist.NewNode(0, head)
+	dummy := *singly.NewNode(0, head)
 	// dummy := head
 	// distinct value pointer
 	tmp := &dummy
@@ -1437,7 +1437,7 @@ to denote the index of the node that tail's next pointer is connected to.
 Note that pos is not passed as a parameter.
 Return true if there is a cycle in the linked list. Otherwise, return false.
 */
-func HasCycleSimple(head *linkedlist.Node[int]) bool {
+func HasCycleSimple(head *singly.Node[int]) bool {
 	// the linked list is circular when
 	// If any node seems to be pointing towards the head or starting node
 	// If no node is pointing to null.
@@ -1462,7 +1462,7 @@ to denote the index of the node that tail's next pointer is connected to.
 Note that pos is not passed as a parameter.
 Return true if there is a cycle in the linked list. Otherwise, return false.
 */
-func HasCycle(head *linkedlist.Node[int]) bool {
+func HasCycle(head *singly.Node[int]) bool {
 	// Floyd's Algorithm
 	// Also called Tortoise and hare algorithm
 	// the linked list is circular when
