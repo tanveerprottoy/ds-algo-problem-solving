@@ -2,24 +2,22 @@ package singly
 
 import (
 	"fmt"
-
-	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/types"
 )
 
-type Node[T types.Number] struct {
+type Node[T any] struct {
 	Val  T
 	Next *Node[T]
 }
 
-func NewNode[T types.Number](val T, next *Node[T]) *Node[T] {
+func NewNode[T any](val T, next *Node[T]) *Node[T] {
 	return &Node[T]{Val: val, Next: next}
 }
 
-type LinkedList[T types.Number] struct {
+type LinkedList[T any] struct {
 	Head *Node[T]
 }
 
-func NewLinkedList[T types.Number](head *Node[T]) *LinkedList[T] {
+func NewLinkedList[T any](head *Node[T]) *LinkedList[T] {
 	return &LinkedList[T]{Head: head}
 }
 
@@ -70,13 +68,14 @@ func (l *LinkedList[T]) InsertAtPosition(v T, pos int) {
 }
 
 func (l *LinkedList[T]) Find(v T) {
-	/* tmp := l.Head
+	tmp := l.Head
 	for tmp.Next != nil {
-		switch t := tmp.Val.(type) {
+		/* switch t := tmp.Val.(type) {
 		case int:
 			fmt.Print(v == 1)
-		}
-	} */
+		} */
+		// val, ok := v.(int) 
+	}
 }
 
 func (l *LinkedList[T]) Sort() {
@@ -84,5 +83,5 @@ func (l *LinkedList[T]) Sort() {
 }
 
 func (l *LinkedList[T]) Delete(v T) {
-
+	
 }
