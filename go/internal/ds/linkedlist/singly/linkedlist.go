@@ -5,7 +5,7 @@ import (
 )
 
 type Node[T any] struct {
-	Val  T
+	Val  any
 	Next *Node[T]
 }
 
@@ -67,15 +67,19 @@ func (l *LinkedList[T]) InsertAtPosition(v T, pos int) {
 	}
 }
 
-func (l *LinkedList[T]) Find(v T) {
+func (l *LinkedList[T]) Find(v any) *Node[T] {
 	tmp := l.Head
 	for tmp.Next != nil {
-		/* switch t := tmp.Val.(type) {
+		switch v.(type) {
 		case int:
-			fmt.Print(v == 1)
-		} */
-		// val, ok := v.(int) 
+			fmt.Print(v == tmp.Val.(int))
+			if(v == tmp.Val.(int)) {
+				return tmp
+			}
+		}
+		// val, ok := v.(int)
 	}
+	return nil
 }
 
 func (l *LinkedList[T]) Sort() {
@@ -83,5 +87,5 @@ func (l *LinkedList[T]) Sort() {
 }
 
 func (l *LinkedList[T]) Delete(v T) {
-	
+
 }
