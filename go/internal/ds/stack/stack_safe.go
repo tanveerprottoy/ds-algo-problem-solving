@@ -54,3 +54,13 @@ func (s *StackSafe[T]) PopAlt() T {
 	s.data = s.data[:l-1]
 	return res
 }
+
+func (s *StackSafe[T]) Peek() T {
+	var d T
+	if s.IsEmpty() {
+		return d
+	}
+	// return top/last element
+	d = s.data[len(s.data)-1]
+	return d
+}

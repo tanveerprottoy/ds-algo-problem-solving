@@ -26,3 +26,8 @@ func (s *StackUnsafeNew[T]) Pop() (T, error) {
 	s.data = s.data[:l-1]
 	return e, nil
 }
+
+func (s *StackUnsafeNew[T]) Peek() T {
+	// return top/last element
+	return s.data[len(s.data)-1]
+}

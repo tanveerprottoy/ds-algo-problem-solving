@@ -30,3 +30,11 @@ func (s *StackInt) Pop() int {
 	s.data = s.data[:l-1]
 	return res
 }
+
+func (s *StackInt) Peek() int {
+	if s.IsEmpty() {
+		return -1
+	}
+	// return top/last element
+	return s.data[len(s.data)-1]
+}

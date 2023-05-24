@@ -5,27 +5,27 @@ import (
 )
 
 // not thread safe
-type Stack[T any] struct {
+type StackQueue[T any] struct {
 	data []T
 }
 
-func NewStack[T any]() *Stack[T] {
-	return &Stack[T]{make([]T, 0)}
+func NewStackQueue[T any]() *StackQueue[T] {
+	return &StackQueue[T]{make([]T, 0)}
 }
 
-func (s *Stack[T]) IsEmpty() bool {
+func (s *StackQueue[T]) IsEmpty() bool {
 	return len(s.data) < 1
 }
 
-func (s *Stack[T]) Length() int {
+func (s *StackQueue[T]) Length() int {
 	return len(s.data)
 }
 
-func (s *Stack[T]) Push(v T) {
+func (s *StackQueue[T]) Push(v T) {
 	s.data = append(s.data, v)
 }
 
-func (s *Stack[T]) Pop() (T, error) {
+func (s *StackQueue[T]) Pop() (T, error) {
 	var res T
 	if s.IsEmpty() {
 		return res, errors.New("empty StackUnsafe")
@@ -36,7 +36,7 @@ func (s *Stack[T]) Pop() (T, error) {
 	return res, nil
 }
 
-func (s *Stack[T]) PopAlt() T {
+func (s *StackQueue[T]) PopAlt() T {
 	var res T
 	if s.IsEmpty() {
 		return res
@@ -47,7 +47,7 @@ func (s *Stack[T]) PopAlt() T {
 	return res
 }
 
-func (s *Stack[T]) Peek() T {
+func (s *StackQueue[T]) Peek() T {
 	var d T
 	if s.IsEmpty() {
 		return d

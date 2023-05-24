@@ -1,29 +1,29 @@
-package singly
+package circular
 
 import (
 	"fmt"
 )
 
-type Node struct {
+type SinglyNode struct {
 	Val  any
-	Next *Node
+	Next *SinglyNode
 }
 
-func NewNode(val any, Next *Node) *Node {
-	return &Node{Val: val, Next: Next}
+func NewSinglyNode(val any, Next *SinglyNode) *SinglyNode {
+	return &SinglyNode{Val: val, Next: Next}
 }
 
-type LinkedList struct {
-	Head   *Node
-	Tail   *Node
+type SinglyLinkedList struct {
+	Head   *SinglyNode
+	Tail   *SinglyNode
 	Length int
 }
 
-func NewLinkedList(head, tail *Node) *LinkedList {
-	return &LinkedList{Head: head, Tail: tail}
+func NewSinglyLinkedList(head, tail *SinglyNode) *SinglyLinkedList {
+	return &SinglyLinkedList{Head: head, Tail: tail}
 }
 
-func (l *LinkedList) Traverse() {
+func (l *SinglyLinkedList) Traverse() {
 	curr := l.Head
 	for curr != nil {
 		fmt.Println("val: ", curr.Val)
@@ -32,7 +32,7 @@ func (l *LinkedList) Traverse() {
 	}
 }
 
-func (l *LinkedList) TraverseRecur(node *Node) {
+func (l *SinglyLinkedList) TraverseRecur(node *SinglyNode) {
 	if node.Next == nil {
 		return
 	}
@@ -41,7 +41,7 @@ func (l *LinkedList) TraverseRecur(node *Node) {
 	l.TraverseRecur(node.Next)
 }
 
-func (l *LinkedList) Size() int {
+func (l *SinglyLinkedList) Size() int {
 	if l.Head == nil {
 		return 0
 	}
@@ -54,31 +54,31 @@ func (l *LinkedList) Size() int {
 	return i
 }
 
-func (l *LinkedList) InsertAtHead(v any) {
+func (l *SinglyLinkedList) InsertAtHead(v any) {
 	nxt := l.Head.Next
-	n := NewNode(v, nxt)
+	n := NewSinglyNode(v, nxt)
 	l.Head = n
 	l.Length++
 }
 
-func (l *LinkedList) InsertAtTail(v any) {
+func (l *SinglyLinkedList) InsertAtTail(v any) {
 	curr := l.Head
 	for curr != nil {
 		curr = curr.Next
 	}
-	n := NewNode(v, nil)
+	n := NewSinglyNode(v, nil)
 	curr.Next = n
 	l.Tail = n
 	l.Length++
 }
 
-func (l *LinkedList) InsertAtPosition(v any, pos int) {
+func (l *SinglyLinkedList) InsertAtPosition(v any, pos int) {
 	i := 0
 	curr := l.Head
 	for i < pos && curr != nil {
 		if i == pos-1 {
 			nxt := curr.Next
-			n := NewNode(v, nxt)
+			n := NewSinglyNode(v, nxt)
 			curr.Next = n
 			l.Length++
 			return
@@ -88,13 +88,13 @@ func (l *LinkedList) InsertAtPosition(v any, pos int) {
 	}
 }
 
-func (l *LinkedList) InsertAtMiddle(v any) {
+func (l *SinglyLinkedList) InsertAtMiddle(v any) {
 	mid := l.Size() / 2
 	i := 0
 	curr := l.Head
 	for curr != nil {
 		if i == mid-1 {
-			n := NewNode(v, curr.Next)
+			n := NewSinglyNode(v, curr.Next)
 			n.Next = curr
 			l.Length++
 			return
@@ -104,7 +104,7 @@ func (l *LinkedList) InsertAtMiddle(v any) {
 	}
 }
 
-func (l *LinkedList) Find(v any) *Node {
+func (l *SinglyLinkedList) Find(v any) *SinglyNode {
 	curr := l.Head
 	for curr != nil {
 		switch v.(type) {
@@ -120,18 +120,18 @@ func (l *LinkedList) Find(v any) *Node {
 	return nil
 }
 
-func (l *LinkedList) DeleteAtHead() *Node {
+func (l *SinglyLinkedList) DeleteAtHead() *SinglyNode {
 	curr := l.Head
 	l.Head = l.Head.Next
 	l.Length--
 	return curr
 }
 
-func (l *LinkedList) DeleteAtTail() *Node {
+func (l *SinglyLinkedList) DeleteAtTail() *SinglyNode {
 	if l.Head == nil {
 		return nil
 	}
-	var del *Node
+	var del *SinglyNode
 	// corener case for only 1 item
 	if l.Head.Next == nil {
 		del := l.Head
@@ -149,7 +149,7 @@ func (l *LinkedList) DeleteAtTail() *Node {
 	return del
 }
 
-func (l *LinkedList) Delete(v any) *Node {
+func (l *SinglyLinkedList) Delete(v any) *SinglyNode {
 	if l.Head == nil {
 		return nil
 	}
@@ -189,8 +189,8 @@ func (l *LinkedList) Delete(v any) *Node {
 	return nil
 }
 
-func (l *LinkedList) insertionSortHelper(head, newNode *Node) *Node {
-	tmp := NewNode(0, nil)
+func (l *SinglyLinkedList) insertionSortHelper(head, newNode *SinglyNode) *SinglyNode {
+	tmp := NewSinglyNode(0, nil)
 	curr := tmp
 	tmp.Next = head
 	// checking the current node with each node of the linked
@@ -203,9 +203,9 @@ func (l *LinkedList) insertionSortHelper(head, newNode *Node) *Node {
 	return tmp.Next
 }
 
-func (l *LinkedList) InsertionSort() *Node {
+func (l *SinglyLinkedList) InsertionSort() *SinglyNode {
 	// insertion sort
-	var res *Node
+	var res *SinglyNode
 	curr := l.Head
 	for curr != nil {
 		res = l.insertionSortHelper(res, curr)

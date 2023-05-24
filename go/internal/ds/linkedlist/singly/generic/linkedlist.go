@@ -88,6 +88,22 @@ func (l *LinkedList[T]) InsertAtPosition(v T, pos int) {
 	}
 }
 
+func (l *LinkedList[T]) InsertAtMiddle(v T) {
+	mid := l.Size() / 2
+	i := 0
+	curr := l.Head
+	for curr != nil {
+		if i == mid-1 {
+			n := NewNode(v, curr.Next)
+			n.Next = curr
+			l.Length++
+			return
+		}
+		curr = curr.Next
+		i++
+	}
+}
+
 func (l *LinkedList[T]) Find(v any) *Node[T] {
 	curr := l.Head
 	for curr != nil {

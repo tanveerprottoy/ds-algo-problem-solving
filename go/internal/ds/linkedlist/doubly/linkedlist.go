@@ -2,69 +2,188 @@ package doubly
 
 import "fmt"
 
-type Node[T any] struct {
-	Val  T
-	Previous *Node[T]
-	Next *Node[T]
+type Node struct {
+	Val      any
+	Previous *Node
+	Next     *Node
 }
 
-func NewNode[T any](val T, next *Node[T]) *Node[T] {
-	return &Node[T]{Val: val, Next: next}
+func NewNode(val any, previous, next *Node) *Node {
+	return &Node{Val: val, Previous: previous, Next: next}
 }
 
-type DoublyLinkedList[T any] struct {
-	Head *Node[T]
+type LinkedList struct {
+	Head   *Node
+	Tail   *Node
+	Length int
 }
 
-func NewDoublyLinkedList[T any](head *Node[T]) *DoublyLinkedList[T] {
-	return &DoublyLinkedList[T]{Head: head}
+func NewLinkedList(head, tail *Node) *LinkedList {
+	return &LinkedList{Head: head, Tail: tail}
 }
 
-func (l *DoublyLinkedList[T]) Traverse() {
-	tmp := l.Head
-	for tmp.Next != nil {
-		fmt.Println("val: ", tmp.Val)
-		fmt.Println("next: ", tmp.Next)
-		tmp = tmp.Next
+func (l *LinkedList) Traverse() {
+	curr := l.Head
+	for curr != nil {
+		fmt.Println("val: ", curr.Val)
+		fmt.Println("Next: ", curr.Next)
+		curr = curr.Next
 	}
 }
 
-func (l *DoublyLinkedList[T]) TraverseRecur(node *Node[T]) {
+func (l *LinkedList) TraverseRecur(node *Node) {
 	if node.Next == nil {
 		return
 	}
 	fmt.Println("val: ", node.Val)
-	fmt.Println("next: ", node.Next)
+	fmt.Println("Next: ", node.Next)
 	l.TraverseRecur(node.Next)
 }
 
-func (l *DoublyLinkedList[T]) InsertAtHead(e T) {
-	nxt := l.Head.Next
-	n := NewNode(e, nxt)
-	l.Head = n
-}
-
-func (l *DoublyLinkedList[T]) InsertAtTail(e T) {
-	tmp := l.Head
-	for tmp.Next != nil {
-		tmp = tmp.Next
+func (l *LinkedList) Size() int {
+	if l.Head == nil {
+		return 0
 	}
-	n := NewNode(e, nil)
-	tmp.Next = n
+	i := 1
+	curr := l.Head
+	for curr != nil {
+		i++
+		curr = curr.Next
+	}
+	return i
 }
 
-func (l *DoublyLinkedList[T]) InsertAtPosition(e T, pos int) {
-
+func (l *LinkedList) InsertAtHead(v any) {
+	nxt := l.Head.Next
+	n := NewNode(v, nil, nxt)
+	l.Head = n
+	l.Length++
 }
 
-func (l *DoublyLinkedList[T]) Find(e T) {
-
+func (l *LinkedList) InsertAtTail(v any) {
+	curr := l.Head
+	for curr != nil {
+		curr = curr.Next
+	}
+	n := NewNode(v, curr, nil)
+	curr.Next = n
+	l.Tail = n
+	l.Length++
 }
 
-func (l *DoublyLinkedList[T]) Sort() {
-
+func (l *LinkedList) InsertAtPosition(v any, pos int) {
+	i := 0
+	curr := l.Head
+	for i < pos && curr != nil {
+		if i == pos-1 {
+			nxt := curr.Next
+			n := NewNode(v, curr, nxt)
+			curr.Next = n
+			l.Length++
+			return
+		}
+		i++
+		curr = curr.Next
+	}
 }
 
-func (l *DoublyLinkedList[T]) Delete(e T) {
+func (l *LinkedList) InsertAtMiddle(v any) {
+	mid := l.Size() / 2
+	i := 0
+	curr := l.Head
+	for curr != nil {
+		if i == mid-1 {
+			n := NewNode(v, curr.Previous, curr.Next)
+			n.Next = curr
+			l.Length++
+			return
+		}
+		curr = curr.Next
+		i++
+	}
+}
 
+func (l *LinkedList) Find(v any) *Node {
+	curr := l.Head
+	for curr != nil {
+		switch v.(type) {
+		case int:
+			fmt.Print(v == curr.Val.(int))
+			if v == curr.Val.(int) {
+				return curr
+			}
+		}
+		// val, ok := v.(int)
+		curr = curr.Next
+	}
+	return nil
+}
+
+func (l *LinkedList) DeleteAtHead() *Node {
+	curr := l.Head
+	l.Head = l.Head.Next
+	l.Length--
+	return curr
+}
+
+func (l *LinkedList) DeleteAtTail() *Node {
+	if l.Head == nil {
+		return nil
+	}
+	var del *Node
+	// corener case for only 1 item
+	if l.Head.Next == nil {
+		del := l.Head
+		l.Head = nil
+		l.Length--
+		return del
+	}
+	curr := l.Head
+	for curr != nil {
+		curr = curr.Next
+	}
+	del = curr
+	curr = nil
+	l.Length--
+	return del
+}
+
+func (l *LinkedList) Delete(v any) *Node {
+	if l.Head == nil {
+		return nil
+	}
+	if l.Head.Next == nil {
+		tmp := l.Head
+		l.Head = nil
+		l.Length--
+		return tmp
+	}
+	// slow will be the previous
+	// node of fast
+	fast := l.Head.Next
+	slow := l.Head
+	// check for conrner case
+	// when head is the target value
+	/* if v == slow.Val.(int) {
+		slow = slow.Next
+	} */
+	for fast != nil && slow != nil {
+		switch v.(type) {
+		case int:
+			{
+				if v == fast.Val.(int) {
+					slow.Next = fast.Next
+					l.Length--
+					return fast
+				} else if v == slow.Val.(int) {
+					slow = slow.Next
+					l.Length--
+					return slow
+				}
+			}
+		}
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+	return nil
 }
