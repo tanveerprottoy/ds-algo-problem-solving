@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly"
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly/generic"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/stack"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/adapter"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
@@ -467,34 +468,7 @@ func LongestCommonPrefixHorizontal(strs []string) string {
 }
 
 /*
-	You are given the heads of two sorted linked lists list1 and list2.
-
-Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
-
-Return the head of the merged linked list.
-*/
-func MergeTwosinglys(list1 *MergerListNode, list2 *MergerListNode) *MergerListNode {
-	res := new(MergerListNode)
-	// cover corner cases
-	if list1 == nil {
-		res = list2
-	} else if list2 == nil {
-		res = list1
-	} else {
-		// iterate the first linked list
-		tmp0 := list1
-		tmp1 := list2
-		for tmp0 != nil && tmp1 != nil {
-			if tmp0.Val < tmp1.Val {
-
-			}
-		}
-	}
-	return res
-}
-
-/*
-	Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
 An input string is valid if:
 
@@ -1031,7 +1005,7 @@ the nodes of the first two lists.
 
 Return the head of the merged linked list.
 */
-func MergeTwoLists(list1, list2 *singly.Node[int]) *singly.Node[int] {
+func MergeTwoLists(list1, list2 *singly.Node) *singly.Node {
 	if list1 == nil {
 		return list2
 	}
@@ -1042,11 +1016,11 @@ func MergeTwoLists(list1, list2 *singly.Node[int]) *singly.Node[int] {
 	// that will be the starting list
 	// will mutate the starting list, store & traverse with tmp0
 	// result will be starting list
-	var tmp0 *singly.Node[int]
-	var tmp1 *singly.Node[int]
-	var tmp2 *singly.Node[int]
-	var res *singly.Node[int]
-	if list1.Val <= list2.Val {
+	var tmp0 *singly.Node
+	var tmp1 *singly.Node
+	var tmp2 *singly.Node
+	var res *singly.Node
+	if list1.Val.(int) <= list2.Val.(int) {
 		tmp0 = list1
 		// list1 traversal, starting point must be
 		// next as tmp0 is assigned to l1
@@ -1066,11 +1040,11 @@ func MergeTwoLists(list1, list2 *singly.Node[int]) *singly.Node[int] {
 	// loop till one of them is null
 	for tmp1 != nil && tmp2 != nil {
 		// check and compare both values
-		if tmp1.Val <= tmp2.Val {
+		if tmp1.Val.(int) <= tmp2.Val.(int) {
 			tmp0.Next = tmp1
 			// move to next
 			tmp1 = tmp1.Next
-		} else if tmp2.Val <= tmp1.Val {
+		} else if tmp2.Val.(int) <= tmp1.Val.(int) {
 			tmp0.Next = tmp2
 			// move to next
 			tmp2 = tmp2.Next
@@ -1294,7 +1268,7 @@ Output: [1,2]
 ex2: Input: head = [1,1,2,3,3]
 Output: [1,2,3]
 */
-func DeleteDuplicates(head *singly.Node[int]) *singly.Node[int] {
+func DeleteDuplicates(head *generic.Node[int]) *generic.Node[int] {
 	// corner case
 	if head == nil || head.Next == nil {
 		return head
@@ -1328,13 +1302,13 @@ func DeleteDuplicates(head *singly.Node[int]) *singly.Node[int] {
 Given the head of a sorted linked list, delete all nodes that have duplicate numbers,
 leaving only distinct numbers from the original list. Return the linked list sorted as well.
 */
-func DeleteDuplicates2(head *singly.Node[int]) *singly.Node[int] {
+func DeleteDuplicates2(head *generic.Node[int]) *generic.Node[int] {
 	// corner case
 	if head == nil || head.Next == nil {
 		return head
 	}
 	// store the distinct node
-	dummy := *singly.NewNode(0, head)
+	dummy := *generic.NewNode(0, head)
 	// dummy := head
 	// distinct value pointer
 	tmp := &dummy
@@ -1437,7 +1411,7 @@ to denote the index of the node that tail's next pointer is connected to.
 Note that pos is not passed as a parameter.
 Return true if there is a cycle in the linked list. Otherwise, return false.
 */
-func HasCycleSimple(head *singly.Node[int]) bool {
+func HasCycleSimple(head *generic.Node[int]) bool {
 	// the linked list is circular when
 	// If any node seems to be pointing towards the head or starting node
 	// If no node is pointing to null.
@@ -1462,7 +1436,7 @@ to denote the index of the node that tail's next pointer is connected to.
 Note that pos is not passed as a parameter.
 Return true if there is a cycle in the linked list. Otherwise, return false.
 */
-func HasCycle(head *singly.Node[int]) bool {
+func HasCycle(head *generic.Node[int]) bool {
 	// Floyd's Algorithm
 	// Also called Tortoise and hare algorithm
 	// the linked list is circular when
@@ -1471,7 +1445,7 @@ func HasCycle(head *singly.Node[int]) bool {
 	// the linked list has cycle
 	fast, slow := head, head
 	// iterate till fast != nil && fast.Next != nil && slow != nil
-	// it will only stop when 
+	// it will only stop when
 	for fast != nil && fast.Next != nil && slow != nil {
 		// slow 1 step
 		slow = slow.Next

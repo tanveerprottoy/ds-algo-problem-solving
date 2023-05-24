@@ -1,47 +1,47 @@
-package singly
+package generic
 
 import (
 	"fmt"
 )
 
-type Node struct {
-	Val  any
-	Next *Node
+type Node[T any] struct {
+	Val  T
+	Next *Node[T]
 }
 
-func NewNode(val any, Next *Node) *Node {
-	return &Node{Val: val, Next: Next}
+func NewNode[T any](val T, next *Node[T]) *Node[T] {
+	return &Node[T]{Val: val, Next: next}
 }
 
-type LinkedList struct {
-	Head   *Node
-	Tail   *Node
+type LinkedList[T any] struct {
+	Head   *Node[T]
+	Tail   *Node[T]
 	Length int
 }
 
-func NewLinkedList(head, tail *Node) *LinkedList {
-	return &LinkedList{Head: head, Tail: tail}
+func NewLinkedList[T any](head, tail *Node[T]) *LinkedList[T] {
+	return &LinkedList[T]{Head: head, Tail: tail}
 }
 
-func (l *LinkedList) Traverse() {
+func (l *LinkedList[T]) Traverse() {
 	curr := l.Head
 	for curr != nil {
 		fmt.Println("val: ", curr.Val)
-		fmt.Println("Next: ", curr.Next)
+		fmt.Println("next: ", curr.Next)
 		curr = curr.Next
 	}
 }
 
-func (l *LinkedList) TraverseRecur(node *Node) {
+func (l *LinkedList[T]) TraverseRecur(node *Node[T]) {
 	if node.Next == nil {
 		return
 	}
 	fmt.Println("val: ", node.Val)
-	fmt.Println("Next: ", node.Next)
+	fmt.Println("next: ", node.Next)
 	l.TraverseRecur(node.Next)
 }
 
-func (l *LinkedList) Size() int {
+func (l *LinkedList[T]) Size() int {
 	if l.Head == nil {
 		return 0
 	}
@@ -54,14 +54,14 @@ func (l *LinkedList) Size() int {
 	return i
 }
 
-func (l *LinkedList) InsertAtHead(v any) {
+func (l *LinkedList[T]) InsertAtHead(v T) {
 	nxt := l.Head.Next
 	n := NewNode(v, nxt)
 	l.Head = n
 	l.Length++
 }
 
-func (l *LinkedList) InsertAtTail(v any) {
+func (l *LinkedList[T]) InsertAtTail(v T) {
 	curr := l.Head
 	for curr != nil {
 		curr = curr.Next
@@ -72,7 +72,7 @@ func (l *LinkedList) InsertAtTail(v any) {
 	l.Length++
 }
 
-func (l *LinkedList) InsertAtPosition(v any, pos int) {
+func (l *LinkedList[T]) InsertAtPosition(v T, pos int) {
 	i := 0
 	curr := l.Head
 	for i < pos && curr != nil {
@@ -88,14 +88,16 @@ func (l *LinkedList) InsertAtPosition(v any, pos int) {
 	}
 }
 
-func (l *LinkedList) Find(v any) *Node {
+func (l *LinkedList[T]) Find(v any) *Node[T] {
 	curr := l.Head
 	for curr != nil {
 		switch v.(type) {
 		case int:
-			fmt.Print(v == curr.Val.(int))
-			if v == curr.Val.(int) {
-				return curr
+			{
+				/* fmt.Print(v == curr.Val.(int))
+				if v == curr.Val.(int) {
+					return curr
+				} */
 			}
 		}
 		// val, ok := v.(int)
@@ -104,18 +106,18 @@ func (l *LinkedList) Find(v any) *Node {
 	return nil
 }
 
-func (l *LinkedList) DeleteAtHead() *Node {
+func (l *LinkedList[T]) DeleteAtHead() *Node[T] {
 	curr := l.Head
 	l.Head = l.Head.Next
 	l.Length--
 	return curr
 }
 
-func (l *LinkedList) DeleteAtTail() *Node {
+func (l *LinkedList[T]) DeleteAtTail() *Node[T] {
 	if l.Head == nil {
 		return nil
 	}
-	var del *Node
+	var del *Node[T]
 	// corener case for only 1 item
 	if l.Head.Next == nil {
 		del := l.Head
@@ -133,7 +135,7 @@ func (l *LinkedList) DeleteAtTail() *Node {
 	return del
 }
 
-func (l *LinkedList) Delete(v any) *Node {
+func (l *LinkedList[T]) Delete(v any) *Node[T] {
 	if l.Head == nil {
 		return nil
 	}
@@ -156,7 +158,7 @@ func (l *LinkedList) Delete(v any) *Node {
 		switch v.(type) {
 		case int:
 			{
-				if v == fast.Val.(int) {
+				/* if v == fast.Val.(int) {
 					slow.Next = fast.Next
 					l.Length--
 					return fast
@@ -164,36 +166,11 @@ func (l *LinkedList) Delete(v any) *Node {
 					slow = slow.Next
 					l.Length--
 					return slow
-				}
+				} */
 			}
 		}
 		fast = fast.Next.Next
 		slow = slow.Next
 	}
 	return nil
-}
-
-func (l *LinkedList) insertionSortHelper(head, newNode *Node) *Node {
-	tmp := NewNode(0, nil)
-	curr := tmp
-	tmp.Next = head
-	// checking the current node with each node of the linked
-	// list if it is smaller then we are swapping.
-	for curr.Next != nil && curr.Next.Val.(int) < newNode.Val.(int) {
-		curr = curr.Next
-	}
-	newNode.Next = curr.Next
-	curr.Next = newNode
-	return tmp.Next
-}
-
-func (l *LinkedList) InsertionSort() *Node {
-	// insertion sort
-	var res *Node
-	curr := l.Head
-	for curr != nil {
-		res = l.insertionSortHelper(res, curr)
-		curr = curr.Next
-	}
-	return res
 }

@@ -3,7 +3,7 @@ package general
 import (
 	"math"
 
-	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly"
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly/generic"
 )
 
 func Reverse(arr []int) []int {
@@ -129,7 +129,7 @@ func SumNonNegativeNums(n uint32) uint32 {
 	return n + SumNonNegativeNums(n-1)
 }
 
-func ZipLinkedLists(l1, l2 *singly.Node[int]) *singly.Node[int] {
+func ZipLinkedLists(l1, l2 *generic.Node[int]) *generic.Node[int] {
 	if l1 == nil {
 		return l2
 	}
@@ -176,7 +176,7 @@ func ZipLinkedLists(l1, l2 *singly.Node[int]) *singly.Node[int] {
 	return l1
 }
 
-func ZipLinkedListsRecur(l1, l2 *singly.Node[int]) *singly.Node[int] {
+func ZipLinkedListsRecur(l1, l2 *generic.Node[int]) *generic.Node[int] {
 	// base cases
 	if l1 == nil && l2 == nil {
 		return nil

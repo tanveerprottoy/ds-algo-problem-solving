@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly"
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly/generic"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/leetcode"
 )
 
@@ -126,6 +126,6 @@ func main() {
 
 	// fmt.Println(leetcode.AddBinary("11", "1"))
 	// fmt.Println(leetcode.AddBinary("10", "1011"))
-	l0 := singly.NewNode(1, nil)
+	l0 := generic.NewNode(1, nil)
 	fmt.Println(leetcode.HasCycleSimple(l0))
 }

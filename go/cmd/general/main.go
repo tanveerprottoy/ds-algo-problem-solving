@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly"
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly/generic"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/general"
 )
 
@@ -18,14 +18,14 @@ func main() {
 	fmt.Println(general.FibonacciInefficient(50)) */
 	// fmt.Println(general.SumNonNegativeNums(5))
 	// fmt.Println(general.SumNonNegativeNums(10000000))
-	l3 := singly.NewNode(4, nil)
-	l2 := singly.NewNode(3, l3)
-	l1 := singly.NewNode(2, nil)
-	l0 := singly.NewNode(1, l1)
+	l3 := generic.NewNode(4, nil)
+	l2 := generic.NewNode(3, l3)
+	l1 := generic.NewNode(2, nil)
+	l0 := generic.NewNode(1, l1)
 	res := general.ZipLinkedLists(l0, l2)
-	list := singly.NewLinkedList(res)
+	list := generic.NewLinkedList(res, nil)
 	list.Traverse()
 	res1 := general.ZipLinkedListsRecur(l0, l2)
-	list = singly.NewLinkedList(res1)
+	list = generic.NewLinkedList(res1, nil)
 	list.Traverse()
 }
