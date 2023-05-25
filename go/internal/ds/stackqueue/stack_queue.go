@@ -12,14 +12,14 @@ implemented using stacks
 
 Method 1 (By making push operation costly)
 This method makes sure that newest/last entered element is always at
-the top of stack1, so that pop operation just pops from stack1.
-To put the element at top of stack1, stack2 is used.
+the front of queue1, so that pop operation just dequeues from queue1.
+To put the element at top of queue1, queue2 is used.
 
 Method 2 (By making pop operation costly):
-In this method, in pop operation, the new element is
-entered at the top of stack1. In de-queue operation, if
-stack2 is empty then all the elements are moved to stack2
-and finally top of stack2 is returned.
+In this method, The new element is always enqueued to queue1.
+In pop() operation, if queue2 is empty then all the elements 
+except the last, are moved to q2. Finally, the last element is 
+dequeued from q1 and returned
 */
 type StackQueue[T any] struct {
 	queue0 *queue.Queue[T]

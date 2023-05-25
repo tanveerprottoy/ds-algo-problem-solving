@@ -15,12 +15,16 @@ Method 1 (By making enQueue operation costly)
 This method makes sure that oldest entered element is always at
 the top of stack 1, so that deQueue operation just pops from stack1.
 To put the element at top of stack1, stack2 is used.
+here, the latest item is always put on bottom/end of stack
+and the oldest item is always on top of stack
 
 Method 2 (By making deQueue operation costly):
 In this method, in en-queue operation, the new element is
 entered at the top of stack1. In de-queue operation, if
 stack2 is empty then all the elements are moved to stack2
 and finally top of stack2 is returned.
+here, the latest item is always put on bottom/end of stack
+and the oldest item is always on top of stack
 */
 type QueueStack[T any] struct {
 	stack0 *stack.Stack[T]
@@ -41,6 +45,8 @@ to make it fifo, will have to store the oldest
 item on the top with the enqueue heavy approach
 */
 func (q *QueueStack[T]) EnqueueHeavy(v T) {
+	// here put the latest item to the bottom of the stack
+	// and keep the oldest item on top
 	// pop all items from stack0 and store popped items in stack1
 	// push the new item in stack0
 	// push back items from stack1 to stack0
@@ -75,15 +81,22 @@ func (q *QueueStack[T]) DequeueLight() (T, error) {
 
 func (q *QueueStack[T]) EnqueueLight(v T) {
 	// push to stack0
+	// here put the latest item to the top of the stack
+	// and keep the oldest item on bottom
 	q.stack0.Push(v)
 }
 
 func (q *QueueStack[T]) DequeueHeavy() (T, error) {
 	/*
-			1) If both stacks are empty then error.
-		  	2) If stack2 is empty
-		       While stack1 is not empty, push everything from stack1 to stack2.
-		  	3) Pop the element from stack2 and return it.
+		here latest item is on top of stack0
+		oldest is on bottom of stack0
+		hence when popped & pushed to stack1
+		the oldest is placed on top & the latest
+		is placed in bottom
+		1) If both stacks are empty then error.
+		2) If stack2 is empty
+		   While stack1 is not empty, push everything from stack1 to stack2.
+		3) Pop the element from stack2 and return it.
 	*/
 	var v T
 	if q.stack0.IsEmpty() && q.stack1.IsEmpty() {
