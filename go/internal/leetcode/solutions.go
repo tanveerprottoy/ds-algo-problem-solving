@@ -501,10 +501,10 @@ func IsValidParentheses(s string) bool {
 			return false
 		} else {
 			// pop from stack
-			p := brackets.PopAlt()
+			v := brackets.PopAlt()
 			// popped is the
-			closeBrac := bracketsMap[p]
-			fmt.Println(p)
+			closeBrac := bracketsMap[v]
+			fmt.Println(v)
 			fmt.Println(closeBrac)
 			if char != closeBrac {
 				return false

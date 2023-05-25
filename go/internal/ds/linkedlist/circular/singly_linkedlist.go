@@ -24,21 +24,22 @@ func NewSinglyLinkedList(head, tail *SinglyNode) *SinglyLinkedList {
 }
 
 func (l *SinglyLinkedList) Traverse() {
+	head := l.Head
 	curr := l.Head
-	for curr != nil {
+	for curr.Next != head {
 		fmt.Println("val: ", curr.Val)
 		fmt.Println("Next: ", curr.Next)
 		curr = curr.Next
 	}
 }
 
-func (l *SinglyLinkedList) TraverseRecur(node *SinglyNode) {
-	if node.Next == nil {
+func (l *SinglyLinkedList) TraverseRecur(node, head *SinglyNode) {
+	if node.Next == head {
 		return
 	}
 	fmt.Println("val: ", node.Val)
 	fmt.Println("Next: ", node.Next)
-	l.TraverseRecur(node.Next)
+	l.TraverseRecur(node.Next, head)
 }
 
 func (l *SinglyLinkedList) Size() int {
@@ -66,7 +67,7 @@ func (l *SinglyLinkedList) InsertAtTail(v any) {
 	for curr != nil {
 		curr = curr.Next
 	}
-	n := NewSinglyNode(v, nil)
+	n := NewSinglyNode(v, l.Head)
 	curr.Next = n
 	l.Tail = n
 	l.Length++

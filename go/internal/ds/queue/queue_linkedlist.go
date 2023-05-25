@@ -20,8 +20,8 @@ type QueueLinkedList[T any] struct {
 	size  int
 }
 
-func NewQueueLinkedList[T any]() *QueueLinkedList[T] {
-	return &QueueLinkedList[T]{nil, nil, 0}
+func NewQueueLinkedList[T any](front, rear *Node[T]) *QueueLinkedList[T] {
+	return &QueueLinkedList[T]{front, rear, 0}
 }
 
 func (q *QueueLinkedList[T]) Size() int {
@@ -57,5 +57,14 @@ func (q *QueueLinkedList[T]) Dequeue() (T, error) {
 	}
 	v = q.front.Val
 	q.front = q.front.Next
+	return v, nil
+}
+
+func (q *QueueLinkedList[T]) Peek() (T, error) {
+	var v T
+	if q.IsEmpty() {
+		return v, errors.New("queue empty")
+	}
+	v = q.front.Val
 	return v, nil
 }

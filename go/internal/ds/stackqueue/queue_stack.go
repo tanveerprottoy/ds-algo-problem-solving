@@ -1,4 +1,4 @@
-package queue
+package stackqueue
 
 import (
 	"errors"
@@ -41,24 +41,24 @@ to make it fifo, will have to store the oldest
 item on the top with the enqueue heavy approach
 */
 func (q *QueueStack[T]) EnqueueHeavy(v T) {
-	// pop from stack0 and store popped item in stack1
+	// pop all items from stack0 and store popped items in stack1
 	// push the new item in stack0
 	// push back items from stack1 to stack0
 	for !q.stack0.IsEmpty() {
-		p, err := q.stack0.Pop()
+		v, err := q.stack0.Pop()
 		if err != nil {
-			fmt.Errorf(err.Error())
+			fmt.Println(err.Error())
 		}
-		q.stack1.Push(p)
+		q.stack1.Push(v)
 	}
 	q.stack0.Push(v)
 	q.size++
 	for !q.stack1.IsEmpty() {
-		p, err := q.stack1.Pop()
+		v, err := q.stack1.Pop()
 		if err != nil {
-			fmt.Errorf(err.Error())
+			fmt.Println(err.Error())
 		}
-		q.stack0.Push(p)
+		q.stack0.Push(v)
 	}
 }
 
@@ -66,11 +66,11 @@ func (q *QueueStack[T]) DequeueLight() (T, error) {
 	// with enqueueHeavy DequeueLight is simple
 	// as the oldest/first item is already on top
 	// of stack popping it will do it
-	p, err := q.stack0.Pop()
+	v, err := q.stack0.Pop()
 	if err != nil {
-		return p, err
+		return v, err
 	}
-	return p, nil
+	return v, nil
 }
 
 func (q *QueueStack[T]) EnqueueLight(v T) {
@@ -85,20 +85,29 @@ func (q *QueueStack[T]) DequeueHeavy() (T, error) {
 		       While stack1 is not empty, push everything from stack1 to stack2.
 		  	3) Pop the element from stack2 and return it.
 	*/
-	var p T
+	var v T
 	if q.stack0.IsEmpty() && q.stack1.IsEmpty() {
-		return p, errors.New("both stacks are empty")
+		return v, errors.New("both stacks are empty")
 	}
 	if q.stack1.IsEmpty() {
 		for !q.stack0.IsEmpty() {
-			p, err := q.stack0.Pop()
+			v, err := q.stack0.Pop()
 			if err != nil {
-				return p, err
+				return v, err
 			}
-			q.stack1.Push(p)
+			q.stack1.Push(v)
 		}
 	}
-	p, err := q.stack1.Pop()
+	v, err := q.stack1.Pop()
 	q.size++
-	return p, err
+	return v, err
+}
+
+func (q *QueueStack[T]) Peek() (T, error) {
+	var v T
+	if q.Size() == 0 {
+		return v, errors.New("queue empty")
+	}
+	v = q.stack0.Peek()
+	return v, nil
 }

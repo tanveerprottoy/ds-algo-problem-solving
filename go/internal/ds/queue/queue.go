@@ -43,3 +43,12 @@ func (q *Queue[T]) Dequeue() (T, error) {
 	q.shift()
 	return e, nil
 }
+
+func (q *Queue[T]) Peek() (T, error) {
+	var v T
+	if q.IsEmpty() {
+		return v, errors.New("queue empty")
+	}
+	v = q.data[0]
+	return v, nil
+}
