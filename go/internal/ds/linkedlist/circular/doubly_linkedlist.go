@@ -55,7 +55,7 @@ func (l *DoublyLinkedList) Size() int {
 
 func (l *DoublyLinkedList) InsertAtHead(v any) {
 	nxt := l.Head.Next
-	n := NewDoublyNode(v, nil, nxt)
+	n := NewDoublyNode(v, l.Tail, nxt)
 	l.Head = n
 	l.Length++
 }
@@ -65,7 +65,7 @@ func (l *DoublyLinkedList) InsertAtTail(v any) {
 	for curr != nil {
 		curr = curr.Next
 	}
-	n := NewDoublyNode(v, curr, nil)
+	n := NewDoublyNode(v, curr, l.Head)
 	curr.Next = n
 	l.Tail = n
 	l.Length++
