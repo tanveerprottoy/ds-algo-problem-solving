@@ -4,22 +4,22 @@ import (
 	"fmt"
 )
 
-type Node[T any] struct {
+type Node[T comparable] struct {
 	Val  T
 	Next *Node[T]
 }
 
-func NewNode[T any](val T, next *Node[T]) *Node[T] {
+func NewNode[T comparable](val T, next *Node[T]) *Node[T] {
 	return &Node[T]{Val: val, Next: next}
 }
 
-type LinkedList[T any] struct {
+type LinkedList[T comparable] struct {
 	Head   *Node[T]
 	Tail   *Node[T]
 	Length int
 }
 
-func NewLinkedList[T any](head, tail *Node[T]) *LinkedList[T] {
+func NewLinkedList[T comparable](head, tail *Node[T]) *LinkedList[T] {
 	return &LinkedList[T]{Head: head, Tail: tail}
 }
 
@@ -104,19 +104,12 @@ func (l *LinkedList[T]) InsertAtMiddle(v T) {
 	}
 }
 
-func (l *LinkedList[T]) Find(v any) *Node[T] {
+func (l *LinkedList[T]) Find(v T) *Node[T] {
 	curr := l.Head
 	for curr != nil {
-		switch v.(type) {
-		case int:
-			{
-				/* fmt.Print(v == curr.Val.(int))
-				if v == curr.Val.(int) {
-					return curr
-				} */
-			}
+		if v == curr.Val {
+			return curr
 		}
-		// val, ok := v.(int)
 		curr = curr.Next
 	}
 	return nil
@@ -151,7 +144,7 @@ func (l *LinkedList[T]) DeleteAtTail() *Node[T] {
 	return del
 }
 
-func (l *LinkedList[T]) Delete(v any) *Node[T] {
+func (l *LinkedList[T]) Delete(v T) *Node[T] {
 	if l.Head == nil {
 		return nil
 	}
@@ -171,19 +164,14 @@ func (l *LinkedList[T]) Delete(v any) *Node[T] {
 		slow = slow.Next
 	} */
 	for fast != nil && slow != nil {
-		switch v.(type) {
-		case int:
-			{
-				/* if v == fast.Val.(int) {
-					slow.Next = fast.Next
-					l.Length--
-					return fast
-				} else if v == slow.Val.(int) {
-					slow = slow.Next
-					l.Length--
-					return slow
-				} */
-			}
+		if v == fast.Val {
+			slow.Next = fast.Next
+			l.Length--
+			return fast
+		} else if v == slow.Val {
+			slow = slow.Next
+			l.Length--
+			return slow
 		}
 		fast = fast.Next.Next
 		slow = slow.Next

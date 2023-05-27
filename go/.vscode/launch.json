@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "auto",
             "cwd": "${workspaceFolder}",
-            "program": "${workspaceFolder}/cmd/algorithm/main.go"
+            "program": "${workspaceFolder}/cmd/ds/main.go"
         }
     ]
 }

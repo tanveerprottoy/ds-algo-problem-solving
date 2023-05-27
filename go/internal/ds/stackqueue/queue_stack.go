@@ -33,7 +33,7 @@ type QueueStack[T any] struct {
 }
 
 func NewQueueStack[T any]() *QueueStack[T] {
-	return &QueueStack[T]{nil, nil, 0}
+	return &QueueStack[T]{new(stack.Stack[T]), new(stack.Stack[T]), 0}
 }
 
 func (q *QueueStack[T]) Size() int {
@@ -120,6 +120,18 @@ func (q *QueueStack[T]) Peek() (T, error) {
 	var v T
 	if q.Size() == 0 {
 		return v, errors.New("queue empty")
+	}
+	if q.stack0.IsEmpty() && q.stack1.IsEmpty() {
+		return v, errors.New("queue empty")
+	}
+	if q.stack0.IsEmpty() {
+		for !q.stack1.IsEmpty() {
+			v, err := q.stack1.Pop()
+			if err != nil {
+				return v, errors.New("stack1 empty")
+			}
+			q.stack0.Push(v)
+		}
 	}
 	v = q.stack0.Peek()
 	return v, nil
