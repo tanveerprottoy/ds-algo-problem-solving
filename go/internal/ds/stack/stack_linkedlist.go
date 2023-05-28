@@ -28,7 +28,7 @@ func (s *StackLinkedList[T]) IsEmpty() bool {
 	return s.top == nil
 }
 
-func (s *StackLinkedList[T]) Length() int {
+func (s *StackLinkedList[T]) Size() int {
 	return s.length
 }
 

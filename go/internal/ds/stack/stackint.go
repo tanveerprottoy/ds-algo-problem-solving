@@ -12,7 +12,7 @@ func (s *StackInt) IsEmpty() bool {
 	return len(s.data) < 1
 }
 
-func (s *StackInt) Length() int {
+func (s *StackInt) Size() int {
 	return len(s.data)
 }
 
@@ -22,7 +22,7 @@ func (s *StackInt) Push(v int) {
 
 func (s *StackInt) Pop() int {
 	var res int
-	l := s.Length()
+	l := s.Size()
 	if l == 0 {
 		return res
 	}

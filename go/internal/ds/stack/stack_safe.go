@@ -19,7 +19,7 @@ func (s *StackSafe[T]) IsEmpty() bool {
 	return len(s.data) < 1
 }
 
-func (s *StackSafe[T]) Length() int {
+func (s *StackSafe[T]) Size() int {
 	return len(s.data)
 }
 
@@ -36,7 +36,7 @@ func (s *StackSafe[T]) Pop() (T, error) {
 	if s.IsEmpty() {
 		return res, errors.New("empty stack")
 	}
-	l := s.Length()
+	l := s.Size()
 	res = s.data[l-1]
 	s.data = s.data[:l-1]
 	return res, nil
@@ -49,7 +49,7 @@ func (s *StackSafe[T]) PopAlt() T {
 	if s.IsEmpty() {
 		return res
 	}
-	l := s.Length()
+	l := s.Size()
 	res = s.data[l-1]
 	s.data = s.data[:l-1]
 	return res

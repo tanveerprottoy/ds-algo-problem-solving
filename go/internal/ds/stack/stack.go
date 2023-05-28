@@ -17,7 +17,7 @@ func (s *Stack[T]) IsEmpty() bool {
 	return len(s.data) < 1
 }
 
-func (s *Stack[T]) Length() int {
+func (s *Stack[T]) Size() int {
 	return len(s.data)
 }
 
@@ -30,7 +30,7 @@ func (s *Stack[T]) Pop() (T, error) {
 	if s.IsEmpty() {
 		return res, errors.New("empty StackUnsafe")
 	}
-	l := s.Length()
+	l := s.Size()
 	res = s.data[l-1]
 	s.data = s.data[:l-1]
 	return res, nil
@@ -41,7 +41,7 @@ func (s *Stack[T]) PopAlt() T {
 	if s.IsEmpty() {
 		return res
 	}
-	l := s.Length()
+	l := s.Size()
 	res = s.data[l-1]
 	s.data = s.data[:l-1]
 	return res
