@@ -87,6 +87,7 @@ func (t *Tree[T]) InorderTraverseStack(n *Node[T]) {
 }
 
 /*
+Inorder traversal using Morris Traversal:
 Initialize the current node as root.
 While current is not null, check if it has a left child.
 If there is no left child, print the current node and move to the right child of the current node.
@@ -94,7 +95,7 @@ Otherwise, find the rightmost node of the left subtree or the node whose right c
 If the right child is NULL, make current as the right child and move to the left child of current.
 If the right child is the current node itself, print current node, make the right child NULL and move to the right child of the current node.
 */
-func (t *Tree[T]) InorderTraverseMorris(n *Node[T]) {
+func (t *Tree[T]) InorderTraverseMorris() {
 	curr := t.Root
 	for curr != nil {
 		if curr.left == nil {
@@ -138,6 +139,54 @@ func (t *Tree[T]) PreorderTraverse(n *Node[T]) {
 }
 
 /*
+1 Start from the root.
+2 Push PTR onto stack if PTR is not NULL.
+3 Move to left of PTR and repeat step 2.
+4 If PTR is NULL and stack is not empty, then Pop element from stack and set as PTR.
+5 Process PTR and move to right of PTR , go to step 2
+*/
+func (t *Tree[T]) PreorderTraverseStack() {
+
+}
+
+/*
+Morris traversal
+1...If left child is null, print the current node data. Move to right child.
+….Else, Make the right child of the inorder predecessor point to the current node. Two cases arise:
+………a) The right child of the inorder predecessor already points to the current node. Set right child to NULL. Move to right child of current node.
+………b) The right child is NULL. Set it to the current node. Print the current node’s data and move to left child of current node.
+2...Iterate until the current node is not NULL.
+*/
+func (t *Tree[T]) PreorderTraverseMoris() {
+	curr := t.Root
+	for curr != nil {
+		// If left child is null, print the current node data. Move to
+		// right child.
+		if curr.left == nil {
+			fmt.Println(curr.val)
+			curr = curr.right
+		} else {
+			curr = curr.left
+			for curr.right != nil && curr.right != curr {
+				curr = curr.right
+			}
+			// If the right child of inorder predecessor
+			// already points to this node
+			if curr.right == curr {
+				curr.right = nil
+				curr = curr.right
+			} else {
+				// If right child doesn't point to this node, then print
+				// this node and make right child point to this node
+				fmt.Println(curr.val)
+				curr.right = curr
+				curr = curr.left
+			}
+		}
+	}
+}
+
+/*
 left->right->root
 */
 func (t *Tree[T]) PostorderTraverse(n *Node[T]) {
@@ -147,4 +196,10 @@ func (t *Tree[T]) PostorderTraverse(n *Node[T]) {
 	t.PreorderTraverse(n.left)
 	t.PreorderTraverse(n.right)
 	fmt.Println(n.val)
+}
+
+func (t *Tree[T]) PostorderTraverseStack() {
+}
+
+func (t *Tree[T]) PostorderTraverseMoris() {
 }
