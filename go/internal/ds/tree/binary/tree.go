@@ -139,14 +139,28 @@ func (t *Tree[T]) PreorderTraverse(n *Node[T]) {
 }
 
 /*
-1 Start from the root.
-2 Push PTR onto stack if PTR is not NULL.
-3 Move to left of PTR and repeat step 2.
-4 If PTR is NULL and stack is not empty, then Pop element from stack and set as PTR.
-5 Process PTR and move to right of PTR , go to step 2
+Start with root node and push onto stack.
+Repeat while the stack is not empty
+POP the top element (PTR) from the stack and process the node.
+PUSH the right child of PTR onto to stack.
+PUSH the left child of PTR onto to stack.
 */
 func (t *Tree[T]) PreorderTraverseStack() {
-
+	s := stack.NewStack[*Node[T]]()
+	s.Push(t.Root)
+	for !s.IsEmpty() {
+		n := s.PopAlt()
+		if n == nil {
+			break
+		}
+		fmt.Println(n.val)
+		if n.right != nil {
+			s.Push(n.right)
+		}
+		if n.right != nil {
+			s.Push(n.right)
+		}
+	}
 }
 
 /*
@@ -198,8 +212,43 @@ func (t *Tree[T]) PostorderTraverse(n *Node[T]) {
 	fmt.Println(n.val)
 }
 
+/*
+Start from the root, call it PTR.
+Push PTR onto stack if PTR is not NULL.
+Move to left of PTR and repeat step 2.
+If PTR has a right child R, then PUSH -R onto the stack.
+Pop and process positive element from stack and set as PTR.
+If a negative node is popped, (PTR = -N), then set PTR = N and go to step 2.
+*/
 func (t *Tree[T]) PostorderTraverseStack() {
+
 }
 
+/*
+ */
 func (t *Tree[T]) PostorderTraverseMoris() {
+	s := stack.NewStack[*Node[T]]()
+	curr := t.Root
+	for curr != nil {
+		if curr.right != nil {
+			s.Push(curr)
+			curr = curr.left
+		} else {
+			prev := curr.right
+			for prev.left != nil && prev.left != curr {
+				prev = prev.left
+			}
+			if prev.left != nil {
+				prev.left = curr
+				s.Push(curr)
+				curr = curr.right
+			} else {
+				curr = curr.left
+				prev.left = nil
+			}
+		}
+	}
+	for !s.IsEmpty() {
+		fmt.Println(s.PopAlt().val)
+	}
 }
