@@ -213,12 +213,11 @@ func (t *Tree[T]) PostorderTraverse(n *Node[T]) {
 }
 
 /*
-Start from the root, call it PTR.
-Push PTR onto stack if PTR is not NULL.
-Move to left of PTR and repeat step 2.
-If PTR has a right child R, then PUSH -R onto the stack.
-Pop and process positive element from stack and set as PTR.
-If a negative node is popped, (PTR = -N), then set PTR = N and go to step 2.
+1. Push root to first stack.
+2. Loop while first stack is not empty
+   2.1 Pop a node from first stack and push it to second stack
+   2.2 Push left and right children of the popped node to first stack
+3. Print contents of second stack
 */
 func (t *Tree[T]) PostorderTraverseStack() {
 
