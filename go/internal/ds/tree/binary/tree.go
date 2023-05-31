@@ -58,10 +58,10 @@ func (t *Tree[T]) InorderTraverse(n *Node[T]) {
 
 /*
 1 Start from the root.
-2 Push PTR onto stack if PTR is not NULL.
-3 Move to left of PTR and repeat step 2.
-4 If PTR is NULL and stack is not empty, then Pop element from stack and set as PTR.
-5 Process PTR and move to right of PTR , go to step 2
+2 Push curr onto stack if curr is not NULL.
+3 Move to left of curr and repeat step 2.
+4 If curr is NULL and stack is not empty, then Pop element from stack and set as curr.
+5 Process curr and move to right of curr , go to step 2
 */
 func (t *Tree[T]) InorderTraverseStack(n *Node[T]) {
 	// define the stack
@@ -141,9 +141,9 @@ func (t *Tree[T]) PreorderTraverse(n *Node[T]) {
 /*
 Start with root node and push onto stack.
 Repeat while the stack is not empty
-POP the top element (PTR) from the stack and process the node.
-PUSH the right child of PTR onto to stack.
-PUSH the left child of PTR onto to stack.
+POP the top element (curr) from the stack and process the node.
+PUSH the right child of curr onto to stack.
+PUSH the left child of curr onto to stack.
 */
 func (t *Tree[T]) PreorderTraverseStack() {
 	s := stack.NewStack[*Node[T]]()
@@ -213,14 +213,26 @@ func (t *Tree[T]) PostorderTraverse(n *Node[T]) {
 }
 
 /*
-1. Push root to first stack.
-2. Loop while first stack is not empty
-   2.1 Pop a node from first stack and push it to second stack
-   2.2 Push left and right children of the popped node to first stack
-3. Print contents of second stack
+1.1 Create an empty stack
+2.1 Do following while root is not NULL
+    a) Push root's right child and then root to stack.
+    b) Set root as root's left child.
+2.2 Pop an item from stack and set it as root.
+    a) If the popped item has a right child and the right child 
+       is at top of stack, then remove the right child from stack,
+       push the root back and set root as root's right child.
+    b) Else print root's data and set root as NULL.
+2.3 Repeat steps 2.1 and 2.2 while stack is not empty.
 */
 func (t *Tree[T]) PostorderTraverseStack() {
-
+	s := stack.NewStack[*Node[T]]()
+	curr := t.Root
+	for curr != nil {
+		if curr.right != nil {
+			s.Push(curr.right)
+		}
+		curr = curr.left
+	}
 }
 
 /*
