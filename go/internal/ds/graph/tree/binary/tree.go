@@ -47,6 +47,7 @@ func (t *Tree[T]) Insert(v T) {
 
 /*
 left->root->right
+one type of DFS
 */
 func (t *Tree[T]) InorderTraverse(n *Node[T]) {
 	if n == nil {
@@ -129,6 +130,7 @@ func (t *Tree[T]) InorderTraverseMorris() {
 
 /*
 root->left->right
+one type of DFS
 */
 func (t *Tree[T]) PreorderTraverse(n *Node[T]) {
 	if n == nil {
@@ -203,6 +205,7 @@ func (t *Tree[T]) PreorderTraverseMoris() {
 
 /*
 left->right->root
+one type of DFS
 */
 func (t *Tree[T]) PostorderTraverse(n *Node[T]) {
 	if n == nil {
@@ -368,4 +371,14 @@ func (t *Tree[T]) PostorderTraverseMoris() {
 	for _, e := range data {
 		fmt.Println(e.val)
 	}
+}
+
+/*
+Print the level order traversal of the tree using recursive function to traverse all nodes of a level.
+Find height of tree and run depth first search and maintain current height, print nodes for every 
+height from root and for 1 to height and match if the current height is equal to height of the 
+iteration then print node’s data.
+*/
+func (t *Tree[T]) LevelOrderTraversal() {
+
 }
