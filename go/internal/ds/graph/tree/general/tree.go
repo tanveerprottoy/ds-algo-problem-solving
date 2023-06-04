@@ -13,9 +13,9 @@ func NewNode[T any](data T, parent, left, right *Node[T]) *Node[T] {
 
 type NodeAlt[T any] struct {
 	data     T
-	children []*NodeAlt[T]
+	children []NodeAlt[T]
 }
 
-func NewNodeAlt[T any](data T, children []*NodeAlt[T]) *NodeAlt[T] {
+func NewNodeAlt[T any](data T, children []NodeAlt[T]) *NodeAlt[T] {
 	return &NodeAlt[T]{data: data, children: children}
 }

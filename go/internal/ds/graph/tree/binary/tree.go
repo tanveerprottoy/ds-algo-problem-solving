@@ -3,6 +3,7 @@ package binary
 import (
 	"fmt"
 
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/queue"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/stack"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
 	"golang.org/x/exp/constraints"
@@ -238,7 +239,7 @@ func (t *Tree[T]) PostorderTraverse1Stack() {
 		return
 	}
 	s := stack.NewStack[*Node[T]]()
-	var data []*Node[T]
+	var data []Node[T]
 	var prev *Node[T]
 	s.Push(t.Root)
 	for !s.IsEmpty() {
@@ -252,7 +253,7 @@ func (t *Tree[T]) PostorderTraverse1Stack() {
 				s.Push(current.right)
 			} else {
 				s.PopAlt()
-				data = append(data, current)
+				data = append(data, *current)
 			}
 			/* go up the tree from left node, if the
 			   child is right push it onto stack otherwise
@@ -262,14 +263,14 @@ func (t *Tree[T]) PostorderTraverse1Stack() {
 				s.Push(current.right)
 			} else {
 				s.PopAlt()
-				data = append(data, current)
+				data = append(data, *current)
 			}
 			/* go up the tree from right node and after
 			   coming back from right node process parent
 			   and pop stack */
 		} else if current.right == prev {
 			s.PopAlt()
-			data = append(data, current)
+			data = append(data, *current)
 		}
 		prev = current
 	}
@@ -336,14 +337,14 @@ Go to the left, i.e. current = current->left
 In the last, we reverse the slice and print it, since slice is used to store the output, the space complexity of this algorithm would be O(N).
 */
 func (t *Tree[T]) PostorderTraverseMoris() {
-	var data []*Node[T]
+	var data []Node[T]
 	current := t.Root
 	for current != nil {
 		// If right child is nil,
 		// put the current node data
 		// in res. Move to left child.
 		if current.right == nil {
-			data = append(data, current)
+			data = append(data, *current)
 			current = current.left
 		} else {
 			predecessor := current.right
@@ -355,7 +356,7 @@ func (t *Tree[T]) PostorderTraverseMoris() {
 			// this node and make left
 			// child point to this node
 			if predecessor.left == nil {
-				data = append(data, current)
+				data = append(data, *current)
 				predecessor.left = current
 				current = current.right
 			} else {
@@ -374,11 +375,83 @@ func (t *Tree[T]) PostorderTraverseMoris() {
 }
 
 /*
+Compute the "height" of a tree -- the number of
+
+	nodes along the longest path from the root node
+	down to the farthest leaf node.
+*/
+func (t *Tree[T]) height(n *Node[T]) int {
+	if n == nil {
+		return 0
+	} else {
+		/* compute  height of each subtree */
+		lHeight := t.height(n.left)
+		rHeight := t.height(n.right)
+		/* use the larger one */
+		if lHeight > rHeight {
+			return (lHeight + 1)
+		} else {
+			return (rHeight + 1)
+		}
+	}
+}
+
+func (t *Tree[T]) currentLevel(n *Node[T], level int) {
+	if n == nil {
+		return
+	}
+	if level == 1 {
+		fmt.Println(n.val)
+	} else if level > 1 {
+		t.currentLevel(n.left, level-1)
+		t.currentLevel(n.right, level-1)
+	}
+}
+
+/*
 Print the level order traversal of the tree using recursive function to traverse all nodes of a level.
-Find height of tree and run depth first search and maintain current height, print nodes for every 
-height from root and for 1 to height and match if the current height is equal to height of the 
+Find height of tree and run depth first search and maintain current height, print nodes for every
+height from root and for 1 to height and match if the current height is equal to height of the
 iteration then print node’s data.
+
+Run a for loop for counter i, i.e. current height from 1 to h (height of the tree).
+Use DFS to traverse the tree and maintain height for the current node.
+If the Node is NULL then return;
+If level is 1 print(tree->data);
+Else if the level is greater than 1, then
+Recursively call to for tree->left, level-1.
+Recursively call to for tree->right, level-1.
+a type of BFS
 */
 func (t *Tree[T]) LevelOrderTraversal() {
+	r := t.Root
+	h := t.height(r)
+	var i int
+	for i = 1; i <= h; i++ {
+		t.currentLevel(r, i)
+	}
+}
 
+/*
+Create an empty queue q and push root in q.
+Run While loop until q is not empty.
+Initialize temp_node = q.front() and print temp_node->data.
+Push temp_node’s children i.e. temp_node -> left then temp_node -> right to q
+Pop front node from q.
+*/
+func (t *Tree[T]) LevelOrderTraversalQueue() {
+	q := queue.NewQueue[*Node[T]]()
+	q.Enqueue(t.Root)
+	for !q.IsEmpty() {
+		tempNode, _ := q.Dequeue()
+		fmt.Println(tempNode.val)
+		/*Enqueue left child */
+		if tempNode.left != nil {
+			q.Enqueue(tempNode.left)
+		}
+		/*Enqueue right child */
+		if tempNode.right != nil {
+			q.Enqueue(tempNode.right)
+		}
+	}
 }
