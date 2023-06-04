@@ -2,9 +2,11 @@ package graph
 
 import (
 	"fmt"
+
+	"golang.org/x/exp/constraints"
 )
 
-type Graph[T any] struct {
+type Graph[T constraints.Ordered] struct {
 	vertices []Vertex[T]
 }
 
@@ -16,7 +18,7 @@ func (g *Graph[T]) AddVertex(v T) error {
 		v := &Vertex[T]{
 			val: v,
 		}
-		g.vertices = append(g.vertices, v)
+		g.vertices = append(g.vertices, *v)
 	}
 	return nil
 }
@@ -27,10 +29,10 @@ func (g *Graph[T]) AddEdge(to, from T) error {
 	fromVertex := g.getVertex(from)
 	if toVertex == nil || fromVertex == nil {
 		return fmt.Errorf("Not a valid edge from %d ---> %d", from, to)
-	} else if contains(fromVertex.adjacent, toVertex.key) {
-		return fmt.Errorf("Edge from vertex %d ---> %d already exists", fromVertex.key, toVertex.key)
+	} else if contains(fromVertex.adjacents, toVertex.val) {
+		return fmt.Errorf("Edge from vertex %d ---> %d already exists", fromVertex.val, toVertex.val)
 	} else {
-		fromVertex.adjacent = append(fromVertex.adjacent, toVertex)
+		fromVertex.adjacents = append(fromVertex.adjacents, *toVertex)
 		return nil
 	}
 }
@@ -39,14 +41,14 @@ func (g *Graph[T]) AddEdge(to, from T) error {
 func (g *Graph[T]) getVertex(v T) *Vertex[T] {
 	for i, v1 := range g.vertices {
 		if v1.val == v {
-			return g.vertices[i]
+			return &g.vertices[i]
 		}
 	}
 	return nil
 }
 
-func contains[T any](v []Vertex[T], v T) bool {
-	for _, v1 := range v {
+func contains[T constraints.Ordered](s []Vertex[T], v T) bool {
+	for _, v1 := range s {
 		if v1.val == v {
 			return true
 		}

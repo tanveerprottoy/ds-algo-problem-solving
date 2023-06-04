@@ -1,6 +1,6 @@
 /**
-Max heap: the value of child nodes is smaller than or equal to the value of its
-parent. The root node has the maximum value.
+Min heap: the value of child nodes is greater than or equal to the value of 
+its parent. The root node has the minimum value.
 
 array representation of heap
  vertex            ║ index                  ║
@@ -22,44 +22,45 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-type MaxHeap[T constraints.Ordered] struct {
+type MinHeap[T constraints.Ordered] struct {
 	data []T
 }
 
-func NewMaxHeap[T constraints.Ordered]() *MaxHeap[T] {
-	return &MaxHeap[T]{data: make([]T, 0)}
+func NewMinHeap[T constraints.Ordered]() *MinHeap[T] {
+	return &MinHeap[T]{data: make([]T, 0)}
 }
 
-// Push adds an element to the heap
-func (h *MaxHeap[T]) Push(key T) {
+// Insert adds an element to the heap
+func (h *MinHeap[T]) Insert(key T) {
 	h.data = append(h.data, key)
-	h.HeapifyUp(len(h.data) - 1)
+	h.maxHeapifyUp(len(h.data) - 1)
 }
 
-// Pop returns the largest key, and removes it from heap
-func (h *MaxHeap[T]) Pop() T {
+// Extract returns the largest key, and removes it from heap
+func (h *MinHeap[T]) Extract() T {
 	v := h.data[0]
 	l := len(h.data) - 1
+
 	if len(h.data) == 0 {
 		fmt.Println("Cannot extract because data lenth is 0")
 		return v
 	}
 	h.data[0] = h.data[l]
 	h.data = h.data[:l]
-	h.HeapifyDown(0)
+	h.maxHeapifyDown(0)
 	return v
 }
 
-// HeapifyUp process
-func (h *MaxHeap[T]) HeapifyUp(index int) {
+// maxHeapifyUp process
+func (h *MinHeap[T]) maxHeapifyUp(index int) {
 	for h.data[Parent(index)] < h.data[index] {
 		h.swap(Parent(index), index)
 		index = Parent(index)
 	}
 }
 
-// HeapifyDown process
-func (h *MaxHeap[T]) HeapifyDown(index int) {
+// maxHeapifyDown process
+func (h *MinHeap[T]) maxHeapifyDown(index int) {
 	lastIndex := len(h.data) - 1
 	l, r := Left(index), Right(index)
 	childToCompare := 0
@@ -83,25 +84,7 @@ func (h *MaxHeap[T]) HeapifyDown(index int) {
 	}
 }
 
-func heapify(heap *[]int, i int) {
-	smallest := i
-	lChild := 2*i + 1
-	rChild := 2*i + 2
-
-	if lChild < len(*heap) && (*heap)[lChild] < (*heap)[smallest] {
-		smallest = lChild
-	}
-	if rChild < len(*heap) && (*heap)[rChild] < (*heap)[smallest] {
-		smallest = rChild
-	}
-
-	if smallest != i {
-		(*heap)[i], (*heap)[smallest] = (*heap)[smallest], (*heap)[i]
-		heapify(heap, smallest)
-	}
-}
-
 // Swap keys in the data
-func (h *MaxHeap[T]) swap(i1, i2 int) {
+func (h *MinHeap[T]) swap(i1, i2 int) {
 	h.data[i1], h.data[i2] = h.data[i2], h.data[i1]
 }
