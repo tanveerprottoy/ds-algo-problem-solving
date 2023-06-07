@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/graph/tree/binary/heap"
+	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/graph/tree/binary"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 	fmt.Println(m.Peek())
 	fmt.Println(m.Pop())
 	fmt.Println(m.Empty()) */
-	data := []int{9, 31, 40, 22, 10, 15, 1, 25, 91}
+	/* data := []int{9, 31, 40, 22, 10, 15, 1, 25, 91}
 	minHeap := heap.NewMinHeap[int](data)
 	minHeap.Heapify()
 	fmt.Println("build min heap: ", *minHeap)
@@ -31,5 +31,8 @@ func main() {
 	// apply Insert method
 	// append a new value, 50
 	minHeap.Insert(50)
-	fmt.Println("min heap after insert value 50: ", *minHeap)
+	fmt.Println("min heap after insert value 50: ", *minHeap) */
+
+	tn := &binary.TreeNode{Val: 2, Left: &binary.TreeNode{Val: 1}, Right: &binary.TreeNode{Val: 3}}
+	fmt.Println(binary.InorderTraversal(tn))
 }
