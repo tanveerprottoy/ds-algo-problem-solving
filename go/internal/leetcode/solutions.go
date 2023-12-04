@@ -1465,3 +1465,16 @@ func HasCycle(head *generic.Node[int]) bool {
 func LongestCommonSubsequence(text1 string, text2 string) int {
 	return -1
 }
+
+/*
+Given two strings needle and haystack, return the index of the first occurrence
+of needle in haystack, or -1 if needle is not part of haystack.
+*/
+func NeedleInHayStack(haystack string, needle string) int {
+	/* l := len(needle)
+	 subStr := haystack[:l]
+	for v := range haystack {
+		
+	} */
+	return -1
+}
