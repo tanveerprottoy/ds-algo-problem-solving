@@ -15,6 +15,50 @@ import (
 	"github.com/tanveerprottoy/ds-algo-problem-solving/pkg/slice"
 )
 
+/*
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+Example 1:
+
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+Example 2:
+
+Input: nums = [3,2,4], target = 6
+Output: [1,2]
+Example 3:
+
+Input: nums = [3,3], target = 6
+Output: [0,1]
+*/
+func TwoSum(nums []int, target int) []int {
+	remainderIndexes := make(map[int]int)
+
+	// formula: target - nums[i] = key
+	// ex: [3,2,4], target = 6
+	// 6 - 2 = 4
+	// if 4 exists in later item then the pair is found
+	// return the indexes
+	// [1,2]
+	for i := range nums {
+		if idx, ok := remainderIndexes[nums[i]]; ok {
+			// match found
+			// return the indexes
+			return []int{idx, i}
+		}
+
+		// set the map key value
+		remainderIndexes[target-nums[i]] = i
+	}
+
+	return []int{}
+}
+
 func LengthOfLongestSubstring(s string) int {
 	slow := 0
 	mapper := make(map[string]string)
@@ -1474,7 +1518,7 @@ func NeedleInHayStack(haystack string, needle string) int {
 	/* l := len(needle)
 	 subStr := haystack[:l]
 	for v := range haystack {
-		
+
 	} */
 	return -1
 }

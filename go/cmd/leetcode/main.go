@@ -1,9 +1,8 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
-	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/ds/linkedlist/singly/generic"
 	"github.com/tanveerprottoy/ds-algo-problem-solving/internal/leetcode"
 )
 
@@ -126,6 +125,9 @@ func main() {
 
 	// fmt.Println(leetcode.AddBinary("11", "1"))
 	// fmt.Println(leetcode.AddBinary("10", "1011"))
-	l0 := generic.NewNode(1, nil)
-	fmt.Println(leetcode.HasCycleSimple(l0))
+	/* l0 := generic.NewNode(1, nil)
+	fmt.Println(leetcode.HasCycleSimple(l0)) */
+
+	// two sum
+	log.Println(leetcode.TwoSum([]int{2, 7, 11, 15}, 9))
 }

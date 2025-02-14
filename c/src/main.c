@@ -1,7 +1,7 @@
 #include "./problems/leetcode.c"
 
 int main() {
-    // twoSum()
+    // twoSum();
 
     return 0;
 }
