@@ -2,6 +2,7 @@ package leetcode
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"regexp"
 	"sort"
@@ -1521,4 +1522,37 @@ func NeedleInHayStack(haystack string, needle string) int {
 
 	} */
 	return -1
+}
+
+func RemoveDuplicates2(nums []int) int {
+	// first element is always counted unique
+	k := 1
+
+	// start from 1 as first element is always unique
+	for i := 1; i < len(nums); i++ {
+		// as nums sorted in non-decreasing order
+		// only need to compare previous element to the next
+		// increment k when an unique element is seen
+		// as k represent the next slot to be replaced
+		// need to check with the previous element at k-1
+		// which is the last inserted element
+		if nums[i] != nums[k-1] {
+			// unique element is seen
+			// move it to k
+			nums[k] = nums[i]
+
+			// increment k
+			// this prepares the next slot
+			// to be replaced
+			k++
+		}
+
+		// if elements are not unique we want the loop to continue
+		// and do nothing
+	}
+
+	log.Println(nums)
+
+	// return k after loop ends
+	return k
 }
